@@ -8,9 +8,8 @@ Provide short comments (2-4 sentences) for each item below.
 
 ## 1. Overall design and functionality (0-6p)
 
-  * 1.1: The implementation corresponds to the selected topic and
-scope. The extent of project is large enough to accommodate work for
-everyone (2p)
+  * 1.1: The implementation corresponds to the selected topic and scope. 
+The extent of project is large enough to accommodate work for everyone (2p)
 
 
 
@@ -65,10 +64,17 @@ p)
 situations. E.g., functions can survive invalid inputs and exception
 handling is used where appropriate. (2p)
 
+
+
 ## 4. Project extensiveness (0-10p)
 
   * Project contains features beyond the minimal requirements: Most of
 the projects list additional features which can be implemented for
 more points. Teams can also suggest their own custom features, though
 they have to be in the scope of the project and approved by the course
-assistant who is overseeing the project. (0-10p)
+assistant who is overseeing the project. Project topic descriptions 
+give a rough guideline about how these points are awarded on different 
+topics, but note that this will be always case-by-case estimation by 
+the supervisor, depending on the actual implementation and its 
+characteristics. (0-10p)
+
