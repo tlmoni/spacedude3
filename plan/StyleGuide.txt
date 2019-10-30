@@ -10,7 +10,7 @@ Style guide for software project
     Class members                   member_
     Function names                  SomeFunction
     Function parameters             some_parameter
-    Class/struct/namespace names	SomeClass / SomeStruct / SomeNamespace
+    Class/struct/namespace names    SomeClass / SomeStruct / SomeNamespace
 
     Pointers                        typename* ptr
 
