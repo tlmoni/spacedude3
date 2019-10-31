@@ -3,6 +3,9 @@
 .*.swp
 .*.swo
 
+# Build directory
+build/*
+
 # VS Code excplicit
 .vscode/
 
