@@ -1,0 +1,10 @@
+Compiling instructions
+
+(dir: ./build)
+
+1. Building the project
+    > cmake ../src
+    > make all
+
+2. Launching the executable
+    ./BrawlStars
