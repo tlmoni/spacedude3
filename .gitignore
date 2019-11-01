@@ -5,6 +5,7 @@
 
 # Build directory
 build/*
+!Makefile
 
 # VS Code excplicit
 .vscode/
