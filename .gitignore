@@ -6,6 +6,8 @@
 # Build directory
 build/*
 !build/BuildInstructions.txt
+!build/bin
+build/bin/*
 
 # VS Code excplicit
 .vscode/
