@@ -9,8 +9,6 @@ BUILDDIR=build
 BINDIR=$(BUILDDIR)/bin
 SOURCES=$(shell find $(SRCDIR) -name '*.$(SRCEXT)' | sort -k 1nr | cut -f2-)
 OBJECTS=$(SOURCES:$(SRCDIR)/%.$(SRCEXT)=$(BUILDDIR)/%.o)
-#SOURCES:=$(wildcard *.cpp)
-#OBJECTS:=$(patsubst %.cpp,%.o,$(wildcard *.cpp))
 EXECUTABLE=BrawlStars
 
 default_target: release
