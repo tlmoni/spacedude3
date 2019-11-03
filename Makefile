@@ -24,7 +24,7 @@ dirs:
 	@mkdir -p $(BINDIR)
 
 clean:
-	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE) $(BINDIR)/$(EXECUTABLE)
 
 all: $(BINDIR)/$(EXECUTABLE)
 	@$(RM) $(EXECUTABLE)
@@ -37,20 +37,6 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	$(CC) $(CPPFLAGS) -c $< -o $@	
 
 run:
+	make clean
 	make all
 	./BrawlStars
-
-#all:
-#	$(SOURCES) $(EXECUTABLE)
-  
-#$(EXECUTABLE): $(OBJECTS) 
-#	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ 
-
-#.cc.o:
-#	$(CC) $(CPPFLAGS) $< -o $@
-
-#clean:
-#	rm -f $(OBJECTS) $(EXECUTABLE)
-
-#run: BrawlStars
-#	./BrawlStars
