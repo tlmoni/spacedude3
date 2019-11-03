@@ -1,10 +1,12 @@
 Compiling instructions
 
-(dir: ./build)
+(dir: root)
 
 1. Building the project
-    > cmake ../src
-    > make all
+    make all
 
-2. Launching the executable
-    ./BrawlStars
+2. Cleaning previous build
+    make clean
+
+3. Clean, build and run the executable
+    make run

@@ -32,7 +32,7 @@ $(BINDIR)/$(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(CC) $(CPPFLAGS) -c $< -o $@	
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 run:
 	make clean
