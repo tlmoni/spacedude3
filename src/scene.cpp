@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "scene.hpp"
-#include "inputhandler.hpp"
-#include "CONSTANTS.hpp"
+#include "eventhandler.hpp"
 
 
 /* Contructor. */
@@ -16,6 +15,8 @@ Scene::~Scene() {
 
 /* Run and setup scene. */
 void Scene::Init() {
+
+
 
     Loop();
 }
@@ -32,7 +33,9 @@ void Scene::Loop() {
     while(window_->isOpen()) {
         sf::Event event;
         window_->pollEvent(event);
-        event_handler_.ProcessEvents(event);
+        if (event_handler_.ProcessEvents(event) == CLOSED) {
+            window_->close();
+        }
 
         
 

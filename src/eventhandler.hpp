@@ -4,6 +4,11 @@
 #include <vector>
 #include <SFML/Window.hpp>
 
+enum WindowState {
+    OPEN = 0,
+    CLOSED = -1
+};
+
 class EventHandler {
 public:
     EventHandler() = default;
@@ -25,19 +30,19 @@ public:
         switch (event.type) {
             case sf::Event::KeyPressed:
                 Add(event.key.code);
-                return 0;
+                return OPEN;
                 
             case sf::Event::KeyReleased:
                 Remove(event.key.code);
-                return 0;
+                return OPEN;
 
             case sf::Event::Closed:
-                return -1;
+                return CLOSED;
 
             default:
-                return 0;
+                return OPEN;
         }
-        return 0;
+        return OPEN;
     }
 
     std::vector<sf::Keyboard::Key>& GetKeys() { return keys_; }
