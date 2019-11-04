@@ -8,5 +8,8 @@ int main() {
     Scene scene = Scene(window);
     scene.Init();
 
+    int a = 1;
+    a += 1;
+
     return 0;
 }
