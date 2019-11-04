@@ -3,7 +3,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "inputhandler.hpp"
+#include "eventhandler.hpp"
+#include "gameworld.hpp"
 
 
 
@@ -14,14 +15,13 @@ public:
 
     void ProcessEvents(sf::Event& event);
 
-    void HandlePlayerInput();
-
     void Init();
     void End();
-    void GameLoop();
+    void Loop();
+    void Update();
 
 private:
     sf::RenderWindow* window_;
-    InputHandler input_;
-
+    EventHandler event_handler_;
+    GameWorld game_world_;
 };

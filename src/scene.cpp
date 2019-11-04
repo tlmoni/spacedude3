@@ -2,6 +2,7 @@
 #include <vector>
 #include "scene.hpp"
 #include "inputhandler.hpp"
+#include "CONSTANTS.hpp"
 
 
 /* Contructor. */
@@ -13,50 +14,34 @@ Scene::~Scene() {
     delete window_;
 }
 
-/* Process events using input handler. */
-void Scene::ProcessEvents(sf::Event& event) {
-
-    switch (event.type) {
-        case sf::Event::KeyPressed:
-            input_.Add(event.key.code);
-            break;
-            
-        case sf::Event::KeyReleased:
-            input_.Remove(event.key.code);
-            break;
-
-        case sf::Event::Closed:
-            window_->close();
-            break;
-
-        default:
-            break;
-    }
-}
-
-
 /* Run and setup scene. */
 void Scene::Init() {
 
-    GameLoop();
+    Loop();
 }
 
 /* Delete objects from scene and close. */
 void Scene::End() {
 
-
     window_->clear();
 }
 
 /* Game checks events and updates from here. */
-void Scene::GameLoop() {
+void Scene::Loop() {
 
     while(window_->isOpen()) {
         sf::Event event;
         window_->pollEvent(event);
-        ProcessEvents(event);
+        event_handler_.ProcessEvents(event);
+
+        
 
     }
+    
+}
+
+/* Render the game and update game state */
+void Update() {
     
 }
 
