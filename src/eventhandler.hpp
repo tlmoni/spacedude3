@@ -25,13 +25,13 @@ public:
         }
     }
 
-    /* Process events using input handler. */
+    /* Process events using input handler */
     int ProcessEvents(sf::Event& event) {
         switch (event.type) {
             case sf::Event::KeyPressed:
                 Add(event.key.code);
                 return OPEN;
-                
+
             case sf::Event::KeyReleased:
                 Remove(event.key.code);
                 return OPEN;

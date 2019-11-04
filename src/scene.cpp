@@ -4,30 +4,26 @@
 #include "eventhandler.hpp"
 
 
-/* Contructor. */
+/* Contructor */
 Scene::Scene(sf::RenderWindow* window) {
     window_ = window;
 }
- /* Destructor. */
+ /* Destructor */
 Scene::~Scene() {
     delete window_;
 }
 
-/* Run and setup scene. */
+/* Run and setup scene */
 void Scene::Init() {
-
-
-
     Loop();
 }
 
-/* Delete objects from scene and close. */
+/* Delete objects from scene and close */
 void Scene::End() {
-
     window_->clear();
 }
 
-/* Game checks events and updates from here. */
+/* Game checks events and updates from here */
 void Scene::Loop() {
 
     while(window_->isOpen()) {
@@ -37,14 +33,13 @@ void Scene::Loop() {
             window_->close();
         }
 
-        
+
 
     }
-    
+
 }
 
 /* Render the game and update game state */
 void Update() {
-    
-}
 
+}
