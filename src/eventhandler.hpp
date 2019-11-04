@@ -9,14 +9,21 @@ enum WindowState {
     CLOSED = -1
 };
 
+/* Description here */
 class EventHandler {
 public:
+    /* Default constructor */
     EventHandler() = default;
 
+    /* Default destructor */
+    ~EventHandler() = default;
+
+    /* Description here */
     void Add(sf::Keyboard::Key& key) {
         keys_.push_back(key);
     }
 
+    /* Description here */
     void Remove(sf::Keyboard::Key& key) {
         for (auto it  = keys_.begin(); it != keys_.end(); it++) {
             if (*it == key) {
@@ -42,9 +49,9 @@ public:
             default:
                 return OPEN;
         }
-        return OPEN;
     }
 
+    /* Description here */
     std::vector<sf::Keyboard::Key>& GetKeys() { return keys_; }
 
 private:
