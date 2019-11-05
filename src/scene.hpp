@@ -3,25 +3,21 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "eventhandler.hpp"
-#include "gameworld.hpp"
+#include "player.hpp"
 
-
+extern sf::RenderWindow* main_window;
 
 class Scene {
 public:
-    Scene(sf::RenderWindow* window);
+    Scene();
     ~Scene();
-
-    void ProcessEvents(sf::Event& event);
 
     void Init();
     void End();
-    void Loop();
     void Update();
+    void Render();
 
 private:
-    sf::RenderWindow* window_;
-    EventHandler event_handler_;
-    GameWorld game_world_;
+    // std::vector<GameObject*> objects_;
+    // std::vector<Player*> players_;
 };
