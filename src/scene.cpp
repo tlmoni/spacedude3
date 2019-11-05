@@ -3,11 +3,9 @@
 #include "scene.hpp"
 #include "player.hpp"
 
-
 /* Contructor. */
 Scene::Scene() {
     
-
 }
  /* Destructor */
 Scene::~Scene() {
@@ -19,7 +17,6 @@ void Scene::Init() {
     //Load map from file
     //Place players on map
 
-
     Player* player = new Player(sf::Vector2f(0.0f, 0.0f));
     // players_.push_back(player);
     player->Loop();
@@ -27,10 +24,9 @@ void Scene::Init() {
     delete player;
 
     End();
-
 }
 
-/* Delete objects from scene and close */
+/* Deletes objects on the scene and closes it */
 void Scene::End() {
     /*
     for (auto p : players_) {
@@ -45,7 +41,6 @@ void Scene::End() {
 /* Update game logic. Bullets etc. */
 void Scene::Update() {
 
-    
 }
 
 /* Render the game and update graphics */
