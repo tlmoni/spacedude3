@@ -12,8 +12,12 @@ public:
     Scene();
     ~Scene();
 
+
     void Init();
+
+    /* Description here */
     void End();
+
     void Update();
     void Render();
 
@@ -21,3 +25,4 @@ private:
     // std::vector<GameObject*> objects_;
     // std::vector<Player*> players_;
 };
+

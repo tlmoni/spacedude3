@@ -7,8 +7,9 @@
 /* Contructor. */
 Scene::Scene() {
     
+
 }
- /* Destructor. */
+ /* Destructor */
 Scene::~Scene() {
     
 }
@@ -26,9 +27,10 @@ void Scene::Init() {
     delete player;
 
     End();
+
 }
 
-/* Delete objects from scene and close. */
+/* Delete objects from scene and close */
 void Scene::End() {
     /*
     for (auto p : players_) {
@@ -55,4 +57,5 @@ void Scene::Render() {
     */
 
     main_window->display();
+
 }
