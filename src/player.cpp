@@ -130,7 +130,7 @@ void Player::Move(sf::Vector2f pos_dif) {
     }
     */
 
-    /* UNDER CONSTRUCTION: MOUSE conditions for tracking & changing the direction of player sprite  */
+    /* UNDER CONSTRUCTION: MOUSE conditions for tracking & changing the direction of player sprite */
 
     sf::Vector2f direction = GetCurrentCursorDirection();
     sprite_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
@@ -151,4 +151,4 @@ sf::Vector2f Player::GetCurrentCursorDirection(){
     return direction;
 }
 
-/*UNDER CONSTRUCTION END*/
+/* UNDER CONSTRUCTION END */
