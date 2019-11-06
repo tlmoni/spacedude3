@@ -3,25 +3,31 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "eventhandler.hpp"
-#include "gameworld.hpp"
+#include "player.hpp"
 
-
+extern sf::RenderWindow* main_window;
 
 class Scene {
 public:
-    Scene(sf::RenderWindow* window);
+    /* Constructor */
+    Scene();
+
+    /* Destructor */
     ~Scene();
 
-    void ProcessEvents(sf::Event& event);
-
+    /* Run and setup singleplayer scene */
     void Init();
+
+    /* Deletes objects from the scene and closes it */
     void End();
-    void Loop();
+
+    /* Update game logic. Bullets etc. */
     void Update();
 
+    /* Render the game and update graphics */
+    void Render();
+
 private:
-    sf::RenderWindow* window_;
-    EventHandler event_handler_;
-    GameWorld game_world_;
+    // std::vector<GameObject*> objects_;
+    // std::vector<Player*> players_;
 };

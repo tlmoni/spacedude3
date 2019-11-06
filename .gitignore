@@ -4,10 +4,8 @@
 .*.swo
 
 # Build directory
-build/*
-!build/BuildInstructions.txt
-!build/bin
 build/bin/*
+!build/bin/README.md
 
 # VS Code excplicit
 .vscode/

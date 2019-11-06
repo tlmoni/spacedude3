@@ -1,41 +1,53 @@
 #include <iostream>
 #include <vector>
 #include "scene.hpp"
-#include "eventhandler.hpp"
 #include "constants.hpp"
 
 
 /* Contructor. */
-Scene::Scene(sf::RenderWindow* window) {
-    window_ = window;
+Scene::Scene() {
+
 }
- /* Destructor. */
+
+ /* Destructor */
 Scene::~Scene() {
-    delete window_;
+
 }
 
-/* Run and setup scene. */
+/* Run and setup singleplayer scene. */
 void Scene::Init() {
+    //Load map from file
+    //Place players on map
 
-    Loop();
+    Player* player = new Player(sf::Vector2f(0.0f, 0.0f));
+    // players_.push_back(player);
+    player->Loop();
+
+    delete player;
+
+    End();
 }
 
-/* Delete objects from scene and close. */
+/* Deletes objects on the scene and closes it */
 void Scene::End() {
-
-    window_->clear();
+    /*
+    for (auto p : players_) {
+        delete p;
+    }
+    players_.clear();
+    */
+    main_window->clear();
 }
 
-/* Game checks events and updates from here. */
-void Scene::Loop() {
-
-    while(window_->isOpen()) {
-        sf::Event event;
-        window_->pollEvent(event);
-        event_handler_.ProcessEvents(event);
+/* Update game logic. Bullets etc. */
+void Scene::Update() {
 
 
-
+/* Render the game and update graphics */
+void Scene::Render() {
+    /*
+    for (auto p : players_) {
+        main_window->draw(p->GetSprite());
     }
 
 }
@@ -45,3 +57,4 @@ void Update() {
 
 }
 
+}
