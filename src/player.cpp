@@ -37,7 +37,7 @@ void Player::Loop() {
         bool action = Action();
         /* If actions did take place, clear, draw & render the changes to the scene */
         if (action) {
-            main_window->clear(); 
+            main_window->clear();
             main_window->draw(sprite_);
             scene->Render();
         }
