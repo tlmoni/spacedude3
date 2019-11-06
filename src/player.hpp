@@ -4,11 +4,12 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "scene.hpp"
+#include "GameObjects/gameobject.hpp"
 
-/* Allows the use of global variable main_window and its functions */
+/* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
 
-class Player {
+class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
     Player(sf::Vector2f pos);
@@ -25,12 +26,6 @@ public:
     /* Function resposible for updating player character position */
     void Move(sf::Vector2f pos_dif);
 
-    /* Function returns player sprite */
-    sf::RectangleShape GetSprite() { return sprite_; }
-
 private:
-    sf::Vector2f pos_; /* Variable tracking player position the scene */
-    sf::RectangleShape sprite_; /* Variable to hold player sprite */
     
-    /* TODO: Add variables to hold potential sprites loaded from files here */
 };

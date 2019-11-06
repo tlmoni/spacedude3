@@ -2,11 +2,12 @@
 
 extern Scene* scene;
 
-Player::Player(sf::Vector2f pos) : pos_(pos) {
+Player::Player(sf::Vector2f pos) : GameObject(pos) {
     // Get enum parameter as what character the player chose and load that characters information
-    sprite_.setSize(sf::Vector2f(10.0f,10.0f)); /* Size of the player sprite */
-    sprite_.setPosition(sf::Vector2f(pos)); /* Set the player sprite position on the scene */
-    sprite_.setFillColor(sf::Color::Cyan); /* TEST IMPLEMENTATION: Fill the player square sprite with a color */
+    sf::RectangleShape& sprite = GetSprite();
+    sprite.setSize(sf::Vector2f(30.0f,30.0f));
+    sprite.setPosition(sf::Vector2f(pos));
+    sprite.setFillColor(sf::Color::Cyan);
 
     /* TODO: Implement player sprite initialization with actual models */
 }
@@ -18,7 +19,7 @@ void Player::Loop() {
     main_window->clear();
 
     /* Draw the player sprite */
-    main_window->draw(sprite_);
+    main_window->draw(GetSprite());
 
     /* Render the scene */
     scene->Render();
@@ -38,7 +39,7 @@ void Player::Loop() {
         /* If actions did take place, clear, draw & render the changes to the scene */
         if (action) {
             main_window->clear(); 
-            main_window->draw(sprite_);
+            main_window->draw(GetSprite());
             scene->Render();
         }
     }
@@ -86,8 +87,5 @@ bool Player::Action() {
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
     /* Add position difference incurred by movement to player position */
-    pos_ += pos_dif;
-
-    /* Set the player sprite position on the scene */
-    sprite_.setPosition(pos_);
+    SetPosition(GetPosition() + pos_dif);
 }
