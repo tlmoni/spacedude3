@@ -31,6 +31,6 @@ public:
 private:
     sf::Vector2f pos_; /* Variable tracking player position the scene */
     sf::RectangleShape sprite_; /* Variable to hold player sprite */
-    
+
     /* TODO: Add variables to hold potential sprites loaded from files here */
 };
