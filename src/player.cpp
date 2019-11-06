@@ -12,8 +12,8 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
     /* UNDER CONSTRUCTION: Implement player sprite initialization with actual models */
 
     /* Load texture for player sprite, with bubblegum error check. */
-    if (!texture_basic_.loadFromFile("duderino.png")){
-        texture_basic_.loadFromFile("error.png");
+    if (!texture_basic_.loadFromFile("src/Textures/duderino.png")){
+        texture_basic_.loadFromFile("src/Textures/error.png");
     }
     texture_size_ = texture_basic_.getSize();
     sprite_.setTexture(texture_basic_); //Set the loaded texture into the player sprite.
@@ -24,7 +24,7 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
 void Player::Loop() {
 
 
-    main_window->clear(); /* Clear the content of the previous scene */
+    main_window->clear(); // Clear the content of the previous scene
 
     /* Draw the player sprite */
     main_window->draw(sprite_);
