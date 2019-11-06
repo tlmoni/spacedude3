@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "scene.hpp"
-#include "constants.hpp"
-
+#include "player.hpp"
 
 /* Contructor. */
 Scene::Scene() {
@@ -42,6 +41,7 @@ void Scene::End() {
 /* Update game logic. Bullets etc. */
 void Scene::Update() {
 
+}
 
 /* Render the game and update graphics */
 void Scene::Render() {
@@ -49,12 +49,8 @@ void Scene::Render() {
     for (auto p : players_) {
         main_window->draw(p->GetSprite());
     }
+    */
 
-}
-
-/* Render the game and update game state */
-void Update() {
-
-}
+    main_window->display();
 
 }
