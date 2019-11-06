@@ -2,15 +2,16 @@
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
+#include "constants.hpp"
 
 class MenuButton {
 public:
-    MenuButton(sf::Vector2f coordinates, const std::string& file);
+    MenuButton(const std::string& text, sf::Vector2f coordinates);
 
     ~MenuButton() = default;
 
-    sf::Sprite& GetSprite() { return sprite_; }
+    sf::RenderTexture& GetTexture() { return texture_; }
 
 private:
-    sf::Sprite sprite_;
+    sf::RenderTexture texture_;
 };

@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "scene.hpp"
-#include "inputhandler.hpp"
-#include "CONSTANTS.hpp"
+#include "eventhandler.hpp"
+#include "constants.hpp"
 
 
 /* Contructor. */
@@ -34,14 +34,14 @@ void Scene::Loop() {
         window_->pollEvent(event);
         event_handler_.ProcessEvents(event);
 
-        
+
 
     }
-    
+
 }
 
 /* Render the game and update game state */
 void Update() {
-    
+
 }
 

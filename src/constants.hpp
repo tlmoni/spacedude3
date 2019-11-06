@@ -1,3 +1,3 @@
 #pragma once
 
-#define NUMBER_OF_MENU_ITEMS = 3;
+#define NUMBER_OF_MENU_ITEMS 3
