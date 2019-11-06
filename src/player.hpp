@@ -36,7 +36,7 @@ public:
     sf::Vector2f GetDirection() {return direction_cursor_; }
 
     /* Function that calculates current mousewise direction of the player sprite */
-    sf::Vector2f GetCurrentDirection();
+    sf::Vector2f GetCurrentCursorDirection();
 
     /* UNDER CONSTRUCTION END */
 
