@@ -3,7 +3,7 @@
 #include "scene.hpp"
 #include "player.hpp"
 
-/* Contructor. */
+/* Contructor */
 Scene::Scene() {
 
 }
@@ -15,8 +15,8 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
-    //Load map from file
-    //Place players on map
+    // Load map from file
+    // Place players on map
 
     Player* player = new Player(sf::Vector2f(0.0f, 0.0f));
     // players_.push_back(player);
