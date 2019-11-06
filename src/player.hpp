@@ -25,13 +25,13 @@ public:
     void Move(sf::Vector2f pos_dif);
 
     /* Function returns player sprite */
-    //sf::RectangleShape GetSprite() { return sprite_; } /*Disabled for testing actual sprite with textures*/
+    //sf::RectangleShape GetSprite() { return sprite_; } // Disabled for testing actual sprite with textures
     sf::Sprite GetSprite() { return sprite_; }
 
 private:
-    sf::Vector2f pos_; /* Variable tracking player position the scene */
-    //sf::RectangleShape sprite_; /* Variable to hold player sprite, disabled for testing actual sprite with textures */
-    sf::Sprite sprite_; /* Variable to hold player sprite */
+    sf::Vector2f pos_; // Variable tracking player position the scene
+    //sf::RectangleShape sprite_; // Variable to hold player sprite, disabled for testing actual sprite with textures
+    sf::Sprite sprite_; // Variable to hold player sprite
 
     /* UNDER CONSTRUCTION: Add variables to hold potential sprites loaded from files here */
     sf::Texture texture_basic_;
@@ -39,6 +39,6 @@ private:
     enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT};
     int direction_;
 
-    /*UNDER CONSTRUCTION END*/
+    /* UNDER CONSTRUCTION END */
 
 };

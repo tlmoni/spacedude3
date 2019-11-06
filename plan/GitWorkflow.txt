@@ -26,8 +26,10 @@ Basic workflow
             - git pull (pull master branch)
             - git checkout <your branch's name> (change current branch back to your branch)
             - git merge master (update your own branch so that it does not overwrite newer files in master)
+            - git push
             - git checkout master
             - git merge <your branch> (merge the changes in your branch to master)
+            - git push
 
     4. Delete your branch (when it is obsolete)
         - git checkout master (if you're still in your own branch)

@@ -29,6 +29,6 @@ public:
 
 private:
     int selected_menu_item_; // Description
-    sf::RenderWindow* window_; // Desscription
+    sf::RenderWindow* window_; // Description
     sf::Sprite mainmenu_[NUMBER_OF_MENU_ITEMS]; // Description
 };
