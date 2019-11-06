@@ -12,15 +12,9 @@ sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1600, 900), "
 Scene* scene = new Scene(); /* Contains & handles everything rendered to the main window */
 
 int main() {
-<<<<<<< HEAD
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1600, 900), "<insert game name here>");
-    Scene scene = Scene(window);
-    scene.Init();
-=======
     scene->Init();
 
     delete scene;
->>>>>>> master
 
     return 0;
 }
