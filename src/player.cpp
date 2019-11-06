@@ -1,9 +1,12 @@
+#include <cmath>
 #include "player.hpp"
 
 extern Scene* scene;
 
-Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
+Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT), direction_cursor_(GetCurrentDirection()) {
+
     // TODO: Get enum parameter as what character the player chose and load that characters information
+
     sprite_.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
     sprite_.setOrigin(95.f,119.f); // Set player sprite origin point, around which it will be rotated.
 
@@ -79,6 +82,14 @@ bool Player::Action() {
         moved = true;
     }
 
+    /* UNDER CONSTRUCTION: Checking IF the mouse has been moved */
+
+    if (GetCurrentDirection() != direction_cursor_) {
+        moved = true;
+    }
+
+    /* UNDER CONSTRUCTION END */
+
     // Call to move funtion which updates player position IF any movement was made
     if (moved) {
         Move(pos_dif);
@@ -92,8 +103,8 @@ void Player::Move(sf::Vector2f pos_dif) {
 
     pos_ += pos_dif; // Add position difference incurred by movement to player position
 
-    /* UNDER CONSTRUCTION: Conditions for tracking & changing the direction player sprite is facing */
-
+    /* UNDER CONSTRUCTION: KEYBOARD conditions for tracking & changing the direction of player sprite */
+    /*
     // Set to face left
     if(pos_dif.x < 0 && direction_ != LEFT){
         sprite_.setRotation(-180);
@@ -117,8 +128,27 @@ void Player::Move(sf::Vector2f pos_dif) {
         sprite_.setRotation(-90);
         direction_ = DOWN;
     }
+    */
 
-    /* UNDER CONSTRUCTION END */
+    /* UNDER CONSTRUCTION: MOUSE conditions for tracking & changing the direction of player sprite  */
+
+    sf::Vector2f direction = GetCurrentDirection();
+    sprite_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
+
+    /* UNNDER CONSTRUCTION END */
 
     sprite_.setPosition(pos_); // Set the player sprite position on the scene
+
 }
+
+/* UNDER CONSTRUCTION: Getting current mouse coordinates on main window */
+
+/* Function that calculates current mousewise direction of the player sprite */
+sf::Vector2f Player::GetCurrentDirection(){
+    sf::Vector2i cursor = sf::Mouse::getPosition(*main_window); // Get the mouse position on main window in pixels
+    sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates
+    sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
+    return direction;
+}
+
+/*UNDER CONSTRUCTION END*/

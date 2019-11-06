@@ -28,16 +28,30 @@ public:
     //sf::RectangleShape GetSprite() { return sprite_; } // Disabled for testing actual sprite with textures
     sf::Sprite GetSprite() { return sprite_; }
 
+    sf::Vector2f GetPosition() {return pos_; }
+
+
+    /* UNDER CONSTRUCTION: Player sprite turning with mouse */
+
+    sf::Vector2f GetDirection() {return direction_cursor_; }
+
+    /* Function that calculates current mousewise direction of the player sprite */
+    sf::Vector2f GetCurrentDirection();
+
+    /* UNDER CONSTRUCTION END */
+
+
 private:
     sf::Vector2f pos_; // Variable tracking player position the scene
     //sf::RectangleShape sprite_; // Variable to hold player sprite, disabled for testing actual sprite with textures
     sf::Sprite sprite_; // Variable to hold player sprite
 
     /* UNDER CONSTRUCTION: Add variables to hold potential sprites loaded from files here */
-    sf::Texture texture_basic_;
-    sf::Vector2u texture_size_;
-    enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT};
-    int direction_;
+    sf::Texture texture_basic_; // Holds player texture
+    sf::Vector2u texture_size_; // Holds player sprite size
+    enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT}; // Enumerator for directions
+    int direction_; // Holds current direction the player sprite is facing towards
+    sf::Vector2f direction_cursor_; // Holds current direction the mouse is point to, relative to player sprite
 
     /* UNDER CONSTRUCTION END */
 
