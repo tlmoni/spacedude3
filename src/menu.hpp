@@ -2,7 +2,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "constants.hpp"
-#include "menubutton.hpp"
 
 enum MenuButtons {
     PLAY,
@@ -25,6 +24,6 @@ public:
 private:
     int selected_menu_item_;
     sf::RenderWindow* window_;
-    sf::RenderTexture buttons_[NUMBER_OF_MENU_ITEMS];
+    sf::Sprite mainmenu_[NUMBER_OF_MENU_ITEMS];
 };
 
