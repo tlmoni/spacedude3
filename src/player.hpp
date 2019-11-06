@@ -5,8 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "scene.hpp"
 
-/* Allows the use of global variable main_window and its functions */
-extern sf::RenderWindow* main_window;
+extern sf::RenderWindow* main_window; // Allows the use of global variable main_window and its functions
 
 class Player {
 public:

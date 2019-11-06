@@ -1,1 +1,1 @@
-Source code, makefiles, etc. here.
+Directory for source code etc.

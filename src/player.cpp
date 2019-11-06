@@ -21,26 +21,23 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
 /* Handle player movement and events, update these to the scene */
 void Player::Loop() {
 
-
     main_window->clear(); // Clear the content of the previous scene
-
     main_window->draw(sprite_); // Draw the player sprite
-
     scene->Render(); // Render the scene
 
-    /* Main loop to handle player actions on the scene */
+    // Main loop to handle player actions on the scene
     while (main_window->isOpen()) {
         sf::Event event; // Varibale tracking events affecting the main_window
 
-        /* Checks if the main_window has closed */
+        // Checks if the main_window has closed
         main_window->pollEvent(event);
         if (event.type == sf::Event::Closed) {
             main_window->close();
         }
 
-        bool action = Action(); // Checking if player action has occurred.
-
-        /* If actions did take place, clear, draw & render the changes to the scene */
+        // Checking if player action has occurred
+        bool action = Action();
+        // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
             main_window->clear();
             main_window->draw(sprite_);
@@ -57,30 +54,31 @@ bool Player::Action() {
 
     /* Conditional structures for tracking which keys were pressed and updating player actions accordingly */
 
-    /* Movement to the left */
+    // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         pos_dif += sf::Vector2f(-0.5f, 0.0f);
         moved = true;
     }
 
-    /* Movement to the right */
+    // Movement to the right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         pos_dif += sf::Vector2f(0.5f, 0.0f);
         moved = true;
     }
 
-    /* Movement forward */
+    // Movement forward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         pos_dif += sf::Vector2f(0.0f, -0.5f);
         moved = true;
     }
 
-    /* Movement to backward */
+    // Movement to backward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         pos_dif += sf::Vector2f(0.0f, 0.5f);
         moved = true;
     }
-    /* Call to move funtion which updates player position IF any movement was made */
+
+    // Call to move funtion which updates player position IF any movement was made
     if (moved) {
         Move(pos_dif);
     }
