@@ -16,6 +16,10 @@ Scene::~Scene() {
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
     // Load map from file
+    if (!map_texture_.loadFromFile("src/Textures/map.png")){
+        map_texture_.loadFromFile("src/Textures/error.png");
+    }
+    map_.setTexture(map_texture_);
     // Place players on map
 
     Player* player = new Player(sf::Vector2f(0.0f, 0.0f));

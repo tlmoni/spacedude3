@@ -49,7 +49,7 @@ private:
     enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT}; // KEYBAORD: Enumerator for directions
     int direction_; // KEYBOARD: Holds current direction the player sprite is facing towards
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
-
+    unsigned int sprint_duration_;
     /* UNDER CONSTRUCTION END */
 
 };

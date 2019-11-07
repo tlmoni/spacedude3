@@ -27,7 +27,17 @@ public:
     /* Render the game and update graphics */
     void Render();
 
+    /* UNDER CONSTRUCTION: Getting map_ to other functions */
+
+    sf::Sprite GetMap() { return map_; }
+
+    /* UNDER CONSTRUCTION END */
 private:
     // std::vector<GameObject*> objects_;
     // std::vector<Player*> players_;
+
+    /* UNDER CONSTRUCTION: Loading a map to the scene */
+    sf::Sprite map_;
+    sf::Texture map_texture_;
+    /* UNDER CONSTRUCTION END */
 };

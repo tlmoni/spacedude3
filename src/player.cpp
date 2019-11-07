@@ -3,7 +3,7 @@
 
 extern Scene* scene;
 
-Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT), direction_cursor_(GetCurrentCursorDirection()) {
+Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT), direction_cursor_(GetCurrentCursorDirection()), sprint_duration_(0) {
 
     // TODO: Get enum parameter as what character the player chose and load that characters information
 
@@ -26,6 +26,11 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT), direction_cur
 void Player::Loop() {
 
     main_window->clear(); // Clear the content of the previous scene
+
+    /* EWW FUCK WHAT BUBBLEGUM SHIT IS THIS */
+    main_window->draw(scene->GetMap());
+    /* EURGH, GET THIS SHIT OUTTA HERE */
+
     main_window->draw(sprite_);
     scene->Render();
 
@@ -33,7 +38,7 @@ void Player::Loop() {
     while (main_window->isOpen()) {
         sf::Event event; // Varibale tracking events affecting the main_window
 
-        // Checks if the main_window has closed
+        // Checks if the main_window has been closed
         main_window->pollEvent(event);
         if (event.type == sf::Event::Closed) {
             main_window->close();
@@ -44,6 +49,11 @@ void Player::Loop() {
         // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
             main_window->clear();
+
+            /* EWW FUCK WHAT BUBBLEGUM SHIT IS THIS */
+            main_window->draw(scene->GetMap());
+            /* EURGH, GET THIS SHIT OUTTA HERE */
+
             main_window->draw(sprite_);
             scene->Render();
         }
@@ -89,7 +99,6 @@ bool Player::Action() {
     }
 
     /* UNDER CONSTRUCTION END */
-
     // Call to move funtion which updates player position IF any movement was made
     if (moved) {
         Move(pos_dif);
@@ -100,6 +109,11 @@ bool Player::Action() {
 
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+        pos_dif.x *= 1.5;
+        pos_dif.y *= 1.5;
+    }
 
     pos_ += pos_dif; // Add position difference incurred by movement to player position
 
