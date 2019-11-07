@@ -53,25 +53,25 @@ bool Player::Action() {
 
     /* Movement to the left */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        pos_dif += sf::Vector2f(-0.5f, 0.0f);
+        pos_dif += sf::Vector2f(-0.25f, 0.0f);
         moved = true;
     }
 
     /* Movement to the right */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        pos_dif += sf::Vector2f(0.5f, 0.0f);
+        pos_dif += sf::Vector2f(0.25f, 0.0f);
         moved = true;
     }
 
     /* Movement forward */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        pos_dif += sf::Vector2f(0.0f, -0.5f);
+        pos_dif += sf::Vector2f(0.0f, -0.25f);
         moved = true;
     }
 
     /* Movement to backward */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        pos_dif += sf::Vector2f(0.0f, 0.5f);
+        pos_dif += sf::Vector2f(0.0f, 0.25f);
         moved = true;
     }
 
