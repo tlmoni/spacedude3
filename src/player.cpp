@@ -3,14 +3,9 @@
 extern Scene* scene;
 
 /* Constructor. Get parameter for what character player chose. */
-Player::Player(sf::Vector2f pos) : GameObject(pos) {
-    
-    sf::RectangleShape& sprite = GetSprite();
-    sprite.setSize(sf::Vector2f(30.0f,30.0f));
-    sprite.setPosition(sf::Vector2f(pos));
-    sprite.setFillColor(sf::Color::Cyan);
+Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
 
-    /* TODO: Implement player sprite initialization with actual models */
+
 }
 
 /* Handle player movement and events, update these to the scene */
@@ -39,7 +34,7 @@ void Player::Loop() {
         bool action = Action();
         /* If actions did take place, clear, draw & render the changes to the scene */
         if (action) {
-            main_window->clear(); 
+            main_window->clear();
             main_window->draw(GetSprite());
             scene->Render();
         }

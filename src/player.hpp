@@ -13,7 +13,7 @@ extern sf::RenderWindow* main_window;
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(sf::Vector2f pos);
+    Player(sf::Vector2f pos, std::string identity);
 
     /* Default destructor */
     ~Player() = default;
