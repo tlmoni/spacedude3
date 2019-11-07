@@ -5,6 +5,7 @@
 #include "SFML/Graphics.hpp"
 #include "constants.hpp"
 
+extern sf::RenderWindow* main_window;
 
 /* Class description */
 class Menu {
