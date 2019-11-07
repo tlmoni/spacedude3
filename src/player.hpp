@@ -26,12 +26,14 @@ public:
 
     sf::Sprite GetSprite() { return sprite_; } // Returns player sprite
 
-    sf::Vector2f GetPosition() {return pos_; } // Return player position
+    sf::Vector2f GetPosition() { return pos_; } // Return player position
 
 
-    /* UNDER CONSTRUCTION: Player sprite turning with mouse */
+    /* UNDER CONSTRUCTION: Player sprite turning with mouse & viewpoint control */
 
-    sf::Vector2f GetDirection() {return direction_cursor_; } // Return mousewise direction, relative to player sprite.
+    sf::Vector2f GetDirection() { return direction_cursor_; } // Return mousewise direction, relative to player sprite.
+
+    sf::View GetView() { return player_cam_; } // Return player camera position.
 
     /* Function that calculates current mousewise direction, relative to player sprite */
     sf::Vector2f GetCurrentCursorDirection();
@@ -50,6 +52,8 @@ private:
     int direction_; // KEYBOARD: Holds current direction the player sprite is facing towards
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     unsigned int sprint_duration_;
+
+    sf::View player_cam_; // Player view of the game
     /* UNDER CONSTRUCTION END */
 
 };

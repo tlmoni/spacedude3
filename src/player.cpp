@@ -8,16 +8,18 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT), direction_cur
     // TODO: Get enum parameter as what character the player chose and load that characters information
 
     sprite_.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
-    sprite_.setOrigin(95.f,119.f); // Set player sprite origin point, around which it will be rotated.
+    sprite_.setOrigin(38.f,47.f); // Set player sprite origin point, around which it will be rotated.
 
-    /* UNDER CONSTRUCTION: Implement player sprite initialization with actual models */
+    /* UNDER CONSTRUCTION: Implement player sprite initialization with actual models & camera */
 
     // Load texture for player sprite, with bubblegum error check
-    if (!texture_basic_.loadFromFile("src/Textures/duderino.png")){
+    if (!texture_basic_.loadFromFile("src/Textures/duderinosmall.png")){
         texture_basic_.loadFromFile("src/Textures/error.png");
     }
     texture_size_ = texture_basic_.getSize(); // Set the texture size.
     sprite_.setTexture(texture_basic_); // Set the loaded texture into the player sprite.
+
+    player_cam_.setCenter(pos_); // Set the initial player camera position
 
     /* UNDER CONSTRUCTION END */
 }
@@ -57,6 +59,9 @@ void Player::Loop() {
             main_window->draw(sprite_);
             scene->Render();
         }
+        /* UNDER CONSTRUCTION: Player cam updating */
+        main_window->setView(GetView());
+        /* UNDER CONSTRUCTION END */
     }
 }
 
@@ -70,25 +75,25 @@ bool Player::Action() {
 
     // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        pos_dif += sf::Vector2f(-0.5f, 0.0f);
+        pos_dif += sf::Vector2f(-0.25f, 0.0f);
         moved = true;
     }
 
     // Movement to the right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        pos_dif += sf::Vector2f(0.5f, 0.0f);
+        pos_dif += sf::Vector2f(0.25f, 0.0f);
         moved = true;
     }
 
     // Movement forward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        pos_dif += sf::Vector2f(0.0f, -0.5f);
+        pos_dif += sf::Vector2f(0.0f, -0.25f);
         moved = true;
     }
 
     // Movement to backward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        pos_dif += sf::Vector2f(0.0f, 0.5f);
+        pos_dif += sf::Vector2f(0.0f, 0.25f);
         moved = true;
     }
 
@@ -110,10 +115,12 @@ bool Player::Action() {
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
 
+    /* UNDER CONSTRUCTION: Player sprinting */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-        pos_dif.x *= 1.5;
-        pos_dif.y *= 1.5;
+        pos_dif.x *= 2;
+        pos_dif.y *= 2;
     }
+    /* UNDER CONSTRUCTION END */
 
     pos_ += pos_dif; // Add position difference incurred by movement to player position
 
@@ -151,7 +158,8 @@ void Player::Move(sf::Vector2f pos_dif) {
 
     /* UNNDER CONSTRUCTION END */
 
-    sprite_.setPosition(pos_); // Set the player sprite position on the scene
+    sprite_.setPosition(pos_);
+    player_cam_.setCenter(pos_); // Set the player sprite position on the scene
 
 }
 

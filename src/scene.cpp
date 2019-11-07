@@ -16,7 +16,7 @@ Scene::~Scene() {
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
     // Load map from file
-    if (!map_texture_.loadFromFile("src/Textures/map.png")){
+    if (!map_texture_.loadFromFile("src/Textures/maplarge.png")){
         map_texture_.loadFromFile("src/Textures/error.png");
     }
     map_.setTexture(map_texture_);
