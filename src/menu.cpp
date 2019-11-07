@@ -16,8 +16,6 @@ void Menu::Draw() {
     }
 }
 
-
-
 /* Add main menu sprites to the menuitems vector */
 void Menu::Load_MainMenu() {
     Clear_MenuItems();
