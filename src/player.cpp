@@ -14,6 +14,11 @@ Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identit
 void Player::Loop() {
 
     main_window->clear();
+
+    /* BUBBLEGUM: Map drawing */
+    main_window->draw(scene->GetMap());
+    /* BUBBLEGUM END */
+
     main_window->draw(GetSprite());
     scene->Render();
     main_window->setView(GetView());
@@ -33,6 +38,11 @@ void Player::Loop() {
         // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
             main_window->clear();
+
+            /* BUBBLEGUM: Map drawing */
+            main_window->draw(scene->GetMap());
+            /* BUBBLEGUM END */
+
             main_window->draw(GetSprite());
             scene->Render();
         }
@@ -77,7 +87,6 @@ bool Player::Action() {
         moved = true;
     }
 
-    /* UNDER CONSTRUCTION END */
     // Call to move funtion which updates player position IF any movement was made
     if (moved) {
         Move(pos_dif);
