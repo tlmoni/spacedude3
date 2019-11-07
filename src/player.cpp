@@ -2,10 +2,12 @@
 
 extern Scene* scene;
 
-Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
+/* Constructor. Get parameter for what character player chose. */
+Player::Player(sf::Vector2f pos) : GameObject(pos) {
     // TODO: Get enum parameter as what character the player chose and load that characters information
     sprite_.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
     sprite_.setOrigin(95.f,119.f); // Set player sprite origin point, around which it will be rotated.
+
 
     /* UNDER CONSTRUCTION: Implement player sprite initialization with actual models */
 
@@ -22,8 +24,15 @@ Player::Player(sf::Vector2f pos) : pos_(pos), direction_(DEFAULT) {
 /* Handle player movement and events, update these to the scene */
 void Player::Loop() {
 
+/*
+    main_window->clear();
+
+    main_window->draw(GetSprite());
+
+*/
     main_window->clear(); // Clear the content of the previous scene
     main_window->draw(sprite_);
+
     scene->Render();
 
     // Main loop to handle player actions on the scene
@@ -40,12 +49,18 @@ void Player::Loop() {
         bool action = Action();
         // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
+/*
+            main_window->clear(); 
+            main_window->draw(GetSprite());
+*/
             main_window->clear();
             main_window->draw(sprite_);
+
             scene->Render();
         }
     }
 }
+
 
 /* Function handling keypress and their effects on player character */
 bool Player::Action() {
@@ -90,7 +105,7 @@ bool Player::Action() {
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
 
-    pos_ += pos_dif; // Add position difference incurred by movement to player position
+    SetPosition(GetPosition() + pos_dif); // Add position difference incurred by movement to player position
 
     /* UNDER CONSTRUCTION: Conditions for tracking & changing the direction player sprite is facing */
 
@@ -120,5 +135,6 @@ void Player::Move(sf::Vector2f pos_dif) {
 
     /* UNDER CONSTRUCTION END */
 
-    sprite_.setPosition(pos_); // Set the player sprite position on the scene
+    sprite_.setPosition(GetPosition()); // Set the player sprite position on the scene
+
 }

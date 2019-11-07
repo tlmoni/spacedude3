@@ -3,11 +3,15 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include "character.hpp"
 #include "scene.hpp"
+#include "GameObjects/gameobject.hpp"
 
-extern sf::RenderWindow* main_window; // Allows the use of global variable main_window and its functions
+/* Allows the usege of global variable main_window and its functions */
+extern sf::RenderWindow* main_window;
 
-class Player {
+
+class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
     Player(sf::Vector2f pos);
@@ -29,7 +33,6 @@ public:
     sf::Sprite GetSprite() { return sprite_; }
 
 private:
-    sf::Vector2f pos_; // Variable tracking player position the scene
     //sf::RectangleShape sprite_; // Variable to hold player sprite, disabled for testing actual sprite with textures
     sf::Sprite sprite_; // Variable to hold player sprite
 

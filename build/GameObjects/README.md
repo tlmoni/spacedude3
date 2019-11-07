@@ -1,0 +1,1 @@
+This directory is the destination of the compiled GameObject files.

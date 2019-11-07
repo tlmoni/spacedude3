@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "scene.hpp"
-#include "player.hpp"
+#include "./scene.hpp"
+#include "./player.hpp"
 
 /* Contructor */
 Scene::Scene() {
