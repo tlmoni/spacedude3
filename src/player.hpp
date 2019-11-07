@@ -10,6 +10,7 @@
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
 
+
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */

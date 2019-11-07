@@ -3,10 +3,11 @@
 #include "./scene.hpp"
 #include "./player.hpp"
 
-/* Contructor. */
+/* Contructor */
 Scene::Scene() {
 
 }
+
  /* Destructor */
 Scene::~Scene() {
 
@@ -14,8 +15,8 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
-    //Load map from file
-    //Place players on map
+    // Load map from file
+    // Place players on map
 
     Player* player = new Player(sf::Vector2f(0.0f, 0.0f),"src/Textures/duderinosmall.png");
     // players_.push_back(player);
@@ -36,7 +37,6 @@ void Scene::End() {
     */
     main_window->clear();
 }
-
 
 /* Update game logic. Bullets etc. */
 void Scene::Update() {
