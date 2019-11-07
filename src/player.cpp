@@ -1,3 +1,4 @@
+#include <cmath>
 #include "player.hpp"
 
 extern Scene* scene;
@@ -20,7 +21,7 @@ void Player::Loop() {
     while (main_window->isOpen()) {
         sf::Event event; // Varibale tracking events affecting the main_window
 
-        // Checks if the main_window has closed
+        // Checks if the main_window has been closed
         main_window->pollEvent(event);
         if (event.type == sf::Event::Closed) {
             main_window->close();
@@ -74,6 +75,7 @@ bool Player::Action() {
         moved = true;
     }
 
+    /* UNDER CONSTRUCTION END */
     // Call to move funtion which updates player position IF any movement was made
     if (moved) {
         Move(pos_dif);
