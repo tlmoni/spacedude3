@@ -1,7 +1,10 @@
+#include <cmath>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "../movement.hpp"
+
+extern sf::RenderWindow* main_window;
 
 /* Parent class for all game objects */
 class GameObject {
@@ -10,7 +13,7 @@ public:
 
     void SetPosition(sf::Vector2f new_pos);
     void SetOrigin(float x, float y);
-    void SetRotation()
+    void SetRotation(float x, float y);
 
     sf::Vector2f GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }

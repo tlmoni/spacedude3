@@ -90,9 +90,9 @@ bool Player::Action() {
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
 
-    sf::Vector2f direction = GetCurrentCursorDirection();
-    sprite_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI); // Set the rotaion in degrees
+    sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
 
+    SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
 
     SetPosition(GetPosition() + pos_dif); // Add position difference incurred by movement to player position
 
