@@ -16,6 +16,7 @@ void Player::Loop() {
     main_window->clear();
     main_window->draw(GetSprite());
     scene->Render();
+    main_window->setView(GetView());
 
     // Main loop to handle player actions on the scene
     while (main_window->isOpen()) {
@@ -35,6 +36,7 @@ void Player::Loop() {
             main_window->draw(GetSprite());
             scene->Render();
         }
+        main_window->setView(GetView());
     }
 }
 
