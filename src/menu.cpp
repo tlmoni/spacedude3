@@ -3,16 +3,33 @@
 /* Construct and load default main menu. */
 Menu::Menu() {
     main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.jpg");
+    main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png");
     Load_MainMenu();
     Draw();
 }
 
 /* Draws all the sprites in the menu items vector. */
 void Menu::Draw() {
+    sf::Sprite background;
+    background.setTexture(main_menu_background_);
+    main_window->draw(background);
     for (auto it = menu_items_.begin(); it != menu_items_.end(); it++) {
         main_window->draw(*it);
     }
-    main_window->display();
+}
+
+/* Initialize the window and loads main menu by default */
+void Menu::Init() {
+    while (main_window->isOpen()) {
+        main_window->clear();
+        sf::Event event;
+        main_window->pollEvent(event);
+        if (event.type == sf::Event::Closed) {
+            main_window->close();
+        }
+        Draw();
+        main_window->display();
+    }
 }
 
 /* Add main menu sprites to the menuitems vector */

@@ -19,6 +19,9 @@ public:
     /* Method description */
     void Draw();
 
+    /* Initializes the menu loop that opens the window */
+    void Init();
+
     /* Add main menu sprites to the menuitems list */
     void Load_MainMenu();
 
@@ -35,4 +38,5 @@ private:
     std::vector<sf::Sprite>::iterator selected_menu_item_; // Description
     std::vector<sf::Sprite> menu_items_; // Description
     sf::Texture main_menu_texture_; // Texture for main menu buttons
+    sf::Texture main_menu_background_; // Texture for background
 };
