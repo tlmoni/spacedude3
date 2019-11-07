@@ -1,34 +1,37 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
 #include "SFML/Graphics.hpp"
 #include "constants.hpp"
 
-enum MenuButtons {
-    PLAY,
-    SETTINGS,
-    EXIT
-};
 
 /* Class description */
 class Menu {
 public:
     /* Constructor */
-    Menu(float width, float height, sf::RenderWindow* window);
+    Menu();
 
     /* Default destructor */
     ~Menu() = default;
 
     /* Method description */
-    void Draw(sf::RenderWindow* window);
+    void Draw();
 
-    /* Method description */
-    void Move_Up();
+    /* Add main menu sprites to the menuitems list */
+    void Load_MainMenu();
 
-    /* Method description */
-    void Move_Down();
+    /* Add settings menu sprites to the menuitems list */
+    void Load_SettingsMenu();
+
+    /* Add play menu sprites to the menuitems list */
+    void Load_PlayMenu();
+
+    /* Clear window and menu items list of sprites */
+    void Clear_MenuItems();
 
 private:
-    int selected_menu_item_; // Description
-    sf::RenderWindow* window_; // Description
-    sf::Sprite mainmenu_[NUMBER_OF_MENU_ITEMS]; // Description
+    std::vector<sf::Sprite>::iterator selected_menu_item_; // Description
+    std::vector<sf::Sprite> menu_items_; // Description
+    sf::Texture main_menu_texture_; // Texture for main menu buttons
 };
