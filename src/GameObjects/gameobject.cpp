@@ -5,6 +5,7 @@ GameObject::GameObject(sf::Vector2f pos, std::string file) : pos_(pos) {
         //Error checking
     }
     sprite_.setTexture(texture_);
+    sprite_.setPosition(pos_)
 
 }
 

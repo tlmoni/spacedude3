@@ -10,6 +10,7 @@ public:
 
     void SetPosition(sf::Vector2f new_pos);
     void SetOrigin(float x, float y);
+    void SetRotation()
 
     sf::Vector2f GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }

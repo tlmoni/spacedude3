@@ -5,7 +5,8 @@ extern Scene* scene;
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
 
-
+    SetOrigin(38.f,47.f);
+    player_cam_.setCenter(GetPosition());
 }
 
 /* Handle player movement and events, update these to the scene */
@@ -73,6 +74,11 @@ bool Player::Action() {
         pos_dif += sf::Vector2f(0.0f, 0.5f);
         moved = true;
     }
+
+    if (GetCurrentCursorDirection() != direction_cursor_) {
+        moved = true;
+    }
+
     /* Call to move funtion which updates player position IF any movement was made */
     if (moved) {
         Move(pos_dif);
@@ -83,6 +89,21 @@ bool Player::Action() {
 
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
-    /* Add position difference incurred by movement to player position */
-    SetPosition(GetPosition() + pos_dif);
+
+    sf::Vector2f direction = GetCurrentCursorDirection();
+    sprite_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI); // Set the rotaion in degrees
+
+
+    SetPosition(GetPosition() + pos_dif); // Add position difference incurred by movement to player position
+
+    player_cam_.setCenter(GetPosition()); // Set the player sprite position on the scene
 }
+
+/* Function that calculates current mousewise direction of the player sprite */
+sf::Vector2f Player::GetCurrentCursorDirection(){
+    sf::Vector2i cursor = sf::Mouse::getPosition(*main_window); // Get the mouse position on main window in pixels
+    sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates
+    sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
+    return direction;
+}
+
