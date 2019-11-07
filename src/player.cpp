@@ -105,7 +105,7 @@ bool Player::Action() {
 /* Move player character on the scene */
 void Player::Move(sf::Vector2f pos_dif) {
 
-    pos_ += pos_dif; // Add position difference incurred by movement to player position
+    SetPosition(GetPosition() + pos_dif); // Add position difference incurred by movement to player position
 
     /* UNDER CONSTRUCTION: Conditions for tracking & changing the direction player sprite is facing */
 
@@ -135,6 +135,6 @@ void Player::Move(sf::Vector2f pos_dif) {
 
     /* UNDER CONSTRUCTION END */
 
-    sprite_.setPosition(pos_); // Set the player sprite position on the scene
+    sprite_.setPosition(GetPosition()); // Set the player sprite position on the scene
 
 }
