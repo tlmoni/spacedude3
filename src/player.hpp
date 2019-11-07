@@ -31,7 +31,6 @@ public:
     /* Function that calculates current mousewise direction, relative to player sprite */
     sf::Vector2f GetCurrentCursorDirection();
 
-
 private:
     // Character character_;
     sf::View player_cam_;
