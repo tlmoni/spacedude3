@@ -2,8 +2,9 @@
 
 extern Scene* scene;
 
+/* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos) : GameObject(pos) {
-    // Get enum parameter as what character the player chose and load that characters information
+    
     sf::RectangleShape& sprite = GetSprite();
     sprite.setSize(sf::Vector2f(30.0f,30.0f));
     sprite.setPosition(sf::Vector2f(pos));
@@ -44,6 +45,7 @@ void Player::Loop() {
         }
     }
 }
+
 
 /* Function handling keypress and their effects on player character */
 bool Player::Action() {

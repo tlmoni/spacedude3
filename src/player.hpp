@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include "character.hpp"
 #include "scene.hpp"
 #include "GameObjects/gameobject.hpp"
 
@@ -27,5 +28,5 @@ public:
     void Move(sf::Vector2f pos_dif);
 
 private:
-    
+    // Character character_;
 };
