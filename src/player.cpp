@@ -113,6 +113,5 @@ sf::Vector2f Player::GetCurrentCursorDirection(){
     sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates
     sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
     return direction;
-    // SOOOOS
 }
 
