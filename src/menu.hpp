@@ -4,6 +4,7 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 #include "constants.hpp"
+#include "scene.hpp"
 
 extern sf::RenderWindow* main_window;
 
@@ -35,8 +36,8 @@ public:
     void Clear_MenuItems();
 
 private:
-    std::vector<sf::Sprite>::iterator selected_menu_item_; // Description
-    std::vector<sf::Sprite> menu_items_; // Description
+    std::vector<sf::Sprite> menu_items_; // Vector that holds all the menu sprites
     sf::Texture main_menu_texture_; // Texture for main menu buttons
-    sf::Texture main_menu_background_; // Texture for background
+    sf::Texture main_menu_background_; // Texture for menu background
+    int menu_status; // Indicates which menu scenario is to be loaded
 };

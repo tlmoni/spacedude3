@@ -2,8 +2,9 @@
 
 /* Construct and load default main menu. */
 Menu::Menu() {
-    main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.jpg");
+    main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png");
     main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png");
+    menu_status = 0;
     Load_MainMenu();
     Draw();
 }
@@ -24,8 +25,89 @@ void Menu::Init() {
         main_window->clear();
         sf::Event event;
         main_window->pollEvent(event);
-        if (event.type == sf::Event::Closed) {
-            main_window->close();
+
+        if (menu_status == 0) {
+            if (event.type == sf::Event::Closed) {
+                main_window->close();
+            }
+
+            if (event.type == sf::Event::MouseMoved) {
+                sf::Mouse cursor;
+                sf::Vector2i mouse_position = cursor.getPosition(*main_window);
+                sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
+
+                if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[0].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[0].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[1].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[1].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[2].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[2].setColor(sf::Color(sf::Color::White));
+                }
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed) {
+                sf::Mouse cursor;
+                sf::Vector2i mouse_position = cursor.getPosition(*main_window);
+                sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
+
+                if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
+                    Scene* scene = new Scene();
+                    scene->Init();
+                    delete scene;
+                }
+
+                if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                    Load_SettingsMenu();
+                }
+
+                if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    main_window->close();
+                }
+
+
+            }
+        }
+
+        if (menu_status == 1) {
+            if (event.type == sf::Event::Closed) {
+                main_window->close();
+            }
+
+            if (event.type == sf::Event::MouseMoved) {
+                sf::Mouse cursor;
+                sf::Vector2i mouse_position = cursor.getPosition(*main_window);
+                sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
+
+                if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[0].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[0].setColor(sf::Color(sf::Color::White));
+                }
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed) {
+                sf::Mouse cursor;
+                sf::Vector2i mouse_position = cursor.getPosition(*main_window);
+                sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
+
+                if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
+                    Load_MainMenu();
+                }
+            }
         }
         Draw();
         main_window->display();
@@ -51,11 +133,19 @@ void Menu::Load_MainMenu() {
     menu_items_.push_back(play);
     menu_items_.push_back(settings);
     menu_items_.push_back(exit);
+    menu_status = 0;
 }
 
 /* Add settings menu sprites to the menuitems vector */
 void Menu::Load_SettingsMenu() {
-
+    Clear_MenuItems();
+    sf::Vector2u window_size = main_window->getSize();
+    sf::Sprite back;
+    back.setTexture(main_menu_texture_);
+    back.setTextureRect(sf::Rect(0, 360, 250, 120));
+    back.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 1.7));
+    menu_items_.push_back(back);
+    menu_status = 1;
 }
 
 /* Add play menu sprites to the menuitems vector */
@@ -65,8 +155,5 @@ void Menu::Load_PlayMenu() {
 
 /* Clear menu items vector of sprites */
 void Menu::Clear_MenuItems() {
-    for (auto it = menu_items_.begin(); it != menu_items_.end(); it++) {
-        menu_items_.erase(it);
-    }
     menu_items_.clear();
 }
