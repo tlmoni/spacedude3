@@ -6,11 +6,11 @@
 // Define main_window and scene as global variables
 sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1600, 900), "<insert game name here>"); // Main window, contains everything within the game
 Scene* scene = new Scene(); // Contains & handles everything rendered to the main window
-
+Menu* menu = new Menu();
 int main() {
-    scene->Init();
+    menu->Init();
 
-    delete scene;
+    delete menu;
 
     return 0;
 }
