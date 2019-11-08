@@ -37,13 +37,6 @@ void Player::Loop() {
         bool action = Action();
         // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
-<<<<<<< HEAD
-=======
-/*
-            main_window->clear();
-            main_window->draw(GetSprite());
-*/
->>>>>>> MenuBranch
             main_window->clear();
 
             /* BUBBLEGUM: Map drawing */
