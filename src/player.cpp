@@ -2,6 +2,7 @@
 #include "player.hpp"
 
 extern Scene* scene;
+extern GameObject* map;
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
@@ -16,7 +17,7 @@ void Player::Loop() {
     main_window->clear();
 
     /* BUBBLEGUM: Map drawing */
-    main_window->draw(scene->GetMap());
+    main_window->draw(map->GetSprite());
     /* BUBBLEGUM END */
 
     main_window->draw(GetSprite());
@@ -40,7 +41,7 @@ void Player::Loop() {
             main_window->clear();
 
             /* BUBBLEGUM: Map drawing */
-            main_window->draw(scene->GetMap());
+            main_window->draw(map->GetSprite());
             /* BUBBLEGUM END */
 
             main_window->draw(GetSprite());

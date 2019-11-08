@@ -27,17 +27,8 @@ public:
     /* Render the game and update graphics */
     void Render();
 
-    /* BUBBLEGUM: Getting map_ to other functions */
-
-    sf::Sprite GetMap() { return map_; }
-
-    /* BUBBLEGUM END */
 private:
     // std::vector<GameObject*> objects_;
     // std::vector<Player*> players_;
 
-    /* BUBBLEGUM: Loading a map to the scene */
-    sf::Sprite map_;
-    sf::Texture map_texture_;
-    /* BUBBLEGUM END */
 };
