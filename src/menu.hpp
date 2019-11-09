@@ -8,7 +8,9 @@
 
 extern sf::RenderWindow* main_window;
 
-/* Class description */
+/* Menu class handles the composition of different menu scenarios. menu_items_ vector holds
+   all the sprites used for different menu scenarios. When loading a different menu scenario
+   the vector is cleared and a new scenario of sprites is loaded. */
 class Menu {
 public:
     /* Constructor */
@@ -17,10 +19,11 @@ public:
     /* Default destructor */
     ~Menu() = default;
 
-    /* Method description */
+    /* Draws all the sprites in the menu items vector. */
     void Draw();
 
-    /* Initializes the menu loop that opens the window */
+    /* Initialize the window and loads main menu by default. menu_status indicates
+    the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
     void Init();
 
     /* Add main menu sprites to the menuitems list */

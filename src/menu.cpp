@@ -19,7 +19,8 @@ void Menu::Draw() {
     }
 }
 
-/* Initialize the window and loads main menu by default */
+/* Initialize the window and loads main menu by default. menu_status indicates
+    the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
 void Menu::Init() {
     while (main_window->isOpen()) {
         main_window->clear();
