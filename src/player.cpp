@@ -1,9 +1,12 @@
 #include "player.hpp"
 
 extern Scene* scene;
+extern sf::Time time_per_frame;
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos) : GameObject(pos) {
+    movement_ = Movement(0.5f, 0.01f);
+
     // TODO: Get enum parameter as what character the player chose and load that characters information
     sprite_.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
     sprite_.setOrigin(95.f,119.f); // Set player sprite origin point, around which it will be rotated.
@@ -23,22 +26,19 @@ Player::Player(sf::Vector2f pos) : GameObject(pos) {
 
 /* Handle player movement and events, update these to the scene */
 void Player::Loop() {
-
-/*
     main_window->clear();
-
     main_window->draw(GetSprite());
 
-*/
-    main_window->clear(); // Clear the content of the previous scene
-    main_window->draw(sprite_);
+    sf::Clock clock;
+    sf::Time time_elapsed = sf::Time::Zero;
 
     scene->Render();
 
     // Main loop to handle player actions on the scene
     while (main_window->isOpen()) {
-        sf::Event event; // Varibale tracking events affecting the main_window
+        time_elapsed += clock.restart();
 
+        sf::Event event; // Varibale tracking events affecting the main_window
         // Checks if the main_window has closed
         main_window->pollEvent(event);
         if (event.type == sf::Event::Closed) {
@@ -49,15 +49,17 @@ void Player::Loop() {
         bool action = Action();
         // If actions did take place, clear, draw & render the changes to the scene
         if (action) {
-/*
             main_window->clear(); 
             main_window->draw(GetSprite());
-*/
-            main_window->clear();
-            main_window->draw(sprite_);
+
 
             scene->Render();
         }
+        
+        while (time_elapsed > time_per_frame) {
+            time_elapsed -= time_per_frame;
+        }
+    
     }
 }
 
@@ -65,76 +67,48 @@ void Player::Loop() {
 /* Function handling keypress and their effects on player character */
 bool Player::Action() {
 
-    sf::Vector2f pos_dif = sf::Vector2f(0.0f, 0.0f); // Variable tracking amount of movement made
-    bool moved = false; // Variable tracking IF movement was made
-
+    sf::Vector2f dir_vector = sf::Vector2f(0.0f, 0.0f);
+    bool action;
     /* Conditional structures for tracking which keys were pressed and updating player actions accordingly */
 
     // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        pos_dif += sf::Vector2f(-0.5f, 0.0f);
-        moved = true;
+        dir_vector += sf::Vector2f(-1.0f, 0.0f);
     }
 
     // Movement to the right
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        pos_dif += sf::Vector2f(0.5f, 0.0f);
-        moved = true;
+        dir_vector += sf::Vector2f(1.0f, 0.0f);
     }
 
     // Movement forward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        pos_dif += sf::Vector2f(0.0f, -0.5f);
-        moved = true;
+        dir_vector += sf::Vector2f(0.0f, -1.0f);
     }
 
     // Movement to backward
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        pos_dif += sf::Vector2f(0.0f, 0.5f);
-        moved = true;
+        dir_vector += sf::Vector2f(0.0f, 1.0f);
     }
 
+    action = Move(dir_vector);
     // Call to move funtion which updates player position IF any movement was made
-    if (moved) {
-        Move(pos_dif);
-    }
-
-    return moved;
+    return action;
 }
 
 /* Move player character on the scene */
-void Player::Move(sf::Vector2f pos_dif) {
-
-    SetPosition(GetPosition() + pos_dif); // Add position difference incurred by movement to player position
-
-    /* UNDER CONSTRUCTION: Conditions for tracking & changing the direction player sprite is facing */
-
-    // Set to face left
-    if(pos_dif.x < 0 && direction_ != LEFT){
-        sprite_.setRotation(-180);
-        direction_ = LEFT;
+bool Player::Move(sf::Vector2f dir_vector) {
+    
+    if (LengthOfVector(dir_vector) > 0) {
+        movement_.Accelerate(DirectionOfVector(dir_vector));
     }
-
-    // Set to face right
-    if(pos_dif.x > 0 && direction_ != RIGHT){
-        sprite_.setRotation(0);
-        direction_ = RIGHT;
+    else if (movement_.GetVelocity().Length() > 0) {
+        movement_.Decelerate();
     }
-
-    // Set to face upwards
-    if(pos_dif.y > 0 && direction_ != UP){
-        sprite_.setRotation(90);
-        direction_ = UP;
-    }
-
-    // Set to face downwards
-    if(pos_dif.y < 0 && direction_ != DOWN){
-        sprite_.setRotation(-90);
-        direction_ = DOWN;
-    }
-
-    /* UNDER CONSTRUCTION END */
-
-    sprite_.setPosition(GetPosition()); // Set the player sprite position on the scene
-
+    
+    SetPosition(GetPosition() + movement_.GetVelocity());
+    sprite_.setPosition(GetPosition() + movement_.GetVelocity());
+    
+    
+    return true;
 }

@@ -6,6 +6,7 @@
 #include "character.hpp"
 #include "scene.hpp"
 #include "GameObjects/gameobject.hpp"
+#include "movement.hpp"
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
@@ -26,11 +27,11 @@ public:
     bool Action();
 
     /* Function resposible for updating player character position */
-    void Move(sf::Vector2f pos_dif);
+    bool Move(sf::Vector2f dir_vector);
 
     /* Function returns player sprite */
     //sf::RectangleShape GetSprite() { return sprite_; } // Disabled for testing actual sprite with textures
-    sf::Sprite GetSprite() { return sprite_; }
+    sf::Sprite& GetSprite() { return sprite_; }
 
 private:
     //sf::RectangleShape sprite_; // Variable to hold player sprite, disabled for testing actual sprite with textures
@@ -39,8 +40,9 @@ private:
     /* UNDER CONSTRUCTION: Add variables to hold potential sprites loaded from files here */
     sf::Texture texture_basic_;
     sf::Vector2u texture_size_;
-    enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT};
-    int direction_;
+
+    Movement movement_;
+    
 
     /* UNDER CONSTRUCTION END */
 
