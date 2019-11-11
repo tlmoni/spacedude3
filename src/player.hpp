@@ -14,7 +14,7 @@ extern sf::RenderWindow* main_window;
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(sf::Vector2f pos);
+    Player(sf::Vector2f pos, std::string identity);
 
     /* Default destructor */
     ~Player() = default;
@@ -28,20 +28,13 @@ public:
     /* Function resposible for updating player character position */
     void Move(sf::Vector2f pos_dif);
 
-    /* Function returns player sprite */
-    //sf::RectangleShape GetSprite() { return sprite_; } // Disabled for testing actual sprite with textures
-    sf::Sprite GetSprite() { return sprite_; }
+    /* Function that calculates current mousewise direction, relative to player sprite */
+    sf::Vector2f GetCurrentCursorDirection();
+
+    sf::View GetView() { return player_cam_; } // Return player camera position.
 
 private:
-    //sf::RectangleShape sprite_; // Variable to hold player sprite, disabled for testing actual sprite with textures
-    sf::Sprite sprite_; // Variable to hold player sprite
-
-    /* UNDER CONSTRUCTION: Add variables to hold potential sprites loaded from files here */
-    sf::Texture texture_basic_;
-    sf::Vector2u texture_size_;
-    enum Direction {LEFT, RIGHT, UP, DOWN, DEFAULT};
-    int direction_;
-
-    /* UNDER CONSTRUCTION END */
-
+    // Character character_;
+    sf::View player_cam_;
+    sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
 };
