@@ -82,7 +82,7 @@ void Menu::Init() {
             }
         }
 
-        if (menu_status == 1) {
+        else if (menu_status == 1) {
             if (event.type == sf::Event::Closed) {
                 main_window->close();
             }
@@ -98,6 +98,21 @@ void Menu::Init() {
                 else {
                     menu_items_[0].setColor(sf::Color(sf::Color::White));
                 }
+
+                if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[1].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[1].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[2].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[2].setColor(sf::Color(sf::Color::White));
+                }
+
             }
 
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -107,6 +122,36 @@ void Menu::Init() {
 
                 if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
                     Load_MainMenu();
+                }
+
+                else {
+                    if (sound_on) {
+                        if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                            menu_items_[1].setTextureRect(sf::Rect(0, 840, 250, 120));
+                            sound_on = false;
+                        }
+                    }
+
+                    else {
+                        if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                            menu_items_[1].setTextureRect(sf::Rect(0, 720, 250, 120));
+                            sound_on = true;
+                        }
+                    }
+
+                    if (music_on) {
+                        if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                            menu_items_[2].setTextureRect(sf::Rect(0, 600, 250, 120));
+                            music_on = false;
+                        }
+                    }
+
+                    else {
+                        if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                            menu_items_[2].setTextureRect(sf::Rect(0, 480, 250, 120));
+                            music_on = true;
+                        }
+                    }
                 }
             }
         }
@@ -118,35 +163,65 @@ void Menu::Init() {
 /* Add main menu sprites to the menuitems vector */
 void Menu::Load_MainMenu() {
     Clear_MenuItems();
+    menu_status = 0;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite play;
     sf::Sprite settings;
     sf::Sprite exit;
+
     play.setTexture(main_menu_texture_);
     play.setTextureRect(sf::Rect(0, 0, 250, 120));
     play.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 4));
+
     settings.setTexture(main_menu_texture_);
     settings.setTextureRect(sf::Rect(0, 120, 250, 120));
     settings.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 2.4));
+
     exit.setTexture(main_menu_texture_);
     exit.setTextureRect(sf::Rect(0, 240, 250, 120));
     exit.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 1.7));
+
     menu_items_.push_back(play);
     menu_items_.push_back(settings);
     menu_items_.push_back(exit);
-    menu_status = 0;
 }
 
 /* Add settings menu sprites to the menuitems vector */
 void Menu::Load_SettingsMenu() {
     Clear_MenuItems();
+    menu_status = 1;
     sf::Vector2u window_size = main_window->getSize();
+    sf::Sprite music;
+    sf::Sprite sound;
     sf::Sprite back;
+
     back.setTexture(main_menu_texture_);
     back.setTextureRect(sf::Rect(0, 360, 250, 120));
     back.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 1.7));
+
+    music.setTexture(main_menu_texture_);
+    music.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 4));
+
+    if (music_on) {
+        music.setTextureRect(sf::Rect(0, 480, 250, 120));
+    }
+    else {
+        music.setTextureRect(sf::Rect(0, 600, 250, 120));
+    }
+
+    sound.setTexture(main_menu_texture_);
+    sound.setPosition(sf::Vector2f(window_size.x / 2.4 , window_size.y / 2.4));
+
+    if (sound_on) {
+        sound.setTextureRect(sf::Rect(0, 720, 250, 120));
+    }
+    else {
+        sound.setTextureRect(sf::Rect(0, 840, 250, 120));
+    }
+
     menu_items_.push_back(back);
-    menu_status = 1;
+    menu_items_.push_back(sound);
+    menu_items_.push_back(music);
 }
 
 /* Add play menu sprites to the menuitems vector */

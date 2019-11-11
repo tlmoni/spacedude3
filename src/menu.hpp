@@ -43,4 +43,6 @@ private:
     sf::Texture main_menu_texture_; // Texture for main menu buttons
     sf::Texture main_menu_background_; // Texture for menu background
     int menu_status; // Indicates which menu scenario is to be loaded
+    int music_on = true;
+    int sound_on = true;
 };
