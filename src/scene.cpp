@@ -14,10 +14,12 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
+    main_window->setFramerateLimit(fps);
     // Load map from file
+
     // Place players on map
 
-    Player* player = new Player(sf::Vector2f(0.0f, 0.0f));
+    Player* player = new Player(sf::Vector2f(0.0f, 0.0f),"src/Textures/duderinosmall.png");
     // players_.push_back(player);
     player->Loop();
 
@@ -28,12 +30,6 @@ void Scene::Init() {
 
 /* Deletes objects on the scene and closes it */
 void Scene::End() {
-    /*
-    for (auto p : players_) {
-        delete p;
-    }
-    players_.clear();
-    */
     main_window->clear();
 }
 
@@ -44,12 +40,5 @@ void Scene::Update() {
 
 /* Render the game and update graphics */
 void Scene::Render() {
-    /*
-    for (auto p : players_) {
-        main_window->draw(p->GetSprite());
-    }
-    */
-
     main_window->display();
-
 }

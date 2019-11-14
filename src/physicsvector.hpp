@@ -4,8 +4,6 @@
 #include <math.h>
 #include <iostream>
 
-
-
 class PhysicsVector : public sf::Vector2f {
 public:
     PhysicsVector() = default;

@@ -6,6 +6,7 @@
 #include "player.hpp"
 
 extern sf::RenderWindow* main_window;
+extern int fps;
 
 class Scene {
 public:
@@ -30,4 +31,5 @@ public:
 private:
     // std::vector<GameObject*> objects_;
     // std::vector<Player*> players_;
+
 };
