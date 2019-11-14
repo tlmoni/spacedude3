@@ -5,7 +5,7 @@ extern sf::Time time_per_frame;
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos) : GameObject(pos) {
-    movement_ = Movement(0.5f, 0.01f);
+    movement_ = Movement(9.0f, 3.0f);
 
     // TODO: Get enum parameter as what character the player chose and load that characters information
     sprite_.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
@@ -29,14 +29,12 @@ void Player::Loop() {
     main_window->clear();
     main_window->draw(GetSprite());
 
-    sf::Clock clock;
-    sf::Time time_elapsed = sf::Time::Zero;
+    main_window->setFramerateLimit(60);
 
     scene->Render();
 
     // Main loop to handle player actions on the scene
     while (main_window->isOpen()) {
-        time_elapsed += clock.restart();
 
         sf::Event event; // Varibale tracking events affecting the main_window
         // Checks if the main_window has closed
@@ -56,9 +54,6 @@ void Player::Loop() {
             scene->Render();
         }
         
-        while (time_elapsed > time_per_frame) {
-            time_elapsed -= time_per_frame;
-        }
     
     }
 }

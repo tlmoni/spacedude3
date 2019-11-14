@@ -7,8 +7,7 @@
 // Define main_window and scene as global variables
 sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1600, 900), "<insert game name here>"); // Main window, contains everything within the game
 Scene* scene = new Scene(); // Contains & handles everything rendered to the main window
-double friction = 0.001f;
-sf::Time time_per_frame = sf::seconds(1.f / 60.f);
+double friction = 1.3f;
 
 
 int main() {

@@ -21,7 +21,7 @@ extern double friction;
 class Movement {
 public:
 
-    Movement(double max_speed = 0.5f, double acceleration = 0.05f);
+    Movement(double max_speed = 0.5f, double acceleration = 0.02f);
 
     /* Accelerates current_movement_ vector which represents the speed of the object. */
     void Accelerate(int direction);
