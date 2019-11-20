@@ -45,7 +45,6 @@ void Movement::Accelerate(int direction) {
         double length_acc1 = acc.Length()*cos(acc.Angle(current_velocity_));
         PhysicsVector acc1 = PhysicsVector(unit.x*length_acc1, unit.y*length_acc1);
         PhysicsVector acc2 = acc.DecreaseBy(acc1);
-
         
         if(LengthOfVector(current_velocity_.IncreaseBy(acc1)) >= max_speed_) {
             PhysicsVector max_speed = PhysicsVector(unit.x*max_speed_, unit.y*max_speed_);
@@ -53,7 +52,6 @@ void Movement::Accelerate(int direction) {
         }
         current_velocity_ = current_velocity_.IncreaseBy(acc1);
         current_velocity_ = current_velocity_.IncreaseBy(acc2);
-        
     }
 }
 
