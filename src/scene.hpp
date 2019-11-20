@@ -6,7 +6,7 @@
 #include "player.hpp"
 
 extern sf::RenderWindow* main_window;
-extern int fps;
+extern int g_fps;
 
 class Scene {
 public:

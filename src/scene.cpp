@@ -14,7 +14,7 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene. */
 void Scene::Init() {
-    main_window->setFramerateLimit(fps);
+    main_window->setFramerateLimit(g_fps);
     // Load map from file
 
     // Place players on map

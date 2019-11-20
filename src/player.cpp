@@ -5,7 +5,7 @@ extern Scene* scene;
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
-    movement_ = Movement(9.0f, 3.0f);
+    movement_ = Movement(9.0f, 1.5f);
 
     sf::Sprite sprite = GetSprite();
     sprite.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
@@ -51,6 +51,7 @@ void Player::Loop() {
 
             main_window->draw(GetSprite());
             scene->Render();
+            //std::cout << movement_.GetVelocity() << std::endl;
         }
         player_cam_.setCenter(GetPosition());
         main_window->setView(GetView());

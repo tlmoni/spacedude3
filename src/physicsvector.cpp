@@ -22,7 +22,7 @@ double PhysicsVector::MultiplyWith(PhysicsVector vector) {
 }
 
 PhysicsVector PhysicsVector::IncreaseBy(PhysicsVector vector) {
-    return PhysicsVector(this->x - vector.x, this->y - vector.y);
+    return PhysicsVector(this->x + vector.x, this->y + vector.y);
 }
 
 PhysicsVector PhysicsVector::DecreaseBy(PhysicsVector vector) {
@@ -34,4 +34,4 @@ std::ostream& operator<<(std::ostream& os, PhysicsVector vector)
     os << "[" << vector.x << ", " << vector.y;
     os << "]";
     return os; 
-} 
+}

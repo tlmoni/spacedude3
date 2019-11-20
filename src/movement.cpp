@@ -46,20 +46,20 @@ void Movement::Accelerate(int direction) {
         PhysicsVector acc1 = PhysicsVector(unit.x*length_acc1, unit.y*length_acc1);
         PhysicsVector acc2 = acc.DecreaseBy(acc1);
 
-        if(current_velocity_.Length() + acc1.Length() >= max_speed_) {
-            PhysicsVector max_speed = PhysicsVector(unit.x*max_speed_, unit.y*max_speed_);
-            acc1 = acc1.DecreaseBy(max_speed.DecreaseBy(current_velocity_));
-        }
         
+        if(LengthOfVector(current_velocity_.IncreaseBy(acc1)) >= max_speed_) {
+            PhysicsVector max_speed = PhysicsVector(unit.x*max_speed_, unit.y*max_speed_);
+            acc1 = max_speed.DecreaseBy(current_velocity_);
+        }
         current_velocity_ = current_velocity_.IncreaseBy(acc1);
         current_velocity_ = current_velocity_.IncreaseBy(acc2);
+        
     }
-    
 }
 
 void Movement::Decelerate() {
     PhysicsVector unit = current_velocity_.UnitVector();
-    PhysicsVector dec = PhysicsVector(unit.x*friction, unit.y*friction);
+    PhysicsVector dec = PhysicsVector(unit.x*g_friction, unit.y*g_friction);
     
     if(current_velocity_.Length() - dec.Length() < 0) {
         dec = current_velocity_;

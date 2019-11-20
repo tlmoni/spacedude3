@@ -16,7 +16,7 @@ enum Direction {
     NORTH_WEST
 };
 
-extern double friction;
+extern double g_friction;
 
 class Movement {
 public:
