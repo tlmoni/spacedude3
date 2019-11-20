@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "GameObjects/wall.hpp"
 #include "player.hpp"
 
 extern sf::RenderWindow* main_window;
@@ -22,6 +23,9 @@ public:
     /* Deletes objects from the scene and closes it */
     void End();
 
+    /* Game loop */
+    void Loop();
+
     /* Update game logic. Bullets etc. */
     void Update();
 
@@ -29,7 +33,8 @@ public:
     void Render();
 
 private:
-    // std::vector<GameObject*> objects_;
+    std::vector<GameObject*> objects_;
+    Player* player_;
     // std::vector<Player*> players_;
 
 };

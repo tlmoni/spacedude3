@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cmath>
 #include <iostream>
 #include <SFML/System.hpp>
@@ -18,7 +20,6 @@ public:
 
     sf::Vector2f GetPosition() { return pos_; }
     sf::Sprite& GetSprite() { return sprite_; }
-
 
 private:
     // Hitbox hitbox;

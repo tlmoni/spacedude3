@@ -13,8 +13,6 @@ Menu* menu = new Menu();
 int g_fps = 60;
 double g_friction = 1.3f;
 
-//BUBBLEGUM
-GameObject* map = new GameObject(sf::Vector2f(0.0f,0.0f),"src/Textures/maplarge.png");
 
 
 int main() {

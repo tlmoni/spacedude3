@@ -4,14 +4,11 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "character.hpp"
-#include "scene.hpp"
 #include "GameObjects/gameobject.hpp"
 #include "movement.hpp"
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
-extern GameObject* map;
-
 
 class Player : public GameObject {
 public:
@@ -28,8 +25,9 @@ public:
     bool Action();
 
     /* Function resposible for updating player character position */
-    bool Move(sf::Vector2f dir_vector);
+    bool Move(PhysicsVector dir_vector);
 
+    /* Rotote player */
     void Rotate();
 
     /* Function that calculates current mousewise direction, relative to player sprite */

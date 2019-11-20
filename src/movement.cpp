@@ -66,7 +66,6 @@ void Movement::Decelerate() {
     current_velocity_ = current_velocity_.DecreaseBy(dec);
 }
 
-
 /* length of double type vector */
 double LengthOfVector(sf::Vector2f vector) { 
     return sqrt(pow(vector.x, 2.0) + pow(vector.y, 2.0));
@@ -101,3 +100,4 @@ int DirectionOfVector(sf::Vector2f dir_vector) {
 
     return -1;
 }
+

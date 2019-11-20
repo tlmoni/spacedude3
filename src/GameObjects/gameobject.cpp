@@ -6,7 +6,6 @@ GameObject::GameObject(sf::Vector2f pos, std::string file) : pos_(pos) {
     }
     sprite_.setTexture(texture_);
     sprite_.setPosition(pos_);
-
 }
 
 /* Sets position of the object and it's sprite */
