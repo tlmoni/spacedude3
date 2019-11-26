@@ -1,1 +1,1 @@
-Place documents here
+Project documentation is located here

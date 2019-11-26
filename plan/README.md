@@ -1,1 +1,1 @@
-Place project plan here.
+Directory for project plans

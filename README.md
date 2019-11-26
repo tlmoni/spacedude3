@@ -1,21 +1,24 @@
-# Sample README file for C++ programming project
+# Laser Squad - ELEC-A7151 Object oriented programming with C++
 
-This is an initial git repository for your programming project.
-It contains an initial directory structure that we wish you could
-use as follows:
 
-  * `plan/` -- Your project plan should be put here. You may use different sources,
-    but we hope to get the plan **also as a pdf file**.
+This is the git repository for our programming project.
+It contains the following directories:
 
-  * `doc/` -- The documentation sources related to your project should be put here.
-    You may use different tools for documentation (e.g. latex),
-    but we hope to get the final version of the document
-    **also as pdf file**.
+  * `build/` -- Directory containing the compiled objects and binaries (executive)
 
-  * `src/` -- Here are the C++ source files. You can have subfolders as needed.
+  * `doc/` -- Directory containing the documentation of the project
 
-  * `README.md` -- This file. You should modify it to represent
-    your project.
+  * `plan/` -- Contains the following:
+    - The project plan
+    - Git workflow instructions for the development of the project
+    - Style guide for our project (basic 'rules' for coding style)
 
-You may also add other new directories as needed, for example
-for testing tools.
+  * `src/` -- Contains all the source code and other needed sources (e.g. textures and images)
+
+  * `README.md` -- This file. Contains overview of the project and repository
+
+  * `How to build` -- Intructions are located in build/ directory (BuildInstructions.txt)
+    - Navigate to repository root (this directory)
+    - $ make all (just compile the project) or
+    - $ make run (clean previous build, compile and run the executive)
+    - In case you want to clear the build -> $ make clean
