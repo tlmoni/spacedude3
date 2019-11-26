@@ -2,8 +2,12 @@
 
 /* Construct and load default main menu */
 Menu::Menu() {
-    main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png");
-    main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png");
+    if(!main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png")) {
+        // Error checking
+    }
+    if(!main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png")) {
+        // Error checking
+    }
     menu_status = 0;
     Load_MainMenu();
     Draw();
