@@ -23,6 +23,6 @@ It contains the following directories:
     $ sudo apt-get install libsfml-dev
 
     - Navigate to repository root (this directory)
-    - $ make all (just compile the project) or
+    - $ make all (just compile the project)
     - $ make run (clean previous build, compile and run the executive)
-    - In case you want to clear the build -> $ make clean
+    - $ make clean (in case you want to clear the build)
