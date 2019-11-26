@@ -13,12 +13,15 @@ It contains the following directories:
     - Git workflow instructions for the development of the project
     - Style guide for our project (basic 'rules' for coding style)
 
-
   * `src/` -- Contains all the source code and other needed sources (e.g. textures and images)
 
   * `README.md` -- This file. Contains overview of the project and repository
 
   * `How to build` -- Intructions are located in build/ directory (BuildInstructions.txt)
+
+    Install SFML:
+    $ sudo apt-get install libsfml-dev
+
     - Navigate to repository root (this directory)
     - $ make all (just compile the project) or
     - $ make run (clean previous build, compile and run the executive)

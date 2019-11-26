@@ -1,5 +1,12 @@
 Compiling instructions
 
+
+Install SFML
+
+$ sudo apt-get install libsfml-dev
+
+
+
 (dir: root)
 
 1. Building the project
