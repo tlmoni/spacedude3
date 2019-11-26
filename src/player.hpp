@@ -7,9 +7,9 @@
 #include "GameObjects/gameobject.hpp"
 #include "movement.hpp"
 
-/* Allows the usege of global variable main_window and its functions */
-extern sf::RenderWindow* main_window;
+extern sf::RenderWindow* main_window; // Allows the usege of global variable main_window and its functions
 
+/* Player object, subclass of GameObject,  */
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */

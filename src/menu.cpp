@@ -1,6 +1,6 @@
 #include "menu.hpp"
 
-/* Construct and load default main menu. */
+/* Construct and load default main menu */
 Menu::Menu() {
     main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png");
     main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png");
@@ -9,7 +9,7 @@ Menu::Menu() {
     Draw();
 }
 
-/* Draws all the sprites in the menu items vector. */
+/* Draws all the sprites in the menu items vector */
 void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
@@ -20,7 +20,7 @@ void Menu::Draw() {
 }
 
 /* Initialize the window and loads main menu by default. menu_status indicates
-    the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
+   the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
 void Menu::Init() {
     while (main_window->isOpen()) {
         main_window->clear();

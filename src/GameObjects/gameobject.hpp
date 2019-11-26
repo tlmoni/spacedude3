@@ -11,11 +11,16 @@ extern sf::RenderWindow* main_window;
 /* Parent class for all game objects */
 class GameObject {
 public:
+    /* Constructor */
     GameObject(sf::Vector2f pos, std::string file);
 
-    /* Sets position of the object and it's sprite */
+    /* Sets position of the object and its sprite */
     void SetPosition(sf::Vector2f new_pos);
+
+    /* Set object origin */
     void SetOrigin(float x, float y);
+
+    /* Set object rotation */
     void SetRotation(float x, float y);
 
     sf::Vector2f GetPosition() { return pos_; }

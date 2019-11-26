@@ -12,16 +12,16 @@ Scene::Scene() {
     objects_.push_back(wall);
 }
 
- /* Destructor */
+/* Destructor */
 Scene::~Scene() {
 
 }
 
-/* Run and setup singleplayer scene. */
+/* Run and setup singleplayer scene */
 void Scene::Init() {
     main_window->setFramerateLimit(g_fps);
-    
-    //do initial drawing and rendering of objects
+
+    // Do initial drawing and rendering of objects
     main_window->clear();
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
@@ -44,7 +44,7 @@ void Scene::End() {
 
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
-    
+
     while (main_window->isOpen()) {
         sf::Event event;
 
@@ -58,14 +58,12 @@ void Scene::Loop() {
         }
 
         player_->Action();
-        
-        Render();        
+
+        Render();
     }
 }
 
-
-
-/* Update game logic. Bullets etc. */
+/* Update game logic (bullets etc.) */
 void Scene::Update() {
 
 }
@@ -74,10 +72,10 @@ void Scene::Update() {
 void Scene::Render() {
 
     main_window->clear();
-    
+
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
     }
-    
+
     main_window->display();
 }
