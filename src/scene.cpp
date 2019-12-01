@@ -4,8 +4,8 @@
 
 /* Contructor */
 Scene::Scene() {
-    Player* player = new Player(sf::Vector2f(100.0f, 100.0f),"src/Textures/duderinosmall.png");
-    Wall* wall = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png");
+    Player* player = new Player(sf::Vector2f(100.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(64.f, 64.f));
+    Wall* wall = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
     player_ = player;
 
     objects_.push_back(player);
@@ -59,7 +59,7 @@ void Scene::Loop() {
 
         player_->Action();
         
-        Render();        
+        Render();      
     }
 }
 
@@ -77,6 +77,7 @@ void Scene::Render() {
     
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
+        main_window->draw(obj->GetHitbox());
     }
     
     main_window->display();

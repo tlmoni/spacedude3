@@ -6,14 +6,19 @@
 #include "character.hpp"
 #include "GameObjects/gameobject.hpp"
 #include "movement.hpp"
+#include "scene.hpp"
+
+/* Forward declaration of Scene needed here */
+class Scene;
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
+extern Scene* scene;
 
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(sf::Vector2f pos, std::string identity);
+    Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox = RectHitbox(16.f, 16.f));
 
     /* Default destructor */
     ~Player() = default;
@@ -29,6 +34,8 @@ public:
 
     /* Rotote player */
     void Rotate();
+
+    void CheckCollisions();
 
     /* Function that calculates current mousewise direction, relative to player sprite */
     sf::Vector2f GetCurrentCursorDirection();

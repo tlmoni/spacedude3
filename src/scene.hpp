@@ -6,6 +6,10 @@
 #include "GameObjects/wall.hpp"
 #include "player.hpp"
 
+/* Forward declaration of Player needed here */
+class Player;
+
+/* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
 extern int g_fps;
 
@@ -32,9 +36,10 @@ public:
     /* Render the game and update graphics */
     void Render();
 
+    std::vector<GameObject*> GetObjects() { return objects_; }
+
 private:
     std::vector<GameObject*> objects_;
     Player* player_;
-    // std::vector<Player*> players_;
 
 };

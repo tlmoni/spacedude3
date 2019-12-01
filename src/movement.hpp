@@ -27,14 +27,13 @@ public:
     void Accelerate(int direction);
     void Decelerate();
 
+    void SetVelocity(PhysicsVector velocity) { current_velocity_ = velocity; }
     PhysicsVector GetVelocity() { return current_velocity_; }
 
 private:
     double max_speed_;
     double acceleration_;
-    double turn_speed_;
-
-    PhysicsVector current_velocity_; // Speed of the object
+    PhysicsVector current_velocity_;
 };
 
 /* Non member functions */

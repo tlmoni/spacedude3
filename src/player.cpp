@@ -2,12 +2,14 @@
 #include "player.hpp"
 
 /* Constructor. Get parameter for what character player chose. */
-Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
+Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox) {
     movement_ = Movement(9.0f, 1.5f);
 
     sf::Sprite sprite = GetSprite();
-    sprite.setPosition(sf::Vector2f(pos)); // Set the player sprite position on the scene
     sprite.setOrigin(95.f, 119.f); // Set player sprite origin point, around which it will be rotat
+
+    /* Set hitbox origin to match sprite origin */
+    //hitbox.setOrigin(sprite.getOrigin());
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
@@ -47,7 +49,12 @@ bool Player::Action() {
     }
 
     action = Move(dir_vector);
+
+
+
     Rotate();
+
+
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
     
@@ -67,6 +74,8 @@ bool Player::Move(PhysicsVector dir_vector) {
     else {
         return false;
     }
+    
+    CheckCollisions();
 
     SetPosition(GetPosition() + movement_.GetVelocity());
 
@@ -77,6 +86,20 @@ void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
     SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
 }
+
+void Player::CheckCollisions() {
+    /* hitbox rect of player */
+    sf::Rect rect = GetRect();
+
+    for (GameObject* obj : scene->GetObjects()) {
+        sf::Rect obj_rect = obj->GetRect();
+        if (obj_rect.contains(GetPosition() + movement_.GetVelocity())) {
+            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+        }
+    }
+}
+
+
 
 /* Function that calculates current mousewise direction of the player sprite */
 sf::Vector2f Player::GetCurrentCursorDirection() {

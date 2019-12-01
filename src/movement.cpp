@@ -3,7 +3,6 @@
 
 Movement::Movement(double max_speed, double acceleration) : max_speed_(max_speed), acceleration_(acceleration) {
     current_velocity_ = PhysicsVector(0.0f, 0.0f);
-
 }
 
 /* Accelerates current_movement_ vector which represents the speed of the object. */
