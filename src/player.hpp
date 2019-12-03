@@ -18,7 +18,7 @@ extern Scene* scene;
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox = RectHitbox(16.f, 16.f));
+    Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox);
 
     /* Default destructor */
     ~Player() = default;

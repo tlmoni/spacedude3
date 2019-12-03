@@ -1,6 +1,8 @@
 #include "gameobject.hpp"
 
-GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox) : pos_(pos) {
+GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name) {
+    pos_ = pos;
+    name_ = name;
     if(!texture_.loadFromFile(file)){
         // Error checking.
     }
@@ -20,6 +22,7 @@ void GameObject::SetPosition(sf::Vector2f new_pos) {
 
 void GameObject::SetOrigin(float x, float y) {
     sprite_.setOrigin(x,y);
+    hitbox_.setOrigin(x,y);
 }
 
 void GameObject::SetRotation(float x, float y) {
@@ -28,4 +31,9 @@ void GameObject::SetRotation(float x, float y) {
 
 void GameObject::SetHitbox(RectHitbox hitbox) {
     hitbox_ = hitbox;
+}
+
+std::ostream& operator<<(std::ostream& os, GameObject obj) { 
+    os << "<" << obj.GetName() << ">";
+    return os; 
 }

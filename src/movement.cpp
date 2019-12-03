@@ -41,7 +41,7 @@ void Movement::Accelerate(int direction) {
     }
     else {
         PhysicsVector unit = current_velocity_.UnitVector();
-        double length_acc1 = acc.Length()*cos(acc.Angle(current_velocity_));
+        double length_acc1 = acc.Length()*cos(acc.AngleBetween(current_velocity_));
         PhysicsVector acc1 = PhysicsVector(unit.x*length_acc1, unit.y*length_acc1);
         PhysicsVector acc2 = acc.DecreaseBy(acc1);
         

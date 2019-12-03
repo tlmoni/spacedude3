@@ -11,7 +11,9 @@ public:
 
     PhysicsVector UnitVector();
     double Length();
-    double Angle(PhysicsVector vector);
+    /* Calculates angle from x-axis in range -180 to 180 degrees */
+    double Angle();
+    double AngleBetween(PhysicsVector vector);
     double MultiplyWith(PhysicsVector vector);
     PhysicsVector IncreaseBy(PhysicsVector vector);
     PhysicsVector DecreaseBy(PhysicsVector vector);

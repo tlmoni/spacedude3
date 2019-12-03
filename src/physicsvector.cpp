@@ -10,7 +10,11 @@ double PhysicsVector::Length() {
     return sqrt(pow(x, 2.0) + pow(y, 2.0));
 }
 
-double PhysicsVector::Angle(PhysicsVector vector) {
+double PhysicsVector::Angle() {
+    return 180/M_PI*atan2(y,x);
+}
+
+double PhysicsVector::AngleBetween(PhysicsVector vector) {
     double length = this->Length() * vector.Length();
     double angle = acosf(this->MultiplyWith(vector) / length);
 

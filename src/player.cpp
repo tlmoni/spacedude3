@@ -2,14 +2,8 @@
 #include "player.hpp"
 
 /* Constructor. Get parameter for what character player chose. */
-Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox) {
+Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player") {
     movement_ = Movement(9.0f, 1.5f);
-
-    sf::Sprite sprite = GetSprite();
-    sprite.setOrigin(95.f, 119.f); // Set player sprite origin point, around which it will be rotat
-
-    /* Set hitbox origin to match sprite origin */
-    //hitbox.setOrigin(sprite.getOrigin());
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
@@ -90,12 +84,27 @@ void Player::Rotate() {
 void Player::CheckCollisions() {
     /* hitbox rect of player */
     sf::Rect rect = GetRect();
+    sf::Vector2f position = GetRectPosition();
+    
+    PhysicsVector velocity = movement_.GetVelocity();
 
     for (GameObject* obj : scene->GetObjects()) {
         sf::Rect obj_rect = obj->GetRect();
-        if (obj_rect.contains(GetPosition() + movement_.GetVelocity())) {
+        
+
+        if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
             movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
         }
+        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
+            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+        }
+        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
+            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+        }
+        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
+            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+        }
+        
     }
 }
 
