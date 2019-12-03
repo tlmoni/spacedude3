@@ -85,24 +85,44 @@ void Player::CheckCollisions() {
     /* hitbox rect of player */
     sf::Rect rect = GetRect();
     sf::Vector2f position = GetRectPosition();
-    
+
     PhysicsVector velocity = movement_.GetVelocity();
 
     for (GameObject* obj : scene->GetObjects()) {
         sf::Rect obj_rect = obj->GetRect();
-        
+        sf::Vector2f obj_pos = obj->GetPosition();
 
         if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
-            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+            if (obj_pos.x + obj_rect.width <= position.x) {
+                movement_.SetXVelocity(0);
+            }
+            if (obj_pos.y + obj_rect.height <= position.y) {
+                movement_.SetYVelocity(0);
+            }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
-            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+            if (obj_pos.x >= position.x + rect.width) {
+                movement_.SetXVelocity(0);
+            }
+            if (obj_pos.y + obj_rect.height <= position.y) {
+                movement_.SetYVelocity(0);
+            }
         }
         if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
-            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+            if (obj_pos.x + obj_rect.width <= position.x) {
+                movement_.SetXVelocity(0);
+            }
+            if (obj_pos.y >= position.y + rect.height) {
+                movement_.SetYVelocity(0);
+            }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
-            movement_.SetVelocity(PhysicsVector(0.0f, 0.0f));
+            if (obj_pos.x >= position.x + rect.width) {
+                movement_.SetXVelocity(0);
+            }
+            if (obj_pos.y >= position.y + rect.height) {
+                movement_.SetYVelocity(0);
+            }
         }
         
     }

@@ -28,6 +28,8 @@ public:
     void Decelerate();
 
     void SetVelocity(PhysicsVector velocity) { current_velocity_ = velocity; }
+    void SetXVelocity(double x) { current_velocity_.x = x; }
+    void SetYVelocity(double y) { current_velocity_.y = y; }
     PhysicsVector GetVelocity() { return current_velocity_; }
 
 private:
