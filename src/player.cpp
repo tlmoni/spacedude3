@@ -3,7 +3,7 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player") {
-    movement_ = Movement(9.0f, 1.5f);
+    movement_ = Movement(7.0f, 1.5f);
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
@@ -43,11 +43,7 @@ bool Player::Action() {
     }
 
     action = Move(dir_vector);
-
-
-
     Rotate();
-
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
@@ -76,10 +72,7 @@ bool Player::Move(PhysicsVector dir_vector) {
     return true;
 }
 
-void Player::Rotate() {
-    sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
-    SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
-}
+
 
 void Player::CheckCollisions() {
     /* hitbox rect of player */
@@ -128,7 +121,10 @@ void Player::CheckCollisions() {
     }
 }
 
-
+void Player::Rotate() {
+    sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
+    SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
+}
 
 /* Function that calculates current mousewise direction of the player sprite */
 sf::Vector2f Player::GetCurrentCursorDirection() {

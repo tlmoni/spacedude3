@@ -65,17 +65,6 @@ void Movement::Decelerate() {
     current_velocity_ = current_velocity_.DecreaseBy(dec);
 }
 
-/*
-void Movement::SetXVelocity(double x) {
-    current_velocity_.x = x;
-}
-
-void Movement::SetYVelocity(double y) {
-    current_velocity_.y = y;
-}
-*/
-
-
 /* length of double type vector */
 double LengthOfVector(sf::Vector2f vector) { 
     return sqrt(pow(vector.x, 2.0) + pow(vector.y, 2.0));

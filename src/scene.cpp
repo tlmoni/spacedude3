@@ -4,11 +4,13 @@
 
 /* Contructor */
 Scene::Scene() {
-    Player* player = new Player(sf::Vector2f(300.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(64.f, 64.f));
-    Wall* wall = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
+    Player* player = new Player(sf::Vector2f(300.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(70.f, 70.f));
+    Wall* wall1 = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
+    Wall* wall2 = new Wall(sf::Vector2f(0.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
     player_ = player;
 
-    objects_.push_back(wall);
+    objects_.push_back(wall1);
+    objects_.push_back(wall2);
 }
 
  /* Destructor */
@@ -16,7 +18,6 @@ Scene::~Scene() {
     for(GameObject* obj : objects_) {
         delete obj;
     }
-
 }
 
 /* Run and setup singleplayer scene. */
@@ -30,7 +31,6 @@ void Scene::Init() {
     }
     main_window->draw(player_->GetSprite());
 
-    main_window->setView(player_->GetView());
     Render();
 
     Loop();
