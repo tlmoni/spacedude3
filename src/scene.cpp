@@ -1,15 +1,11 @@
-#include <iostream>
-#include <vector>
 #include "scene.hpp"
-
-#include "character_spurdo.hpp"
 
 /* Contructor */
 Scene::Scene() {
-
-    CharacterSpurdo spurdo;
-
-    Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
+    CharacterSpurdo* spurdo = new CharacterSpurdo();
+    std::cout << "x" << std::endl;
+    Player* player = new Player(spurdo, sf::Vector2f(300.0f, 100.0f));
+    std::cout << "x" << std::endl;
     Wall* wall1 = new Wall(PhysicsVector(300.f,400.f));
     Wall* wall2 = new Wall(PhysicsVector(0.f,400.f));
     player_ = player;

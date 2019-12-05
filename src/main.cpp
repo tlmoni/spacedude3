@@ -1,9 +1,7 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "scene.hpp"
 #include "menu.hpp"
-#include "scene.hpp"
 
 // Define main_window and scene as global variables
 sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1000, 1000), "<insert game name here>"); // Main window, contains everything within the game
