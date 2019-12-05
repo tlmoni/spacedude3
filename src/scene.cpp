@@ -9,9 +9,9 @@ Scene::Scene() {
 
     CharacterSpurdo spurdo;
 
-    Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
-    Wall* wall1 = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
-    Wall* wall2 = new Wall(sf::Vector2f(0.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
+    Player* player = new Player(&spurdo, PhysicsVector(300.0f, 100.0f));
+    Wall* wall1 = new Wall(PhysicsVector(300.f,400.f));
+    Wall* wall2 = new Wall(PhysicsVector(0.f,400.f));
     player_ = player;
 
     objects_.push_back(wall1);
