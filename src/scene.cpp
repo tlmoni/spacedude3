@@ -6,18 +6,12 @@
 
 /* Contructor */
 Scene::Scene() {
-<<<<<<< HEAD
 
     CharacterSpurdo spurdo;
 
     Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
     Wall* wall1 = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
     Wall* wall2 = new Wall(sf::Vector2f(0.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
-=======
-    Player* player = new Player(sf::Vector2f(300.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(70.f, 70.f));
-    Wall* wall1 = new Wall(PhysicsVector(300.f,400.f));
-    Wall* wall2 = new Wall(PhysicsVector(0.f,400.f));
->>>>>>> 778cd7cf75b180cd2082e4aadb9a2ac841f5e93e
     player_ = player;
 
     objects_.push_back(wall1);
