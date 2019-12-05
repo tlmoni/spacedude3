@@ -23,6 +23,8 @@ Menu::~Menu() {
     for (sf::Text* i : menu_text_items_) {
         delete i;
     }
+    menu_items_.clear();
+    menu_text_items_.clear();
 }
 
 /* Draws all the sprites in the menu items vector */
