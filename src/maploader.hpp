@@ -7,7 +7,6 @@
 #include <vector>
 #include "GameObjects/wall.hpp"
 #include "player.hpp"
-#include "character_spurdo.hpp"
 
 class Player;
 
@@ -32,7 +31,7 @@ std::pair<PhysicsVector, std::vector<GameObject*>> LoadMap(std::string filename)
         exit(EXIT_FAILURE);
     }
 
-    float x, y = 0.0f;
+    float x = 0.0f, y = 0.0f;
     PhysicsVector player_position;
     std::vector<GameObject*> game_objects;
     std::string line;

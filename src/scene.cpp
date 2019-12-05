@@ -2,16 +2,11 @@
 #include "maploader.hpp"
 
 /* Contructor */
-Scene::Scene() {
-    auto objects = LoadMap("src/Maps/map1.txt");
-
-    CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, objects.first);
-    objects_ = objects.second;
-}
+Scene::Scene() { }
 
 /* Destructor */
 Scene::~Scene() {
+    main_window->clear();
     for(GameObject* obj : objects_) {
         delete obj;
     }
@@ -20,27 +15,17 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
+
+    auto objects = LoadMap("src/Maps/map1.txt");
+    CharacterSpurdo* spurdo = new CharacterSpurdo();
+    player_ = new Player(spurdo, objects.first);
+    objects_ = objects.second;
+
     main_window->setFramerateLimit(g_fps);
-
-    // Do initial drawing and rendering of objects
-    main_window->clear();
-    for(GameObject* obj : objects_) {
-        main_window->draw(obj->GetSprite());
-    }
-
-    main_window->draw(player_->GetSprite());
-
     Render();
-
     Loop();
-
-    End();
 }
 
-/* Deletes objects on the scene and closes it */
-void Scene::End() {
-    main_window->clear();
-}
 
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
@@ -74,11 +59,12 @@ void Scene::Render() {
     main_window->clear();
 
     for(GameObject* obj : objects_) {
-        main_window->draw(obj->GetSprite());
-        main_window->draw(obj->GetHitbox());
+        main_window->draw(*(obj->GetSprite()));
+        //main_window->draw(obj->GetHitbox());
     }
-    main_window->draw(player_->GetSprite());
-    main_window->draw(player_->GetHitbox());
+    main_window->draw(*(player_->GetSprite()));
+
+    //main_window->draw(player_->GetHitbox());
 
 
     main_window->display();

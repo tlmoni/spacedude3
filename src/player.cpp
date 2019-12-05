@@ -6,12 +6,16 @@ Player::Player(Character* character, sf::Vector2f pos) :
 GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
 Movement(character->GetMaxSpeed(), character->GetAcceleration()),
 character_(character) {
+
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
 }
 
 Player::~Player() {
     delete character_;
+    for(Projectile* p : projectiles_) {
+        delete p;
+    }
 }
 
 /* Handle keypress and their effects on player character */
@@ -30,12 +34,12 @@ bool Player::Action() {
         dir_vector += PhysicsVector(1.0f, 0.0f);
     }
 
-    // Movement forward
+    // Movement up
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         dir_vector += PhysicsVector(0.0f, -1.0f);
     }
 
-    // Movement to backward
+    // Movement down
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         dir_vector += PhysicsVector(0.0f, 1.0f);
     }

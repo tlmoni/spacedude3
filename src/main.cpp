@@ -13,9 +13,11 @@ int g_fps = 60;
 double g_friction = 1.3f;
 
 int main() {
-    menu->Init();
+    //menu->Init();
+    scene->Init();
 
-    delete menu;
+    //delete menu;
+    delete scene;
     delete main_window;
 
     return 0;

@@ -14,7 +14,7 @@ class GameObject {
 public:
     GameObject() = default;
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject");
-
+    ~GameObject();
 
     /* Sets position of the object and its sprite */
     void SetPosition(sf::Vector2f new_pos);
@@ -29,16 +29,17 @@ public:
 
     std::string GetName() { return name_; }
     sf::Vector2f GetPosition() { return pos_; }
-    sf::Sprite& GetSprite() { return sprite_; }
+    sf::Sprite* GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
     sf::Vector2f GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
+    sf::Texture* GetTexture() { return texture_; }
 
 private:
     std::string name_;
     sf::Vector2f pos_; /* Variable tracking player position in the scene */
-    sf::Sprite sprite_; /* Variable to hold player sprite */
-    sf::Texture texture_;
+    sf::Sprite* sprite_; /* Variable to hold player sprite */
+    sf::Texture* texture_;
     RectHitbox hitbox_;
 };
 

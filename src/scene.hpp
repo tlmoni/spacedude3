@@ -28,9 +28,6 @@ public:
     /* Run and setup singleplayer scene */
     void Init();
 
-    /* Deletes objects from the scene and closes it */
-    void End();
-
     /* Game loop */
     void Loop();
 
