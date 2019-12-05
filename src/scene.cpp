@@ -2,9 +2,14 @@
 #include <vector>
 #include "scene.hpp"
 
+#include "character_spurdo.hpp"
+
 /* Contructor */
 Scene::Scene() {
-    Player* player = new Player(sf::Vector2f(300.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(70.f, 70.f));
+
+    CharacterSpurdo spurdo;
+
+    Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
     Wall* wall1 = new Wall(sf::Vector2f(300.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
     Wall* wall2 = new Wall(sf::Vector2f(0.f,400.f), "src/Textures/wall.png", RectHitbox(128.f, 128.f));
     player_ = player;
@@ -80,7 +85,7 @@ void Scene::Render() {
     }
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHitbox());
-    
+
 
     main_window->display();
 }
