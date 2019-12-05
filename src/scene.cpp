@@ -2,9 +2,14 @@
 #include <vector>
 #include "scene.hpp"
 
+#include "character_spurdo.hpp"
+
 /* Contructor */
 Scene::Scene() {
-    Player* player = new Player(sf::Vector2f(300.0f, 100.0f),"src/Textures/duderinosmall.png", RectHitbox(70.f, 70.f));
+
+    CharacterSpurdo spurdo;
+
+    Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
     Wall* wall1 = new Wall(PhysicsVector(300.f,400.f));
     Wall* wall2 = new Wall(PhysicsVector(0.f,400.f));
     player_ = player;

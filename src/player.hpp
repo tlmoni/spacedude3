@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "character.hpp"
+#include "character_spurdo.hpp"
 #include "GameObjects/gameobject.hpp"
 #include "movement.hpp"
 #include "scene.hpp"
@@ -21,7 +22,7 @@ extern Scene* scene;
 class Player : public GameObject, public Movement {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox);
+    Player(Character* character_, sf::Vector2f pos);
 
     /* Default destructor */
     ~Player() = default;
@@ -54,5 +55,5 @@ private:
     std::vector<Projectile*> projectiles_;
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
-    // Character character_;
+    Character* character_;
 };

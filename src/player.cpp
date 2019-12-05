@@ -3,7 +3,10 @@
 
 
 /* Constructor. Get parameter for what character player chose. */
-Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player"),Movement(7.0f, 1.5f) {
+Player::Player(Character* character, sf::Vector2f pos) :
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
+Movement(character->GetMoveSpeed(), character->GetAcceleration()),
+character_(character) {
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
