@@ -3,13 +3,13 @@
 /* Constructor */
 Movement::Movement(double max_speed, double acceleration) : max_speed_(max_speed), acceleration_(acceleration) {
     current_velocity_ = PhysicsVector(0.0f, 0.0f);
-
 }
 
-/* Accelerates current_movement_ vector which represents the speed of the object. */
+/* Accelerates current_movement_ vector to the direction given as parameter. */
 void Movement::Accelerate(int direction) {
     PhysicsVector acc = PhysicsVector(0.0f, 0.0f);
 
+    // Initializes acceleration vector according to direction
     switch (direction) {
         case NORTH:
             acc = acc.IncreaseBy(PhysicsVector(0.0f, -acceleration_));
@@ -40,9 +40,10 @@ void Movement::Accelerate(int direction) {
     if (current_velocity_.Length() == 0) {
         current_velocity_ = current_velocity_.IncreaseBy(acc);
     }
+    // Calculates acceleration depending on current_velocity and the direction of acceleration
     else {
         PhysicsVector unit = current_velocity_.UnitVector();
-        double length_acc1 = acc.Length()*cos(acc.Angle(current_velocity_));
+        double length_acc1 = acc.Length()*cos(acc.AngleBetween(current_velocity_));
         PhysicsVector acc1 = PhysicsVector(unit.x*length_acc1, unit.y*length_acc1);
         PhysicsVector acc2 = acc.DecreaseBy(acc1);
 
@@ -55,7 +56,7 @@ void Movement::Accelerate(int direction) {
     }
 }
 
-/* Slows down player movement */
+/* Decelerates current_movement_ */
 void Movement::Decelerate() {
     PhysicsVector unit = current_velocity_.UnitVector();
     PhysicsVector dec = PhysicsVector(unit.x*g_friction, unit.y*g_friction);

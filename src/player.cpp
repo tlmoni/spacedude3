@@ -1,14 +1,12 @@
 #include <cmath>
 #include "player.hpp"
 
-/* Constructor
-   Gets chosen character as parameter */
-Player::Player(sf::Vector2f pos, std::string identity) : GameObject(pos, identity) {
-    movement_ = Movement(9.0f, 1.5f);
 
-    sf::Sprite sprite = GetSprite();
-    sprite.setPosition(sf::Vector2f(pos));
-    sprite.setOrigin(95.f, 119.f);
+/* Constructor. Get parameter for what character player chose. */
+Player::Player(Character* character, sf::Vector2f pos) :
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
+Movement(character->GetMoveSpeed(), character->GetAcceleration()),
+character_(character) {
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
@@ -46,30 +44,81 @@ bool Player::Action() {
 
     action = Move(dir_vector);
     Rotate();
+
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
 
     return action;
 }
 
-/* Move player character on the scene */
+/* Move player character on the scene and check collisions. */
 bool Player::Move(PhysicsVector dir_vector) {
 
     if (LengthOfVector(dir_vector) > 0) {
-        movement_.Accelerate(DirectionOfVector(dir_vector));
+        Accelerate(DirectionOfVector(dir_vector));
     }
-    else if (movement_.GetVelocity().Length() > 0) {
-        movement_.Decelerate();
+    else if (GetVelocity().Length() > 0) {
+        Decelerate();
     }
     else {
         return false;
     }
 
-    SetPosition(GetPosition() + movement_.GetVelocity());
+    CheckCollisions();
+
+    SetPosition(GetPosition() + GetVelocity());
 
     return true;
 }
 
+/* Check if player is colliding with items and change movement according to that */
+void Player::CheckCollisions() {
+    /* hitbox rect of player */
+    sf::Rect rect = GetRect();
+    sf::Vector2f position = GetRectPosition();
+
+    PhysicsVector velocity = GetVelocity();
+
+    for (GameObject* obj : scene->GetObjects()) {
+        sf::Rect obj_rect = obj->GetRect();
+        sf::Vector2f obj_pos = obj->GetPosition();
+
+        if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
+            if (obj_pos.x + obj_rect.width <= position.x) {
+                SetXVelocity(0);
+            }
+            if (obj_pos.y + obj_rect.height <= position.y) {
+                SetYVelocity(0);
+            }
+        }
+        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
+            if (obj_pos.x >= position.x + rect.width) {
+                SetXVelocity(0);
+            }
+            if (obj_pos.y + obj_rect.height <= position.y) {
+                SetYVelocity(0);
+            }
+        }
+        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
+            if (obj_pos.x + obj_rect.width <= position.x) {
+                SetXVelocity(0);
+            }
+            if (obj_pos.y >= position.y + rect.height) {
+                SetYVelocity(0);
+            }
+        }
+        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
+            if (obj_pos.x >= position.x + rect.width) {
+                SetXVelocity(0);
+            }
+            if (obj_pos.y >= position.y + rect.height) {
+                SetYVelocity(0);
+            }
+        }
+    }
+}
+
+/* Rotate player */
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
     SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.

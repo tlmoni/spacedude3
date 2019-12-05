@@ -18,6 +18,7 @@ enum Direction {
 
 extern double g_friction;
 
+/* Class for handling all movement of GameObjects */
 class Movement {
 public:
     /* Constructor */
@@ -26,17 +27,19 @@ public:
     /* Accelerates current_movement_ vector which represents the speed of the object. */
     void Accelerate(int direction);
 
-    /* Slows down player movement */
+    /* Slows down player movement. */
     void Decelerate();
 
+    /* Set functions to allow changing velocity and it's attributes. */
+    void SetVelocity(PhysicsVector velocity) { current_velocity_ = velocity; }
+    void SetXVelocity(double x) { current_velocity_.x = x; }
+    void SetYVelocity(double y) { current_velocity_.y = y; }
     PhysicsVector GetVelocity() { return current_velocity_; }
 
 private:
     double max_speed_;
     double acceleration_;
-    double turn_speed_;
-
-    PhysicsVector current_velocity_; // Speed of the object
+    PhysicsVector current_velocity_;
 };
 
 /* Non member functions */
