@@ -32,10 +32,12 @@ void GameObject::SetRotation(float x, float y) {
     sprite_.setRotation(std::atan2(y, x) * 180 / M_PI); // Set the rotaion in degrees
 }
 
+/* Set new hitbox for GameObject */
 void GameObject::SetHitbox(RectHitbox hitbox) {
     hitbox_ = hitbox;
 }
 
+/* Overload << operator for printing */
 std::ostream& operator<<(std::ostream& os, GameObject obj) { 
     os << "<" << obj.GetName() << ">";
     return os; 
