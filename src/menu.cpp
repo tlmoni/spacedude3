@@ -69,7 +69,6 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0].getGlobalBounds().contains(mouse_pos)) {
-                    Scene* scene = new Scene();
                     scene->Init();
                     delete scene;
                 }
