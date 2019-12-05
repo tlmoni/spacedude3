@@ -14,8 +14,6 @@ Menu* menu = new Menu();
 int g_fps = 60;
 double g_friction = 1.3f;
 
-
-
 int main() {
     menu->Init();
 

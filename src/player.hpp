@@ -15,6 +15,8 @@ class Scene;
 extern sf::RenderWindow* main_window;
 extern Scene* scene;
 
+
+/* Player object, subclass of GameObject,  */
 class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */

@@ -15,9 +15,14 @@ public:
     GameObject() = default;
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject");
 
-    /* Sets position of the object and it's sprite */
+
+    /* Sets position of the object and its sprite */
     void SetPosition(sf::Vector2f new_pos);
+
+    /* Set object origin */
     void SetOrigin(float x, float y);
+
+    /* Set object rotation */
     void SetRotation(float x, float y);
     void SetHitbox(RectHitbox hitbox);
 

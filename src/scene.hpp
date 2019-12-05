@@ -30,7 +30,7 @@ public:
     /* Game loop */
     void Loop();
 
-    /* Update game logic. Bullets etc. */
+    /* Update game logic (bullets etc.) */
     void Update();
 
     /* Render the game and update graphics */

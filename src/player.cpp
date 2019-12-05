@@ -1,22 +1,21 @@
 #include <cmath>
 #include "player.hpp"
 
+
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player") {
     movement_ = Movement(7.0f, 1.5f);
+
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
 }
 
-
-
-/* Function handling keypress and their effects on player character */
+/* Handle keypress and their effects on player character */
 bool Player::Action() {
 
     PhysicsVector dir_vector = PhysicsVector(0.0f, 0.0f);
     bool action;
-    /* Conditional structures for tracking which keys were pressed and updating player actions accordingly */
 
     // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -47,14 +46,13 @@ bool Player::Action() {
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
-    
-    // Call to move funtion which updates player position IF any movement was made
+
     return action;
 }
 
 /* Move player character on the scene */
 bool Player::Move(PhysicsVector dir_vector) {
-    
+
     if (LengthOfVector(dir_vector) > 0) {
         movement_.Accelerate(DirectionOfVector(dir_vector));
     }
@@ -126,7 +124,8 @@ void Player::Rotate() {
     SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
 }
 
-/* Function that calculates current mousewise direction of the player sprite */
+/* Function that calculates current mousewise direction of the player sprite
+   Returns the direction of the player */
 sf::Vector2f Player::GetCurrentCursorDirection() {
     sf::Vector2i cursor = sf::Mouse::getPosition(*main_window); // Get the mouse position on main window in pixels
     sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates

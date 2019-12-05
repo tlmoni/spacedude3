@@ -23,7 +23,7 @@ public:
     void Draw();
 
     /* Initialize the window and loads main menu by default. menu_status indicates
-    the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
+       the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
     void Init();
 
     /* Add main menu sprites to the menuitems list */
