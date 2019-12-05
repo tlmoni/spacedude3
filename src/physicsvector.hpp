@@ -21,7 +21,11 @@ public:
 
     /* Calculates angle from x-axis in range -180 to 180 degrees */
     double Angle();
+
+    /* Returns the angle between 2 vectors (self & parameter), returns angle in radians. */
     double AngleBetween(PhysicsVector vector);
+
+    /* Dot product of 2 vectors, returns double */
     double MultiplyWith(PhysicsVector vector);
 
     /* Returns the sum of the vectors (self & parameter) */
@@ -31,4 +35,5 @@ public:
     PhysicsVector DecreaseBy(PhysicsVector vector);
 };
 
+/* Overload << operator for printing physicsvectors */
 std::ostream& operator<<(std::ostream& os, PhysicsVector vector);

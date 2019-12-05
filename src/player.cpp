@@ -5,7 +5,6 @@
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player"),Movement(7.0f, 1.5f) {
 
-
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
 }
@@ -49,7 +48,7 @@ bool Player::Action() {
     return action;
 }
 
-/* Move player character on the scene */
+/* Move player character on the scene and check collisions. */
 bool Player::Move(PhysicsVector dir_vector) {
 
     if (LengthOfVector(dir_vector) > 0) {
@@ -69,8 +68,7 @@ bool Player::Move(PhysicsVector dir_vector) {
     return true;
 }
 
-
-
+/* Check if player is colliding with items and change movement according to that */
 void Player::CheckCollisions() {
     /* hitbox rect of player */
     sf::Rect rect = GetRect();
@@ -118,6 +116,7 @@ void Player::CheckCollisions() {
     }
 }
 
+/* Rotate player */
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
     SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.

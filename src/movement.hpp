@@ -18,6 +18,7 @@ enum Direction {
 
 extern double g_friction;
 
+/* Class for handling all movement of GameObjects */
 class Movement {
 public:
     /* Constructor */

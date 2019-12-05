@@ -37,6 +37,7 @@ public:
     /* Rotote player */
     void Rotate();
 
+    /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions();
 
     /* Function that calculates current mousewise direction, relative to player sprite */
