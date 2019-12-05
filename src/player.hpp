@@ -24,7 +24,7 @@ public:
     Player(Character* character, sf::Vector2f pos);
 
     /* Default destructor */
-    ~Player() = default;
+    ~Player();
 
     /* Function to handle player movement and events and update them to the scene */
     void Loop();

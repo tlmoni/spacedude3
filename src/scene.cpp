@@ -3,7 +3,6 @@
 
 /* Contructor */
 Scene::Scene() {
-
     auto objects = LoadMap("src/Maps/map1.txt");
 
     CharacterSpurdo* spurdo = new CharacterSpurdo();
