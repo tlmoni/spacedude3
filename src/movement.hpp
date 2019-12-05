@@ -49,4 +49,3 @@ double LengthOfVector(sf::Vector2f vector);
 
 /* Returns the direction of the vector as an int (enum) */
 int DirectionOfVector(sf::Vector2f dir_vector);
-

@@ -3,12 +3,12 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "character.hpp"
 #include "character_spurdo.hpp"
 #include "GameObjects/gameobject.hpp"
+#include "GameObjects/projectile.hpp"
 #include "movement.hpp"
 #include "scene.hpp"
-#include "GameObjects/projectile.hpp"
+
 
 /* Forward declaration of Scene needed here */
 class Scene;
@@ -16,7 +16,6 @@ class Scene;
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
 extern Scene* scene;
-
 
 /* Player object, subclass of GameObject,  */
 class Player : public GameObject, public Movement {

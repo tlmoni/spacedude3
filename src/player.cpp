@@ -1,11 +1,10 @@
 #include <cmath>
 #include "player.hpp"
 
-
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
 GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
-Movement(character->GetMoveSpeed(), character->GetAcceleration()),
+Movement(character->GetMaxSpeed(), character->GetAcceleration()),
 character_(character) {
 
     SetOrigin(38.f,47.f);
@@ -52,6 +51,7 @@ bool Player::Action() {
         main_window->display();
         delete bullet;
     }
+
 
     //UpdateBullets();
 
@@ -153,4 +153,3 @@ PhysicsVector Player::GetCurrentCursorDirection() {
     sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
     return PhysicsVector(direction).UnitVector();
 }
-

@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "SFML/Graphics.hpp"
-#include "constants.hpp"
+#include <SFML/Graphics.hpp>
 #include "scene.hpp"
 
 extern sf::RenderWindow* main_window;

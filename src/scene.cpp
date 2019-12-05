@@ -1,21 +1,14 @@
-#include <iostream>
-#include <vector>
 #include "scene.hpp"
-
-#include "character_spurdo.hpp"
+#include "maploader.hpp"
 
 /* Contructor */
 Scene::Scene() {
 
-    CharacterSpurdo spurdo;
+    auto objects = LoadMap("src/Maps/map1.txt");
 
-    Player* player = new Player(&spurdo, sf::Vector2f(300.0f, 100.0f));
-    Wall* wall1 = new Wall(PhysicsVector(300.f,400.f));
-    Wall* wall2 = new Wall(PhysicsVector(0.f,400.f));
-    player_ = player;
-
-    objects_.push_back(wall1);
-    objects_.push_back(wall2);
+    CharacterSpurdo* spurdo = new CharacterSpurdo();
+    player_ = new Player(spurdo, objects.first);
+    objects_ = objects.second;
 }
 
 /* Destructor */
@@ -35,6 +28,7 @@ void Scene::Init() {
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
     }
+
     main_window->draw(player_->GetSprite());
 
     Render();
