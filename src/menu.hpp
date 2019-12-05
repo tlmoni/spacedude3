@@ -18,7 +18,7 @@ public:
     Menu();
 
     /* Default destructor */
-    virtual ~Menu() = default;
+    ~Menu();
 
     /* Draws all the sprites in the menu items vector. */
     void Draw();

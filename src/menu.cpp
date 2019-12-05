@@ -16,6 +16,15 @@ Menu::Menu() {
     Draw();
 }
 
+Menu::~Menu() {
+    for (sf::Sprite* i : menu_items_) {
+        delete i;
+    }
+    for (sf::Text* i : menu_text_items_) {
+        delete i;
+    }
+}
+
 /* Draws all the sprites in the menu items vector */
 void Menu::Draw() {
     sf::Sprite background;
