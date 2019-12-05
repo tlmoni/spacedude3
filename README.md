@@ -26,3 +26,8 @@ It contains the following directories:
     - $ make all (just compile the project)
     - $ make run (clean previous build, compile and run the executive)
     - $ make clean (in case you want to clear the build)
+
+    Install Valgrind:
+    $ sudo apt-get install valgrind
+    - Ran with a command specifying options and program to be tested
+    - Command utilized for this project: "valgrind -v  --leak-check=yes ./BrawlStars"
