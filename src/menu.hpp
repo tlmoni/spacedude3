@@ -39,8 +39,8 @@ public:
     void Clear_MenuItems();
 
 private:
-    std::vector<sf::Sprite> menu_items_; // Vector that holds all the menu sprites
-    std::vector<sf::Text> menu_text_items_ ; // Vector that holds all the menu text items
+    std::vector<sf::Sprite*> menu_items_; // Vector that holds all the menu sprites
+    std::vector<sf::Text*> menu_text_items_ ; // Vector that holds all the menu text items
     sf::Texture main_menu_texture_; // Texture for main menu buttons
     sf::Texture main_menu_background_; // Texture for menu background
     sf::Font font_; // Font that is used for menu text items
