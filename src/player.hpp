@@ -22,7 +22,7 @@ extern Scene* scene;
 class Player : public GameObject, public Movement {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(Character* character_, sf::Vector2f pos);
+    Player(Character* character, sf::Vector2f pos);
 
     /* Default destructor */
     ~Player() = default;
