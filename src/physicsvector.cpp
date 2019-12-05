@@ -10,7 +10,7 @@ double PhysicsVector::Length() {
     return sqrt(pow(x, 2.0) + pow(y, 2.0));
 }
 
-
+/* Calculates angle from x-axis in range -180 to 180 degrees */
 double PhysicsVector::Angle() {
     return 180/M_PI*atan2(y,x);
 }
@@ -38,6 +38,7 @@ PhysicsVector PhysicsVector::DecreaseBy(PhysicsVector vector) {
     return PhysicsVector(this->x - vector.x, this->y - vector.y);
 }
 
+/* Overload << operator for printing physicsvectors */
 std::ostream& operator<<(std::ostream& os, PhysicsVector vector)
 {
     os << "[" << vector.x << ", " << vector.y;

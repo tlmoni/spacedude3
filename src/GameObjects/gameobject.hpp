@@ -24,6 +24,7 @@ public:
 
     /* Set object rotation */
     void SetRotation(float x, float y);
+    /* Set new hitbox for GameObject */
     void SetHitbox(RectHitbox hitbox);
 
     std::string GetName() { return name_; }
@@ -41,4 +42,5 @@ private:
     RectHitbox hitbox_;
 };
 
+/* Overload << operator for printing */
 std::ostream& operator<<(std::ostream& os, PhysicsVector vector);
