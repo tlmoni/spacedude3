@@ -38,9 +38,19 @@ bool Player::Action() {
     if (GetCurrentCursorDirection() != direction_cursor_) {
         action = true;
     }
-
     action = Move(dir_vector);
     Rotate();
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        Projectile* bullet = new Projectile(GetPosition());
+        SetVelocity(GetCurrentCursorDirection());
+        //projectiles_.push_back(bullet);
+        main_window->draw(bullet->GetSprite());
+        main_window->display();
+        delete bullet;
+    }
+
+    //UpdateBullets();
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
@@ -55,7 +65,7 @@ bool Player::Move(PhysicsVector dir_vector) {
         Accelerate(DirectionOfVector(dir_vector));
     }
     else if (GetVelocity().Length() > 0) {
-        Decelerate();
+        Decelerate(g_friction);
     }
     else {
         return false;
@@ -115,6 +125,17 @@ void Player::CheckCollisions() {
     }
 }
 
+void Player::UpdateBullets() {
+    for (Projectile* p : projectiles_) {
+        if (p->GetVelocity().Length() == 0) {
+            delete p;
+        }
+        else {
+            p->Decelerate(p->GetSlowRate());
+        }
+    }
+}
+
 /* Rotate player */
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
@@ -123,10 +144,10 @@ void Player::Rotate() {
 
 /* Function that calculates current mousewise direction of the player sprite
    Returns the direction of the player */
-sf::Vector2f Player::GetCurrentCursorDirection() {
+PhysicsVector Player::GetCurrentCursorDirection() {
     sf::Vector2i cursor = sf::Mouse::getPosition(*main_window); // Get the mouse position on main window in pixels
     sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates
     sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
-    return direction;
+    return PhysicsVector(direction).UnitVector();
 }
 

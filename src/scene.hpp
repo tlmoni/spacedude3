@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include "GameObjects/wall.hpp"
 #include "player.hpp"
+#include "GameObjects/projectile.hpp"
 
 /* Forward declaration of Player needed here */
 class Player;
@@ -41,5 +42,4 @@ public:
 private:
     std::vector<GameObject*> objects_;
     Player* player_;
-
 };

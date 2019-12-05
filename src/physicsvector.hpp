@@ -13,6 +13,9 @@ public:
     /* Constructor */
     PhysicsVector(double x, double y) : sf::Vector2f(x,y) { }
 
+    /* Constructor from sf::Vector2f */
+    PhysicsVector(sf::Vector2f vector) : sf::Vector2f(vector) { }
+
     /* Returns a unit vector of the vector */
     PhysicsVector UnitVector();
 
@@ -27,6 +30,9 @@ public:
 
     /* Dot product of 2 vectors, returns double */
     double MultiplyWith(PhysicsVector vector);
+
+    /* Multiply vector by some value */
+    PhysicsVector MultiplyBy(double multiplier);
 
     /* Returns the sum of the vectors (self & parameter) */
     PhysicsVector IncreaseBy(PhysicsVector vector);

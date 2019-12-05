@@ -2,6 +2,9 @@
 
 /* Returns a unit vector of the vector */
 PhysicsVector PhysicsVector::UnitVector() {
+    if (Length() == 0) {
+        return PhysicsVector(0, 0);
+    }
     return PhysicsVector(x / Length(), y / Length());
 }
 

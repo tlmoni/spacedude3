@@ -57,9 +57,9 @@ void Movement::Accelerate(int direction) {
 }
 
 /* Decelerates current_movement_ */
-void Movement::Decelerate() {
+void Movement::Decelerate(double friction) {
     PhysicsVector unit = current_velocity_.UnitVector();
-    PhysicsVector dec = PhysicsVector(unit.x*g_friction, unit.y*g_friction);
+    PhysicsVector dec = PhysicsVector(unit.x*friction, unit.y*friction);
 
     if(current_velocity_.Length() - dec.Length() < 0) {
         dec = current_velocity_;
