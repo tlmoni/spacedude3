@@ -17,7 +17,6 @@ class Scene;
 extern sf::RenderWindow* main_window;
 extern Scene* scene;
 
-
 /* Player object, subclass of GameObject,  */
 class Player : public GameObject, public Movement {
 public:
