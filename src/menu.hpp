@@ -7,6 +7,7 @@
 #include "scene.hpp"
 
 extern sf::RenderWindow* main_window;
+extern Scene* scene;
 
 /* Menu class handles the composition of different menu scenarios. menu_items_ vector holds
    all the sprites used for different menu scenarios. When loading a different menu scenario

@@ -8,6 +8,7 @@
 #include "GameObjects/gameobject.hpp"
 #include "movement.hpp"
 #include "scene.hpp"
+#include "GameObjects/projectile.hpp"
 
 /* Forward declaration of Scene needed here */
 class Scene;
@@ -18,10 +19,10 @@ extern Scene* scene;
 
 
 /* Player object, subclass of GameObject,  */
-class Player : public GameObject, Movement {
+class Player : public GameObject, public Movement {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
-    Player(Character* character_, sf::Vector2f pos);
+    Player(Character* character, sf::Vector2f pos);
 
     /* Default destructor */
     ~Player() = default;
@@ -41,11 +42,17 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions();
 
+    /* Updates bullet positions and deceleration */
+    void UpdateBullets();
+
     /* Function that calculates current mousewise direction, relative to player sprite */
-    sf::Vector2f GetCurrentCursorDirection();
-    sf::View GetView() { return player_cam_; } // Return player camera position.
+    PhysicsVector GetCurrentCursorDirection();
+
+    sf::View GetView() { return player_cam_; }
+    std::vector<Projectile*> GetProjectiles() { return projectiles_; }
 
 private:
+    std::vector<Projectile*> projectiles_;
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     Character* character_;

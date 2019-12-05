@@ -28,7 +28,7 @@ public:
     void Accelerate(int direction);
 
     /* Slows down player movement. */
-    void Decelerate();
+    void Decelerate(double friction);
 
     /* Set functions to allow changing velocity and it's attributes. */
     void SetVelocity(PhysicsVector velocity) { current_velocity_ = velocity; }

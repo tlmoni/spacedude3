@@ -200,7 +200,6 @@ void Menu::Init() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-                Scene* scene = new Scene();
                 scene->Init();
                 delete scene;
             }

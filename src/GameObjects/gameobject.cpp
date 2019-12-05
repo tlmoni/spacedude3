@@ -1,11 +1,11 @@
 #include "gameobject.hpp"
 
+/* Constructor */
 GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name) {
     pos_ = pos;
     name_ = name;
     if(!texture_.loadFromFile(file)){
         // Error checking.
-
     }
     sprite_.setTexture(texture_);
     hitbox_ = hitbox;
@@ -38,7 +38,7 @@ void GameObject::SetHitbox(RectHitbox hitbox) {
 }
 
 /* Overload << operator for printing */
-std::ostream& operator<<(std::ostream& os, GameObject obj) { 
+std::ostream& operator<<(std::ostream& os, GameObject obj) {
     os << "<" << obj.GetName() << ">";
-    return os; 
+    return os;
 }
