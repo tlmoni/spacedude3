@@ -115,7 +115,6 @@ void Player::CheckCollisions() {
                 SetYVelocity(0);
             }
         }
-
     }
 }
 
