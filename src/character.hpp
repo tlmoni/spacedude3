@@ -5,27 +5,39 @@
 #include <SFML/Graphics.hpp>
 #include "recthitbox.hpp"
 
-// Abstract class for player characters to inherit
-// Contains only virtual funtions and default constructor/destructor
-// Should no be used to store any values, that is done by the respective unique characters class
-
+/* Abstract class for player characters to inherit
+   Contains only virtual funtions and default constructor/destructor
+   Should no be used to store any values, that is done by the respective unique characters class */
 class Character {
 public:
+    /* Constructor */
+    Character(std::string texture_file, std::string name, int hitpoints, double max_speed, double acceleration, RectHitbox hitbox) {
+        texture_file_ = texture_file;
+        name_ = name;
+        hitpoints_ = hitpoints;
+        max_speed_ = max_speed;
+        acceleration_ = acceleration;
+        hitbox_ = hitbox;
+    }
 
-// Constructor & destructor
-    Character() = default;
-
+    /* Default destructor */
     ~Character() = default;
 
 // Get functions
-    virtual std::string GetIdentity() = 0;
-    virtual int GetHP() = 0;
-    virtual int GetAmmo() = 0;
-    virtual double GetMoveSpeed() = 0;
-    virtual double GetAcceleration() = 0;
-    virtual RectHitbox GetHitBox() = 0;
+    std::string GetTextureFile() { return texture_file_; }
+    std::string GetIdentity() { return name_; }
+    int GetHP() { return hitpoints_; }
+    double GetMaxSpeed() { return max_speed_; }
+    double GetAcceleration() { return acceleration_; }
+    RectHitbox GetHitBox() { return hitbox_; }
 
-    virtual std::string GetTextureFile() = 0;
 
 private:
+    std::string texture_file_;
+    std::string name_;
+    int hitpoints_;
+    double max_speed_;
+    double acceleration_;
+    RectHitbox hitbox_;
+
 };

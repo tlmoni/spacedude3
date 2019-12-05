@@ -3,9 +3,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
+#include <vector>
+#include "character_spurdo.hpp"
 #include "GameObjects/wall.hpp"
-#include "player.hpp"
 #include "GameObjects/projectile.hpp"
+#include "player.hpp"
 
 /* Forward declaration of Player needed here */
 class Player;

@@ -1,19 +1,14 @@
-#include <iostream>
-#include <vector>
 #include "scene.hpp"
-
 #include "maploader.hpp"
 
 /* Contructor */
 Scene::Scene() {
 
-    auto objects = LoadMap("src/map1.txt");
+    auto objects = LoadMap("src/Maps/map1.txt");
 
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, objects.first);
     objects_ = objects.second;
-
-    std::cout << objects.first;
 }
 
 /* Destructor */
