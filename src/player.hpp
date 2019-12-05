@@ -17,7 +17,7 @@ extern Scene* scene;
 
 
 /* Player object, subclass of GameObject,  */
-class Player : public GameObject {
+class Player : public GameObject, Movement {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
     Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox);
@@ -44,7 +44,6 @@ public:
     sf::View GetView() { return player_cam_; } // Return player camera position.
 
 private:
-    Movement movement_;
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     // Character character_;

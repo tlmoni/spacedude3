@@ -3,8 +3,7 @@
 
 
 /* Constructor. Get parameter for what character player chose. */
-Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player") {
-    movement_ = Movement(7.0f, 1.5f);
+Player::Player(sf::Vector2f pos, std::string identity, RectHitbox hitbox) : GameObject(pos, identity, hitbox, "Player"),Movement(7.0f, 1.5f) {
 
 
     SetOrigin(38.f,47.f);
@@ -54,18 +53,18 @@ bool Player::Action() {
 bool Player::Move(PhysicsVector dir_vector) {
 
     if (LengthOfVector(dir_vector) > 0) {
-        movement_.Accelerate(DirectionOfVector(dir_vector));
+        Accelerate(DirectionOfVector(dir_vector));
     }
-    else if (movement_.GetVelocity().Length() > 0) {
-        movement_.Decelerate();
+    else if (GetVelocity().Length() > 0) {
+        Decelerate();
     }
     else {
         return false;
     }
-    
+
     CheckCollisions();
 
-    SetPosition(GetPosition() + movement_.GetVelocity());
+    SetPosition(GetPosition() + GetVelocity());
 
     return true;
 }
@@ -77,7 +76,7 @@ void Player::CheckCollisions() {
     sf::Rect rect = GetRect();
     sf::Vector2f position = GetRectPosition();
 
-    PhysicsVector velocity = movement_.GetVelocity();
+    PhysicsVector velocity = GetVelocity();
 
     for (GameObject* obj : scene->GetObjects()) {
         sf::Rect obj_rect = obj->GetRect();
@@ -85,37 +84,37 @@ void Player::CheckCollisions() {
 
         if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                movement_.SetXVelocity(0);
+                SetXVelocity(0);
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                movement_.SetYVelocity(0);
+                SetYVelocity(0);
             }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                movement_.SetXVelocity(0);
+                SetXVelocity(0);
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                movement_.SetYVelocity(0);
+                SetYVelocity(0);
             }
         }
         if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                movement_.SetXVelocity(0);
+                SetXVelocity(0);
             }
             if (obj_pos.y >= position.y + rect.height) {
-                movement_.SetYVelocity(0);
+                SetYVelocity(0);
             }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                movement_.SetXVelocity(0);
+                SetXVelocity(0);
             }
             if (obj_pos.y >= position.y + rect.height) {
-                movement_.SetYVelocity(0);
+                SetYVelocity(0);
             }
         }
-        
+
     }
 }
 
