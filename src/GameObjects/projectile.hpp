@@ -17,7 +17,6 @@ public:
     //sf::Time GetTimer() { return bullet_timer_.getElapsedTime; }
 
 private:
-    double slow_rate_ = 0.05f;
-    double speed_ = 10.f;
-    sf::Clock bullet_timer_;
+    double slow_rate_ = 0.2f;
+    double speed_ = 15.f;
 };

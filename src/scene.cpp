@@ -63,7 +63,8 @@ void Scene::Update() {
 
     for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
         if ((*p)->GetVelocity().Length() == 0) {
-            //projectiles_.erase(std::remove(projectiles_.begin(), projectiles_.end(), *p), projectiles_.end());
+            projectiles_.erase(p);
+            p--;
         }
         else {
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
