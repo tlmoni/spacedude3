@@ -41,5 +41,7 @@ public:
 
 private:
     std::vector<GameObject*> objects_;
+    std::vector<Projectile*> projectiles_;
     Player* player_;
+
 };

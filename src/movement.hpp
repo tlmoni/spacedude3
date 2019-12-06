@@ -32,6 +32,7 @@ public:
 
     /* Set functions to allow changing velocity and it's attributes. */
     void SetVelocity(PhysicsVector velocity) { current_velocity_ = velocity; }
+    void SetVelocity(double x, double y) { current_velocity_ = PhysicsVector(x, y); }
     void SetXVelocity(double x) { current_velocity_.x = x; }
     void SetYVelocity(double y) { current_velocity_.y = y; }
     PhysicsVector GetVelocity() { return current_velocity_; }

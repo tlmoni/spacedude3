@@ -10,6 +10,9 @@ Scene::~Scene() {
     for(GameObject* obj : objects_) {
         delete obj;
     }
+    for(Projectile* p : projectiles_) {
+        delete p;
+    }
     delete player_;
 }
 
@@ -42,8 +45,15 @@ void Scene::Loop() {
                 break;
         }
 
-        player_->Action();
+        std::vector<Projectile*> projectiles = player_->Action();
 
+        if (projectiles.empty() == false) {
+            for (Projectile* p : projectiles) {
+                projectiles_.push_back(p);
+            }
+        }
+
+        Update();
         Render();
     }
 }
@@ -51,16 +61,29 @@ void Scene::Loop() {
 /* Update game logic (bullets etc.) */
 void Scene::Update() {
 
+    for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
+        if ((*p)->GetVelocity().Length() == 0) {
+            //projectiles_.erase(std::remove(projectiles_.begin(), projectiles_.end(), *p), projectiles_.end());
+        }
+        else {
+            (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
+            (*p)->Decelerate((*p)->GetSlowRate());
+        }
+    }
 }
 
 /* Render the game and update graphics */
 void Scene::Render() {
 
     main_window->clear();
-
     for(GameObject* obj : objects_) {
         main_window->draw(*(obj->GetSprite()));
         //main_window->draw(obj->GetHitbox());
+    }
+    if (projectiles_.empty() == false) {
+        for(Projectile* p : projectiles_) {
+            main_window->draw(*(p->GetSprite()));
+        }
     }
     main_window->draw(*(player_->GetSprite()));
 

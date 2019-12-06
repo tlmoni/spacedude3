@@ -19,10 +19,10 @@ Player::~Player() {
 }
 
 /* Handle keypress and their effects on player character */
-bool Player::Action() {
+std::vector<Projectile*> Player::Action() {
 
     PhysicsVector dir_vector = PhysicsVector(0.0f, 0.0f);
-    bool action;
+    std::vector<Projectile*> projectiles;
 
     // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -34,7 +34,7 @@ bool Player::Action() {
         dir_vector += PhysicsVector(1.0f, 0.0f);
     }
 
-    // Movement up
+    // Movement Projectile* bullet = new Projectile(GetPosition());up
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         dir_vector += PhysicsVector(0.0f, -1.0f);
     }
@@ -44,34 +44,26 @@ bool Player::Action() {
         dir_vector += PhysicsVector(0.0f, 1.0f);
     }
 
-    if (GetCurrentCursorDirection() != direction_cursor_) {
-        action = true;
-    }
-    action = Move(dir_vector);
+    Move(dir_vector);
     Rotate();
 
-    /*
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         Projectile* bullet = new Projectile(GetPosition());
-        SetVelocity(GetCurrentCursorDirection());
-        //projectiles_.push_back(bullet);
-        main_window->draw(bullet->GetSprite());
-        main_window->display();
-        delete bullet;
+        PhysicsVector direction = GetCurrentCursorDirection();
+        bullet->SetVelocity(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
+        projectiles.push_back(bullet);
+
     }
-    */
-
-
-    //UpdateBullets();
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
 
-    return action;
+    return projectiles;
 }
 
 /* Move player character on the scene and check collisions. */
-bool Player::Move(PhysicsVector dir_vector) {
+void Player::Move(PhysicsVector dir_vector) {
 
     if (LengthOfVector(dir_vector) > 0) {
         Accelerate(DirectionOfVector(dir_vector));
@@ -80,14 +72,12 @@ bool Player::Move(PhysicsVector dir_vector) {
         Decelerate(g_friction);
     }
     else {
-        return false;
+        return;
     }
 
     CheckCollisions();
 
     SetPosition(GetPosition() + GetVelocity());
-
-    return true;
 }
 
 /* Check if player is colliding with items and change movement according to that */
@@ -137,16 +127,7 @@ void Player::CheckCollisions() {
     }
 }
 
-void Player::UpdateBullets() {
-    for (Projectile* p : projectiles_) {
-        if (p->GetVelocity().Length() == 0) {
-            delete p;
-        }
-        else {
-            p->Decelerate(p->GetSlowRate());
-        }
-    }
-}
+
 
 /* Rotate player */
 void Player::Rotate() {

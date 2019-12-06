@@ -30,19 +30,16 @@ public:
     void Loop();
 
     /* Function handling keypress and their effects on player character */
-    bool Action();
+    std::vector<Projectile*> Action();
 
     /* Function resposible for updating player character position */
-    bool Move(PhysicsVector dir_vector);
+    void Move(PhysicsVector dir_vector);
 
     /* Rotote player */
     void Rotate();
 
     /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions();
-
-    /* Updates bullet positions and deceleration */
-    void UpdateBullets();
 
     /* Function that calculates current mousewise direction, relative to player sprite */
     PhysicsVector GetCurrentCursorDirection();
