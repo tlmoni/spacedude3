@@ -6,6 +6,7 @@
 #include "scene.hpp"
 
 extern sf::RenderWindow* main_window;
+extern int g_fps;
 extern Scene* scene;
 
 /* Menu class handles the composition of different menu scenarios. menu_items_ vector holds
@@ -16,7 +17,7 @@ public:
     /* Constructor */
     Menu();
 
-    /* Default destructor */
+    /* Destructor */
     ~Menu();
 
     /* Draws all the sprites in the menu items vector. */
@@ -26,14 +27,23 @@ public:
        the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
     void Init();
 
-    /* Add main menu sprites to the menuitems list */
+    /* Add main menu sprites to the menuitems vector */
     void Load_MainMenu();
 
-    /* Add settings menu sprites to the menuitems list */
+    /* Add settings menu sprites to the menuitems vector */
     void Load_SettingsMenu();
 
-    /* Add play menu sprites to the menuitems list */
+    /* Add name menu sprites to the menuitems vector */
+    void Load_NameMenu();
+
+    /* Add play menu sprites to the menuitems vector */
     void Load_PlayMenu();
+
+    /* Add host menu sprites to the menuitems vector */
+    void Load_HostMenu();
+
+    /* Add join menu sprites to the menuitems vector */
+    void Load_JoinMenu();
 
     /* Clear window and menu items list of sprites */
     void Clear_MenuItems();
