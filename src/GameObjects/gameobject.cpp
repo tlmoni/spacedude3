@@ -7,7 +7,7 @@ hitpoints_(hitpoints), shootable_(shootable) {
     pos_ = pos;
     name_ = name;
     texture_ = new sf::Texture();
-    if(!texture_->loadFromFile(file)){
+    if(!texture_->loadFromFile(file)) {
         // Error checking.
     }
     sprite_.setTexture(*texture_);
