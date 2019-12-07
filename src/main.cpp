@@ -13,7 +13,6 @@ float g_friction = 1.3f;
 
 int main() {
     menu->Init();
-    scene->Init();
 
     delete menu;
     delete scene;
