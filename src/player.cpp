@@ -6,6 +6,11 @@ GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->
 
     SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());
+    if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
+        std::cout << "ERROR: Loading gun sound failed!" << std::endl;
+    }
+    gunshot_.setBuffer(buffer_);
+    gunshot_.setVolume(80);
 }
 
 /* Handle keypress and their effects on player character */
@@ -43,6 +48,9 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     sf::Time time = reload_timer_.getElapsedTime();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
         reload_timer_.restart();
+        if (sound_on) {
+            gunshot_.play();
+        }
         Projectile* bullet = new Projectile(GetPosition());
         PhysicsVector direction = GetCurrentCursorDirection();
         direction = PhysicsVector(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
