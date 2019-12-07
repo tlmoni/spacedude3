@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "scene.hpp"
 
@@ -55,6 +56,9 @@ private:
     sf::Texture main_menu_background_; // Texture for menu background
     sf::Font font_; // Font that is used for menu text items
     sf::Text playername_; // Text that holds the player name
+    sf::Music music_; // Music that holds the main menu music
+    sf::Sound button_; // Sound that holds the button press sample
+    sf::SoundBuffer buffer_; // Buffer for the button sample
     int menu_status; // Indicates which menu scenario is to be loaded
     int music_on = true;
     int sound_on = true;

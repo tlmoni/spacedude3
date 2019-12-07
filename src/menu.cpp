@@ -11,8 +11,16 @@ Menu::Menu() {
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         // Error checking
     }
+    if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
+        // Error checking
+    }
+    if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
+        // Error checking
+    }
+    button_.setBuffer(buffer_);
     menu_status = 0;
     Load_MainMenu();
+    music_.play();
     Draw();
 }
 
@@ -97,14 +105,23 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_NameMenu();
                 }
 
                 else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_SettingsMenu();
                 }
 
                 else if (menu_items_[2]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     main_window->close();
                 }
 
@@ -152,6 +169,9 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_MainMenu();
                 }
 
@@ -159,6 +179,9 @@ void Menu::Init() {
                     if (sound_on) {
                         if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
                             menu_items_[1]->setTextureRect(sf::Rect(0, 840, 250, 120));
+                            if (sound_on) {
+                                button_.play();
+                            }
                             sound_on = false;
                         }
                     }
@@ -173,6 +196,10 @@ void Menu::Init() {
                     if (music_on) {
                         if (menu_items_[2]->getGlobalBounds().contains(mouse_pos)) {
                             menu_items_[2]->setTextureRect(sf::Rect(0, 600, 250, 120));
+                            if (sound_on) {
+                                button_.play();
+                            }
+                            music_.stop();
                             music_on = false;
                         }
                     }
@@ -180,6 +207,10 @@ void Menu::Init() {
                     else {
                         if (menu_items_[2]->getGlobalBounds().contains(mouse_pos)) {
                             menu_items_[2]->setTextureRect(sf::Rect(0, 480, 250, 120));
+                            if (sound_on) {
+                                button_.play();
+                            }
+                            music_.play();
                             music_on = true;
                         }
                     }
@@ -209,6 +240,9 @@ void Menu::Init() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+                if (sound_on) {
+                    button_.play();
+                }
                 Load_PlayMenu();
             }
 
@@ -231,6 +265,9 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_MainMenu();
                 }
             }
@@ -275,14 +312,23 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_NameMenu();
                 }
 
                 else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_HostMenu();
                 }
 
                 else if (menu_items_[2]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_JoinMenu();
                 }
 
@@ -322,11 +368,18 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_PlayMenu();
                 }
 
                 else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Clear_MenuItems();
+                    music_.stop();
                     scene->Init();
                     delete scene;
                 }
@@ -365,11 +418,18 @@ void Menu::Init() {
                 sf::Vector2f mouse_pos(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
 
                 if (menu_items_[0]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Load_PlayMenu();
                 }
 
                 else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
                     Clear_MenuItems();
+                    music_.stop();
                     scene->Init();
                     delete scene;
                 }
