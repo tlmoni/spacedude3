@@ -179,9 +179,6 @@ void Menu::Init() {
                     if (sound_on) {
                         if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
                             menu_items_[1]->setTextureRect(sf::Rect(0, 840, 250, 120));
-                            if (sound_on) {
-                                button_.play();
-                            }
                             sound_on = false;
                         }
                     }
@@ -189,6 +186,7 @@ void Menu::Init() {
                     else {
                         if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
                             menu_items_[1]->setTextureRect(sf::Rect(0, 720, 250, 120));
+                            button_.play();
                             sound_on = true;
                         }
                     }
