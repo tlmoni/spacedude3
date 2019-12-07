@@ -1,7 +1,5 @@
-#information
-
 #background
-spurdo.jpg
+src/Textures/background1.jpg
 
 #map
 w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w

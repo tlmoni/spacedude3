@@ -17,11 +17,14 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
-
     auto objects = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, objects.first);
     objects_ = objects.second;
+
+    if (!background_.loadFromFile("src/Textures/background1.jpg")) {
+        // Error handling
+    }
 
     main_window->setFramerateLimit(g_fps);
     Render();
@@ -74,8 +77,14 @@ void Scene::Update() {
 
 /* Render the game and update graphics */
 void Scene::Render() {
-
     main_window->clear();
+
+    sf::Sprite background;
+    background.setTexture(background_);
+    background.setScale(sf::Vector2f(0.8f, 0.8f));
+    background.setPosition(sf::Vector2f(-400.f, -400.f));
+    main_window->draw(background);
+
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
         //main_window->draw(obj->GetHitbox());

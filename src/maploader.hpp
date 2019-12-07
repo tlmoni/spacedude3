@@ -23,7 +23,7 @@ public:
 
     /* Read the map file given as parameter and create game objects according to it.
     Returns a pair containing the Player's coordinate vector and a vector (container) of GameObjects in the map. */
-    static std::pair<PhysicsVector, std::vector<GameObject*>> LoadMap(std::string filename) {
+    static std::pair<std::pair<std::string, PhysicsVector>, std::vector<GameObject*>> LoadMap(std::string filename) {
         std::ifstream is(filename); // Open the file to be read
         if (is.fail()) {
             is.close();
@@ -37,7 +37,11 @@ public:
         std::string line;
 
         while (std::getline(is, line)) {
-            if (line == "#map") {
+            if (line == "#background") {
+                std::getline(is, line);
+            }
+
+            else if (line == "#map") {
                 while (std::getline(is, line)) {
                     x = 0.0f;
                     std::vector<std::string> line_objects = Split(line, '-');
@@ -61,7 +65,4 @@ public:
         is.close();
         return std::pair<PhysicsVector, std::vector<GameObject*>>(player_position, game_objects);
     }
-
 };
-
-
