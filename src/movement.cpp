@@ -1,7 +1,7 @@
 #include "movement.hpp"
 
 /* Constructor */
-Movement::Movement(double max_speed, double acceleration) : max_speed_(max_speed), acceleration_(acceleration) {
+Movement::Movement(float max_speed, float acceleration) : max_speed_(max_speed), acceleration_(acceleration) {
     current_velocity_ = PhysicsVector(0.0f, 0.0f);
 }
 
@@ -43,11 +43,11 @@ void Movement::Accelerate(int direction) {
     // Calculates acceleration depending on current_velocity and the direction of acceleration
     else {
         PhysicsVector unit = current_velocity_.UnitVector();
-        double length_acc1 = acc.Length()*cos(acc.AngleBetween(current_velocity_));
+        float length_acc1 = acc.Length()*cos(acc.AngleBetween(current_velocity_));
         PhysicsVector acc1 = PhysicsVector(unit.x*length_acc1, unit.y*length_acc1);
         PhysicsVector acc2 = acc.DecreaseBy(acc1);
 
-        if(LengthOfVector(current_velocity_.IncreaseBy(acc1)) >= max_speed_) {
+        if(current_velocity_.IncreaseBy(acc1).Length() >= max_speed_) {
             PhysicsVector max_speed = PhysicsVector(unit.x*max_speed_, unit.y*max_speed_);
             acc1 = max_speed.DecreaseBy(current_velocity_);
         }
@@ -57,7 +57,7 @@ void Movement::Accelerate(int direction) {
 }
 
 /* Decelerates current_movement_ */
-void Movement::Decelerate(double friction) {
+void Movement::Decelerate(float friction) {
     PhysicsVector unit = current_velocity_.UnitVector();
     PhysicsVector dec = PhysicsVector(unit.x*friction, unit.y*friction);
 
@@ -66,11 +66,6 @@ void Movement::Decelerate(double friction) {
     }
 
     current_velocity_ = current_velocity_.DecreaseBy(dec);
-}
-
-/* Returns the length of a double type vector */
-double LengthOfVector(sf::Vector2f vector) {
-    return sqrt(pow(vector.x, 2.0) + pow(vector.y, 2.0));
 }
 
 /* Returns the direction of the vector as an int (enum) */

@@ -1,10 +1,8 @@
-#include <cmath>
 #include "player.hpp"
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
-Movement(character->GetMaxSpeed(), character->GetAcceleration()),
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()),
 character_(character) {
 
     SetOrigin(38.f,47.f);
@@ -13,13 +11,10 @@ character_(character) {
 
 Player::~Player() {
     delete character_;
-    for(Projectile* p : projectiles_) {
-        delete p;
-    }
 }
 
 /* Handle keypress and their effects on player character */
-std::vector<Projectile*> Player::Action() {
+std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 
     PhysicsVector dir_vector = PhysicsVector(0.0f, 0.0f);
     std::vector<Projectile*> projectiles;
@@ -45,6 +40,8 @@ std::vector<Projectile*> Player::Action() {
     }
 
     Move(dir_vector);
+    CheckCollisions(objects);
+    SetPosition(GetPosition() + GetVelocity());
     Rotate();
 
     sf::Time time = reload_timer_.getElapsedTime();
@@ -52,9 +49,9 @@ std::vector<Projectile*> Player::Action() {
         reload_timer_.restart();
         Projectile* bullet = new Projectile(GetPosition());
         PhysicsVector direction = GetCurrentCursorDirection();
-        bullet->SetVelocity(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
+        direction = PhysicsVector(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
+        bullet->SetVelocity(direction + GetVelocity());
         projectiles.push_back(bullet);
-
     }
 
     player_cam_.setCenter(GetPosition());
@@ -66,7 +63,7 @@ std::vector<Projectile*> Player::Action() {
 /* Move player character on the scene and check collisions. */
 void Player::Move(PhysicsVector dir_vector) {
 
-    if (LengthOfVector(dir_vector) > 0) {
+    if (dir_vector.Length() > 0) {
         Accelerate(DirectionOfVector(dir_vector));
     }
     else if (GetVelocity().Length() > 0) {
@@ -75,60 +72,7 @@ void Player::Move(PhysicsVector dir_vector) {
     else {
         return;
     }
-
-    CheckCollisions();
-
-    SetPosition(GetPosition() + GetVelocity());
 }
-
-/* Check if player is colliding with items and change movement according to that */
-void Player::CheckCollisions() {
-    /* hitbox rect of player */
-    sf::Rect rect = GetRect();
-    sf::Vector2f position = GetRectPosition();
-
-    PhysicsVector velocity = GetVelocity();
-
-    for (GameObject* obj : scene->GetObjects()) {
-        sf::Rect obj_rect = obj->GetRect();
-        sf::Vector2f obj_pos = obj->GetPosition();
-
-        if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
-            if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
-            if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-        }
-    }
-}
-
-
 
 /* Rotate player */
 void Player::Rotate() {

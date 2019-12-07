@@ -3,6 +3,8 @@
 #include <iostream>
 #include "gameobject.hpp"
 
+class GameObject;
+
 /* Wall block, subclass of GameObject */
 class Wall : public GameObject {
 public:

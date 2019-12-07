@@ -1,17 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <iostream>
 #include <vector>
-#include "character_spurdo.hpp"
-#include "GameObjects/wall.hpp"
-#include "GameObjects/projectile.hpp"
-#include "player.hpp"
+#include "maploader.hpp"
 
-/* Forward declaration of Player needed here */
-class Player;
+class GameObject;
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;

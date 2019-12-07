@@ -1,5 +1,4 @@
 #include "scene.hpp"
-#include "maploader.hpp"
 
 /* Contructor */
 Scene::Scene() { }
@@ -19,7 +18,7 @@ Scene::~Scene() {
 /* Run and setup singleplayer scene */
 void Scene::Init() {
 
-    auto objects = LoadMap("src/Maps/map1.txt");
+    auto objects = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, objects.first);
     objects_ = objects.second;
@@ -45,7 +44,7 @@ void Scene::Loop() {
                 break;
         }
 
-        std::vector<Projectile*> projectiles = player_->Action();
+        std::vector<Projectile*> projectiles = player_->Action(GetObjects());
 
         if (projectiles.empty() == false) {
             for (Projectile* p : projectiles) {
@@ -78,16 +77,16 @@ void Scene::Render() {
 
     main_window->clear();
     for(GameObject* obj : objects_) {
-        main_window->draw(*(obj->GetSprite()));
+        main_window->draw(obj->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
-            main_window->draw(*(p->GetSprite()));
+            main_window->draw(p->GetSprite());
+            //main_window->draw(p->GetHitbox());
         }
     }
-    main_window->draw(*(player_->GetSprite()));
-
+    main_window->draw(player_->GetSprite());
     //main_window->draw(player_->GetHitbox());
 
 

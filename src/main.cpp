@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SFML/System.hpp>
-#include "scene.hpp"
 #include "menu.hpp"
 
 // Define main_window and scene as global variables
@@ -10,7 +9,7 @@ Scene* scene = new Scene();
 Menu* menu = new Menu();
 
 int g_fps = 60;
-double g_friction = 1.3f;
+float g_friction = 1.3f;
 
 int main() {
     //menu->Init();

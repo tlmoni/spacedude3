@@ -1,24 +1,17 @@
 #pragma once
 
 #include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 #include "character_spurdo.hpp"
-#include "GameObjects/gameobject.hpp"
 #include "GameObjects/projectile.hpp"
-#include "movement.hpp"
-#include "scene.hpp"
-
 
 /* Forward declaration of Scene needed here */
-class Scene;
+class Projectile;
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
-extern Scene* scene;
 
 /* Player object, subclass of GameObject,  */
-class Player : public GameObject, public Movement {
+class Player : public GameObject {
 public:
     /* Constructor takes in Vector2f template class for manipulating 2-dimensional vectors (Position on the grid) */
     Player(Character* character, sf::Vector2f pos);
@@ -30,7 +23,7 @@ public:
     void Loop();
 
     /* Function handling keypress and their effects on player character */
-    std::vector<Projectile*> Action();
+    std::vector<Projectile*> Action(std::vector<GameObject*> objects);
 
     /* Function resposible for updating player character position */
     void Move(PhysicsVector dir_vector);
@@ -38,17 +31,12 @@ public:
     /* Rotote player */
     void Rotate();
 
-    /* Check if player is colliding with items and change movement according to that */
-    void CheckCollisions();
-
     /* Function that calculates current mousewise direction, relative to player sprite */
     PhysicsVector GetCurrentCursorDirection();
 
     sf::View GetView() { return player_cam_; }
-    std::vector<Projectile*> GetProjectiles() { return projectiles_; }
 
 private:
-    std::vector<Projectile*> projectiles_;
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     Character* character_;
