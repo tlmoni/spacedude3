@@ -1,21 +1,23 @@
-#include <cmath>
 #include "player.hpp"
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity()),
-Movement(character->GetMaxSpeed(), character->GetAcceleration()),
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()),
 character_(character) {
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
 }
 
+Player::~Player() {
+    delete character_;
+}
+
 /* Handle keypress and their effects on player character */
-bool Player::Action() {
+std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 
     PhysicsVector dir_vector = PhysicsVector(0.0f, 0.0f);
-    bool action;
+    std::vector<Projectile*> projectiles;
 
     // Movement to the left
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -27,115 +29,48 @@ bool Player::Action() {
         dir_vector += PhysicsVector(1.0f, 0.0f);
     }
 
-    // Movement forward
+    // Movement Projectile* bullet = new Projectile(GetPosition());up
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         dir_vector += PhysicsVector(0.0f, -1.0f);
     }
 
-    // Movement to backward
+    // Movement down
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         dir_vector += PhysicsVector(0.0f, 1.0f);
     }
 
-    if (GetCurrentCursorDirection() != direction_cursor_) {
-        action = true;
-    }
-    action = Move(dir_vector);
+    Move(dir_vector);
+    CheckCollisions(objects);
+    SetPosition(GetPosition() + GetVelocity());
     Rotate();
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Time time = reload_timer_.getElapsedTime();
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
+        reload_timer_.restart();
         Projectile* bullet = new Projectile(GetPosition());
-        SetVelocity(GetCurrentCursorDirection());
-        //projectiles_.push_back(bullet);
-        main_window->draw(bullet->GetSprite());
-        main_window->display();
-        delete bullet;
+        PhysicsVector direction = GetCurrentCursorDirection();
+        direction = PhysicsVector(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
+        bullet->SetVelocity(direction + GetVelocity());
+        projectiles.push_back(bullet);
     }
-
-
-    //UpdateBullets();
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());
 
-    return action;
+    return projectiles;
 }
 
 /* Move player character on the scene and check collisions. */
-bool Player::Move(PhysicsVector dir_vector) {
+void Player::Move(PhysicsVector dir_vector) {
 
-    if (LengthOfVector(dir_vector) > 0) {
+    if (dir_vector.Length() > 0) {
         Accelerate(DirectionOfVector(dir_vector));
     }
     else if (GetVelocity().Length() > 0) {
         Decelerate(g_friction);
     }
     else {
-        return false;
-    }
-
-    CheckCollisions();
-
-    SetPosition(GetPosition() + GetVelocity());
-
-    return true;
-}
-
-/* Check if player is colliding with items and change movement according to that */
-void Player::CheckCollisions() {
-    /* hitbox rect of player */
-    sf::Rect rect = GetRect();
-    sf::Vector2f position = GetRectPosition();
-
-    PhysicsVector velocity = GetVelocity();
-
-    for (GameObject* obj : scene->GetObjects()) {
-        sf::Rect obj_rect = obj->GetRect();
-        sf::Vector2f obj_pos = obj->GetPosition();
-
-        if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
-            if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
-            if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
-            }
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-        }
-    }
-}
-
-void Player::UpdateBullets() {
-    for (Projectile* p : projectiles_) {
-        if (p->GetVelocity().Length() == 0) {
-            delete p;
-        }
-        else {
-            p->Decelerate(p->GetSlowRate());
-        }
+        return;
     }
 }
 

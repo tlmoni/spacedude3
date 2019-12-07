@@ -1,7 +1,8 @@
 #pragma once
 
 #include <SFML/System.hpp>
-#include <math.h>
+#include <cmath>
+#include <ctgmath>
 #include <iostream>
 
 /* Subclass of sf::Vector2f with additional features */
@@ -11,7 +12,7 @@ public:
     PhysicsVector() = default;
 
     /* Constructor */
-    PhysicsVector(double x, double y) : sf::Vector2f(x,y) { }
+    PhysicsVector(float x, float y) : sf::Vector2f(x,y) { }
 
     /* Constructor from sf::Vector2f */
     PhysicsVector(sf::Vector2f vector) : sf::Vector2f(vector) { }
@@ -20,19 +21,19 @@ public:
     PhysicsVector UnitVector();
 
     /* Returns the length of the vector */
-    double Length();
+    float Length();
 
     /* Calculates angle from x-axis in range -180 to 180 degrees */
-    double Angle();
+    float Angle();
 
     /* Returns the angle between 2 vectors (self & parameter), returns angle in radians. */
-    double AngleBetween(PhysicsVector vector);
+    float AngleBetween(PhysicsVector vector);
 
     /* Dot product of 2 vectors, returns double */
-    double MultiplyWith(PhysicsVector vector);
+    float DotProduct(PhysicsVector vector);
 
     /* Multiply vector by some value */
-    PhysicsVector MultiplyBy(double multiplier);
+    PhysicsVector MultiplyBy(float multiplier);
 
     /* Returns the sum of the vectors (self & parameter) */
     PhysicsVector IncreaseBy(PhysicsVector vector);
