@@ -56,6 +56,15 @@ void Menu::Draw() {
         userinput.setString(inputstr);
         main_window->draw(userinput);
     }
+    if (menu_status == 5) {
+        std::string inputstr = sIP_.getString().toAnsiString();
+        sf::Text userinput;
+        userinput.setFont(font_);
+        userinput.setCharacterSize(50);
+        userinput.setPosition(main_window->getSize().x / 3.4 , main_window->getSize().y / 3);
+        userinput.setString(inputstr);
+        main_window->draw(userinput);
+    }
 }
 
 /* Initialize the window and loads main menu by default. menu_status indicates
@@ -388,8 +397,22 @@ void Menu::Init() {
 
         // Join menu
         else if (menu_status == 5) {
+            std::string ip;
             if (event.type == sf::Event::Closed) {
                 main_window->close();
+            }
+
+            if (event.type == sf::Event::TextEntered) {
+                if (event.text.unicode == 8 && sIP_.getString().getSize() > 0) {
+                    sf::String temporary = sIP_.getString();
+                    temporary.erase(temporary.getSize() - 1, temporary.getSize());
+                    sIP_.setString(temporary);
+                }
+
+                else if (event.text.unicode < 127 && event.text.unicode > 31) {
+                    ip += event.text.unicode;
+                    sIP_.setString(sIP_.getString() + ip);
+                }
             }
 
             if (event.type == sf::Event::MouseMoved) {
@@ -403,13 +426,6 @@ void Menu::Init() {
                 else {
                     menu_items_[0]->setColor(sf::Color(sf::Color::White));
                 }
-
-                if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
-                    menu_items_[1]->setColor(sf::Color(sf::Color::Red));
-                }
-                else {
-                    menu_items_[1]->setColor(sf::Color(sf::Color::White));
-                }
             }
 
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -422,16 +438,6 @@ void Menu::Init() {
                         button_.play();
                     }
                     Load_PlayMenu();
-                }
-
-                else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
-                    if (sound_on) {
-                        button_.play();
-                    }
-                    Clear_MenuItems();
-                    music_.stop();
-                    scene->Init();
-                    delete scene;
                 }
             }
         }
@@ -567,7 +573,10 @@ void Menu::Load_HostMenu() {
     sf::Sprite* play = new sf::Sprite();
     sf::Text* ip = new sf::Text();
 
-    std::string str = "IP: " + "";
+    std::string str = "IP: " + sf::IpAddress::getPublicAddress().toString();
+    ip->setFont(font_);
+    ip->setString(str);
+    ip->setPosition(sf::Vector2f(window_size.x / 2.5 , window_size.y / 2.5));
 
     back->setTexture(main_menu_texture_);
     back->setTextureRect(sf::Rect(0, 360, 250, 120));
@@ -579,6 +588,7 @@ void Menu::Load_HostMenu() {
 
     menu_items_.push_back(back);
     menu_items_.push_back(play);
+    menu_text_items_.push_back(ip);
 }
 
 /* Add join menu sprites to the menuitems vector */
@@ -587,18 +597,19 @@ void Menu::Load_JoinMenu() {
     menu_status = 5;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite* back = new sf::Sprite();
-    sf::Sprite* play = new sf::Sprite();
+    sf::Text* help = new sf::Text();
+
+    std::string str = "Enter the IP to be joined";
+    help->setFont(font_);
+    help->setString(str);
+    help->setPosition(sf::Vector2f(window_size.x / 4.2 , window_size.y / 4));
 
     back->setTexture(main_menu_texture_);
     back->setTextureRect(sf::Rect(0, 360, 250, 120));
     back->setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 1.7));
 
-    play->setTexture(main_menu_texture_);
-    play->setTextureRect(sf::Rect(0, 0, 250, 120));
-    play->setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 4));
-
     menu_items_.push_back(back);
-    menu_items_.push_back(play);
+    menu_text_items_.push_back(help);
 }
 
 /* Clear menu items vector of sprites */
