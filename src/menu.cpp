@@ -14,6 +14,9 @@ Menu::Menu() {
     if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
         // Error checking
     }
+    if (!game_.openFromFile("src/Audio/Music/music_game.ogg")) {
+        // Error checking
+    }
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
         // Error checking
     }
@@ -401,7 +404,13 @@ void Menu::Init() {
                     }
                     Clear_MenuItems();
                     music_.stop();
+                    if (music_on) {
+                        game_.play();
+                        game_.setVolume(100);
+                        game_.setLoop(true);
+                    }
                     scene->Init();
+                    game_.stop();
                     delete scene;
                 }
             }

@@ -58,6 +58,7 @@ private:
     sf::Font font_; // Font that is used for menu text items
     sf::Text playername_; // Text that holds the player name
     sf::Music music_; // Music that holds the main menu music
+    sf::Music game_; // Music that holds the game music
     sf::Sound button_; // Sound that holds the button press sample
     sf::SoundBuffer buffer_; // Buffer for the button sample
     sf::Text sIP_; // Holds the IP address to be joined
