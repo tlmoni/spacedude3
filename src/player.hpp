@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "character_spurdo.hpp"
+#include "character_spacedude.hpp"
 #include "GameObjects/projectile.hpp"
 
 /* Forward declaration of Scene needed here */
