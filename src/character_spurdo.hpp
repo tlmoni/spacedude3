@@ -2,9 +2,9 @@
 
 #include "character.hpp"
 
-// Unique character "template"
-// Makes use of functions held within Character class.
-// Also used to store all unique attributes of a character
+/* Unique character "template"
+   Makes use of functions held within Character class.
+   Also used to store all unique attributes of a character */
 
 class CharacterSpurdo : public Character {
 public:

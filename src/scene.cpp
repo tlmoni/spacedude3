@@ -17,12 +17,13 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
-    auto objects = MapLoader::LoadMap("src/Maps/map1.txt");
+    auto map = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, objects.first);
-    objects_ = objects.second;
+    player_ = new Player(spurdo, map.player_location);
+    objects_ = map.objects;
+    enemies_ = map.enemies;
 
-    if (!background_.loadFromFile("src/Textures/background1.jpg")) {
+    if (!background_.loadFromFile(map.background_file)) {
         // Error handling
     }
 
@@ -88,6 +89,10 @@ void Scene::Render() {
 
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
+        //main_window->draw(obj->GetHitbox());
+    }
+    for(GameObject* enemy : enemies_) {
+        main_window->draw(enemy->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {

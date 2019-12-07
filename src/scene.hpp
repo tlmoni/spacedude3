@@ -35,7 +35,7 @@ public:
 private:
     sf::Texture background_;
     std::vector<GameObject*> objects_;
+    std::vector<GameObject*> enemies_;
     std::vector<Projectile*> projectiles_;
     Player* player_;
-
 };
