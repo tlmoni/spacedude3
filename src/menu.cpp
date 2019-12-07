@@ -5,7 +5,7 @@ Menu::Menu() {
     if (!main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png")) {
         // Error checking
     }
-    if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png")) {
+    if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/background.png")) {
         // Error checking
     }
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
@@ -19,6 +19,8 @@ Menu::Menu() {
     }
     button_.setBuffer(buffer_);
     menu_status = 0;
+    x_ = 0;
+    clock_.restart();
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
@@ -40,6 +42,16 @@ Menu::~Menu() {
 void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
+
+    if (clock_.getElapsedTime().asMilliseconds() > 18150) {
+        x_ = 0;
+        clock_.restart();
+    }
+    else {
+        x_ += 1;
+    }
+    background.setTextureRect(sf::Rect(x_, 0, 3200, 1200));
+
     main_window->draw(background);
     for (sf::Sprite* it : menu_items_) {
         main_window->draw(*it);
