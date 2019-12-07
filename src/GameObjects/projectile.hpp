@@ -7,7 +7,7 @@
 class Projectile : public GameObject {
 public:
     /* Constructor */
-    Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(6.f, 6.f), "Bullet", 5, 1) { }
+    Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(10.f, 10.f), "Bullet", 5, 1) { }
 
     double GetSlowRate() { return slow_rate_; }
     double GetSpeed() { return speed_; }

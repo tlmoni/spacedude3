@@ -2,15 +2,10 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()),
-character_(character) {
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
-}
-
-Player::~Player() {
-    delete character_;
 }
 
 /* Handle keypress and their effects on player character */

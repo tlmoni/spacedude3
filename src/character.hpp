@@ -23,7 +23,7 @@ public:
     /* Default destructor */
     ~Character() = default;
 
-// Get functions
+    // Get functions
     std::string GetTextureFile() { return texture_file_; }
     std::string GetIdentity() { return name_; }
     int GetHP() { return hitpoints_; }
@@ -39,5 +39,4 @@ private:
     double max_speed_;
     double acceleration_;
     RectHitbox hitbox_;
-
 };

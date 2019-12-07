@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "GameObjects/wall.hpp"
+#include "GameObjects/zombie.hpp"
 #include "player.hpp"
 
 class MapLoader {
@@ -50,6 +51,9 @@ public:
                         // Wall object
                         else if (object == "w") {
                             game_objects.push_back(new Wall(PhysicsVector(x, y)));
+                        }
+                        else if (object == "Z") {
+                            game_objects.push_back(new Zombie(PhysicsVector(x, y)));
                         }
                         x += 64.f;
                     }
