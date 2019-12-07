@@ -13,6 +13,6 @@ public:
     double GetSpeed() { return speed_; }
 
 private:
-    double slow_rate_ = 0.2f;
-    double speed_ = 15.f;
+    double slow_rate_ = 0.4f;
+    double speed_ = 25.f;
 };

@@ -45,7 +45,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     Rotate();
 
     sf::Time time = reload_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 200) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
         reload_timer_.restart();
         Projectile* bullet = new Projectile(GetPosition());
         PhysicsVector direction = GetCurrentCursorDirection();
