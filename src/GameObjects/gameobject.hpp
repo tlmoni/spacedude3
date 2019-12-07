@@ -9,7 +9,7 @@ extern sf::RenderWindow* main_window;
 class GameObject : public Movement {
 public:
     GameObject() = default;
-    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f, double acceleration = 1.f);
+    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f, double acceleration = 1.f, int hitpoints = 69, bool shootable = false);
     ~GameObject();
 
     /* Sets position of the object and its sprite */
@@ -41,6 +41,8 @@ private:
     sf::Sprite sprite_; /* Variable to hold player sprite */
     sf::Texture* texture_;
     RectHitbox hitbox_;
+    int hitpoints_;
+    bool shootable_;
 };
 
 /* Overload << operator for printing */

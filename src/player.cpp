@@ -2,15 +2,10 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()),
-character_(character) {
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
 
     SetOrigin(38.f,47.f);
     player_cam_.setCenter(GetPosition());
-}
-
-Player::~Player() {
-    delete character_;
 }
 
 /* Handle keypress and their effects on player character */
@@ -44,6 +39,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     SetPosition(GetPosition() + GetVelocity());
     Rotate();
 
+    // Handle bullet spawning and setting of initial speed
     sf::Time time = reload_timer_.getElapsedTime();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
         reload_timer_.restart();

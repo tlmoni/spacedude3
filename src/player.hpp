@@ -17,7 +17,7 @@ public:
     Player(Character* character, sf::Vector2f pos);
 
     /* Default destructor */
-    ~Player();
+    ~Player() = default;
 
     /* Function to handle player movement and events and update them to the scene */
     void Loop();
@@ -39,6 +39,5 @@ public:
 private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
-    Character* character_;
     sf::Clock reload_timer_;
 };

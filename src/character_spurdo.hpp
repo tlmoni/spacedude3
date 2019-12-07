@@ -9,6 +9,5 @@
 class CharacterSpurdo : public Character {
 public:
     CharacterSpurdo() : Character("src/Textures/duderinosmall.png", "Spurdo", 100, 7.0f, 1.5f, RectHitbox(70.f, 70.f)) { }
-
 private:
 };
