@@ -4,7 +4,7 @@
 Player::Player(Character* character, sf::Vector2f pos) :
 GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
 
-    SetOrigin(38.f,47.f);
+    SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());
 }
 
