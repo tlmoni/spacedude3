@@ -565,6 +565,9 @@ void Menu::Load_HostMenu() {
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite* back = new sf::Sprite();
     sf::Sprite* play = new sf::Sprite();
+    sf::Text* ip = new sf::Text();
+
+    std::string str = "IP: " + "";
 
     back->setTexture(main_menu_texture_);
     back->setTextureRect(sf::Rect(0, 360, 250, 120));

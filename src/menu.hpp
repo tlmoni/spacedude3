@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "scene.hpp"
 
 extern sf::RenderWindow* main_window;
