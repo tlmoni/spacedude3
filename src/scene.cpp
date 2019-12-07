@@ -66,6 +66,7 @@ void Scene::Update() {
             p--;
         }
         else {
+            (*p)->CheckCollisions(objects_);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
             (*p)->Decelerate((*p)->GetSlowRate());
         }

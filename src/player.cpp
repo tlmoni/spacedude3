@@ -44,6 +44,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     SetPosition(GetPosition() + GetVelocity());
     Rotate();
 
+    // Handle bullet spawning and setting of initial speed
     sf::Time time = reload_timer_.getElapsedTime();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
         reload_timer_.restart();
