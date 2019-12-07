@@ -21,6 +21,7 @@ Menu::Menu() {
     menu_status = 0;
     Load_MainMenu();
     music_.play();
+    music_.setLoop(true);
     Draw();
 }
 
@@ -209,6 +210,7 @@ void Menu::Init() {
                                 button_.play();
                             }
                             music_.play();
+                            music_.setLoop(true);
                             music_on = true;
                         }
                     }
