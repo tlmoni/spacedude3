@@ -4,11 +4,13 @@
 
 Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 
+
 ![Image](./menu_500px.png) ![Image](./gameplay_500px.png)
+
 
 ### Features
 
-* A Brawl Stars-like game
+* A [Brawl Stars](https://supercell.com/en/games/brawlstars/)-like game
 * A real-time game
 * 2D-graphics (top-down view)
 * Pixelated art style
