@@ -10,7 +10,7 @@ class GameObject : public Movement {
 public:
     /* Constructor */
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f,
-        double acceleration = 1.f, int hitpoints = 69, bool shootable = false, int damage = 0);
+        double acceleration = 1.f, float hitpoints = 69, bool shootable = false, int damage = 0);
 
     /* Copy constructor */
     GameObject(const GameObject&);
@@ -33,6 +33,9 @@ public:
     /* Set new hitbox for GameObject */
     void SetHitbox(RectHitbox hitbox);
 
+    /* Handle hpbar updating with hitpoints member */
+    void UpdateHP();
+
     /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions(std::vector<GameObject*> objects);
 
@@ -43,8 +46,11 @@ public:
     sf::Vector2f GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
     sf::Texture* GetTexture() { return texture_; }
+    sf::RectangleShape GetHPBar() { return hpbar_; }
+    sf::RectangleShape GetHPBackground() { return hpbarbackground_; }
     int GetDamage() { return damage_; }
-    int GetHitPoints() { return hitpoints_; }
+    float GetHitPoints() { return hitpoints_; }
+    float GetMaxHitPoints() { return max_hitpoints_; }
 
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
@@ -54,8 +60,11 @@ private:
     sf::Sprite sprite_; // Variable to hold player sprite
     sf::Texture* texture_;
     RectHitbox hitbox_;
+    sf::RectangleShape hpbar_;
+    sf::RectangleShape hpbarbackground_;
     int damage_; // Damage for gameobject
-    int hitpoints_;
+    float hitpoints_;
+    float max_hitpoints_;
     bool shootable_;
 };
 

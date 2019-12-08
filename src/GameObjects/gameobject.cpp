@@ -2,9 +2,10 @@
 
 /* Constructor */
 GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name, double max_speed,
-                       double acceleration, int hitpoints, bool shootable, int damage) :
+                       double acceleration, float hitpoints, bool shootable, int damage) :
 Movement(max_speed, acceleration) {
     hitpoints_ = hitpoints;
+    max_hitpoints_ = hitpoints;
     shootable_ = shootable;
     damage_ = damage;
     pos_ = pos;
@@ -14,6 +15,10 @@ Movement(max_speed, acceleration) {
         // Error checking.
     }
     sprite_.setTexture(*texture_);
+    hpbar_.setFillColor(sf::Color::Green);
+    hpbar_.setSize(sf::Vector2f(64, 4));
+    hpbarbackground_.setFillColor(sf::Color::Red);
+    hpbarbackground_.setSize(sf::Vector2f(64, 4));
     hitbox_ = hitbox;
     hitbox_.setFillColor(sf::Color(255,0,0,50));
 
@@ -48,6 +53,8 @@ void GameObject::SetPosition(sf::Vector2f new_pos) {
     pos_ = new_pos;
     sprite_.setPosition(new_pos);
     hitbox_.setPosition(new_pos);
+    hpbar_.setPosition(new_pos);
+    hpbarbackground_.setPosition(new_pos);
 }
 
 /* Set object origin */
@@ -64,6 +71,11 @@ void GameObject::SetRotation(float x, float y) {
 /* Set new hitbox for GameObject */
 void GameObject::SetHitbox(RectHitbox hitbox) {
     hitbox_ = hitbox;
+}
+
+/* Handle hpbar updating with hitpoints member */
+void GameObject::UpdateHP() {
+    hpbar_.setScale(sf::Vector2f(float((hitpoints_ / max_hitpoints_)), 1));
 }
 
 /* Check if player is colliding with items and change movement according to that */

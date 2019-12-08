@@ -119,6 +119,11 @@ void Scene::Render() {
     }
     for(GameObject* enemy : enemies_) {
         main_window->draw(enemy->GetSprite());
+        if (!enemy->dead_) {
+            enemy->UpdateHP();
+            main_window->draw(enemy->GetHPBackground());
+            main_window->draw(enemy->GetHPBar());
+        }
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {
@@ -128,6 +133,8 @@ void Scene::Render() {
         }
     }
     main_window->draw(player_->GetSprite());
+    main_window->draw(player_->GetHPBackground());
+    main_window->draw(player_->GetHPBar());
     //main_window->draw(player_->GetHitbox());
 
     main_window->display();
