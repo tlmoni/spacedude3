@@ -344,8 +344,6 @@ void Menu::Init() {
                     }
                     Load_JoinMenu();
                 }
-
-
             }
         }
 

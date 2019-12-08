@@ -6,7 +6,7 @@
 
 class GameObject;
 
-/* Allows the usege of global variable main_window and its functions */
+// Allows the usege of global variable main_window and its functions
 extern sf::RenderWindow* main_window;
 extern int g_fps;
 

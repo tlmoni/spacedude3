@@ -12,13 +12,14 @@ class Character {
 public:
     /* Constructor */
     Character(std::string texture_file, std::string name, int hitpoints, double max_speed, double acceleration, RectHitbox hitbox, PhysicsVector origin) :
-    texture_file_(texture_file),
-    name_(name),
-    hitpoints_(hitpoints),
-    max_speed_(max_speed),
-    acceleration_(acceleration),
-    hitbox_(hitbox),
-    origin_(origin) { }
+        texture_file_(texture_file),
+        name_(name),
+        hitpoints_(hitpoints),
+        max_speed_(max_speed),
+        acceleration_(acceleration),
+        hitbox_(hitbox),
+        origin_(origin) {
+    }
 
     /* Default destructor */
     ~Character() = default;

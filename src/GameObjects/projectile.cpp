@@ -1,10 +1,8 @@
 #include "projectile.hpp"
 
-
 /* Check if player is colliding with items and change movement according to that */
 void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
-    /* hitbox rect of player */
-    sf::Rect rect = GetRect();
+    sf::Rect rect = GetRect(); // Rectangle hitbox of player
     sf::Vector2f position = GetRectPosition();
 
     PhysicsVector velocity = GetVelocity();

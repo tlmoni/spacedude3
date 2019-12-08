@@ -16,10 +16,12 @@ Movement(max_speed, acceleration) {
         // Error checking.
     }
     sprite_.setTexture(*texture_);
+
     hpbar_.setFillColor(sf::Color::Green);
     hpbar_.setSize(sf::Vector2f(64, 4));
     hpbarbackground_.setFillColor(sf::Color::Red);
     hpbarbackground_.setSize(sf::Vector2f(64, 4));
+
     hitbox_ = hitbox;
     hitbox_.setFillColor(sf::Color(255,0,0,50));
 
@@ -54,8 +56,8 @@ void GameObject::SetPosition(PhysicsVector new_pos) {
     pos_ = new_pos;
     sprite_.setPosition(new_pos);
     hitbox_.setPosition(new_pos);
-    hpbar_.setPosition(new_pos);
-    hpbarbackground_.setPosition(new_pos);
+    hpbar_.setPosition(new_pos + sf::Vector2f(-32, -42));
+    hpbarbackground_.setPosition(new_pos + sf::Vector2f(-32, -42));
 }
 
 /* Set object origin */
