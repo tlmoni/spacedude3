@@ -1,9 +1,8 @@
 #include "zombie.hpp"
 
 
-void Zombie::Action(GameObject* obj, std::vector<GameObject*> objects) {
-    PhysicsVector direction = GetPosition() - obj->GetPosition();
-    PhysicsVector dir_unit = direction.UnitVector();
+void Zombie::Action(PhysicsVector pos, std::vector<GameObject*> objects) {
+    PhysicsVector direction = pos - GetPosition();
 
     Move(direction);
     CheckCollisions(objects);

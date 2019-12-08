@@ -27,11 +27,18 @@ public:
     /* Function resposible for updating player character position */
     void Move(PhysicsVector direction);
 
+    /* Action for enemies etc. */
+    virtual void Action(PhysicsVector, std::vector<GameObject*>) { }
+
+    /* Action for player etc. */
+    template <typename T>
+    T* Action(std::vector<GameObject*>) { }
+
     /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions(std::vector<GameObject*> objects);
 
     std::string GetName() { return name_; }
-    sf::Vector2f GetPosition() { return pos_; }
+    PhysicsVector GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
     sf::Vector2f GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
@@ -41,7 +48,7 @@ public:
 
 private:
     std::string name_;
-    sf::Vector2f pos_; /* Variable tracking player position in the scene */
+    PhysicsVector pos_; /* Variable tracking player position in the scene */
     sf::Sprite sprite_; /* Variable to hold player sprite */
     sf::Texture* texture_;
     RectHitbox hitbox_;

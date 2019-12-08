@@ -21,6 +21,9 @@ void Scene::Init() {
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map.player_location);
     objects_ = map.objects;
+    for (auto e : map.enemies) {
+        objects_.push_back(e);
+    }
     enemies_ = map.enemies;
 
     if (!background_.loadFromFile(map.background_file)) {
@@ -76,6 +79,8 @@ void Scene::Update() {
         }
     }
     for (auto e = enemies_.begin(); e != enemies_.end(); e++) {
+        (*e)->Action(player_->GetPosition(), GetObjects());
+
         if ((*e)->GetHitPoints() <= 0) {
             enemies_.erase(e);
             e--;
@@ -95,10 +100,6 @@ void Scene::Render() {
 
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
-        //main_window->draw(obj->GetHitbox());
-    }
-    for(GameObject* enemy : enemies_) {
-        main_window->draw(enemy->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {

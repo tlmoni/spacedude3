@@ -49,7 +49,7 @@ void GameObject::SetHitbox(RectHitbox hitbox) {
 void GameObject::Move(PhysicsVector direction) {
 
     if (direction.Length() > 0) {
-        Accelerate(DirectionOfVector(dir_vector));
+        Accelerate(DirectionOfVector(direction));
     }
     else if (GetVelocity().Length() > 0) {
         Decelerate(g_friction);
