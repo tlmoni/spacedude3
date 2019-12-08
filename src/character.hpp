@@ -15,7 +15,7 @@ public:
         texture_file_ = texture_file;
         name_ = name;
         damage_ = damage;
-        hitpoints = hitpoints;
+        hitpoints_ = hitpoints;
         max_speed_ = max_speed;
         acceleration_ = acceleration;
         hitbox_ = hitbox;

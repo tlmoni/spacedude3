@@ -35,7 +35,6 @@ GameObject::GameObject(const GameObject& obj) : Movement() {
 
 /* Copy assignment operator */
 GameObject& GameObject::operator=(const GameObject& obj) {
-    name_ = obj.name_;
     pos_ = obj.pos_;
     sprite_ = obj.sprite_;
     texture_ = obj.texture_;
@@ -95,7 +94,7 @@ void GameObject::Move(PhysicsVector direction) {
 }
 
 /* Check if player is colliding with items and change movement according to that */
-void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
+bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     /* hitbox rect of player */
     sf::Rect rect = GetRect();
     sf::Vector2f position = GetRectPosition();
@@ -140,6 +139,8 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             }
         }
     }
+
+    return false;
 }
 
 void GameObject::TakeDamage(float damage) {
@@ -154,6 +155,6 @@ void GameObject::TakeDamage(float damage) {
 
 /* Overload << operator for printing */
 std::ostream& operator<<(std::ostream& os, GameObject obj) {
-    os << "<" << obj.GetName() << ">";
+    os << "<" << obj.GetType() << ">";
     return os;
 }

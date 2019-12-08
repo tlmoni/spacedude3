@@ -12,8 +12,8 @@ struct Bullet {
     float damage;
 };
 
-const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(10.f, 10.f), BULLET, 30.f, 0.6f, 3};
-const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 30.f, 1.0f, 10};
+const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(10.f, 10.f), BULLET, 30.f, 0.6f, 20};
+const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 30.f, 1.0f, 1};
 
 /* Abstract parent class for all projectile */
 class Projectile : public GameObject {
@@ -26,7 +26,7 @@ public:
     /* Destructor */
     ~Projectile() = default;
 
-    void CheckCollisions(std::vector<GameObject*> objects);
+    bool CheckCollisions(std::vector<GameObject*> objects);
 
     int GetOwner() { return owner_; }
 

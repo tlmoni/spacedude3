@@ -50,14 +50,13 @@ public:
     void Move(PhysicsVector direction);
 
     /* Check if player is colliding with items and change movement according to that */
-    virtual void CheckCollisions(std::vector<GameObject*> objects);
+    virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
     /* Take damage */
     void TakeDamage(float damage);
 
     virtual void DeathSound() { }
 
-    std::string GetName() { return name_; }
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
@@ -79,7 +78,6 @@ public:
     bool collidable_ = true;
 
 private:
-    std::string name_;
     PhysicsVector pos_;
     sf::Sprite sprite_;
     sf::Texture* texture_;
