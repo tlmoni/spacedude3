@@ -77,34 +77,75 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
 
         if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetXVelocity(0);
+                }
+
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetYVelocity(0);
+                }
             }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetXVelocity(0);
+                }
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetYVelocity(0);
+                }
             }
         }
         if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetXVelocity(0);
+                }
             }
             if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetYVelocity(0);
+                }
             }
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetXVelocity(0);
+                }
             }
             if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
+                if (obj->shootable_) {
+                    obj->hitpoints_ -= 10;
+                }
+                else {
+                    SetYVelocity(0);
+                }
             }
         }
     }
