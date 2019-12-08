@@ -35,14 +35,14 @@ void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
 
-    if (clock_.getElapsedTime().asMilliseconds() > 18150) {
+    if (clock_.getElapsedTime().asMilliseconds() > 18600) {
         x_ = 0;
         clock_.restart();
     }
     else {
-        x_ += 1;
+        x_ += 0.5;
     }
-    background.setTextureRect(sf::Rect(x_, 0, 3200, 1200));
+    background.setTextureRect(sf::Rect(int(x_), 0, 3200, 1200));
 
     main_window->draw(background);
     for (sf::Sprite it : menu_items_) {
@@ -398,7 +398,6 @@ void Menu::Init() {
                     Scene scene = Scene();
                     scene.Init();
                     game_.stop();
-                    // delete scene;
                     if (music_on) {
                         music_.play();
                         music_.setLoop(true);
