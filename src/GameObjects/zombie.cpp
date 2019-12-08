@@ -3,6 +3,20 @@
 Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", RectHitbox(64.f, 64.f), ENEMY, 5.0f, 0.05f, 10, 500, true, 1000) {
     bullet_ = rock;
     SetOrigin(25, 30);
+    if (!zombiedeathbuffer_.loadFromFile("src/Audio/Sound/sound_zombiedeath.ogg")) {
+        std::cout << "ERROR: Loading zombie death sound 1 failed!" << std::endl;
+    }
+    zombiedeath_.setBuffer(zombiedeathbuffer_);
+
+    if (!zombiedeathbuffer2_.loadFromFile("src/Audio/Sound/sound_zombiedeath2.ogg")) {
+        std::cout << "ERROR: Loading zombie death sound 2 failed!" << std::endl;
+    }
+    zombiedeath2_.setBuffer(zombiedeathbuffer2_);
+
+    if (!zombiedeathbuffer3_.loadFromFile("src/Audio/Sound/sound_zombiedeath3.ogg")) {
+        std::cout << "ERROR: Loading zombie death sound 3 failed!" << std::endl;
+    }
+    zombiedeath3_.setBuffer(zombiedeathbuffer3_);
 }
 
 std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, PhysicsVector pos) {
@@ -31,6 +45,18 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     CheckCollisions(objects);
     SetPosition(GetPosition() + GetVelocity());
     SetRotation(direction);
-
     return projectiles;
+}
+
+void Zombie::DeathSound() {
+    int random_integer = rand() % 3;
+    if (random_integer == 0) {
+        zombiedeath_.play();
+    }
+    else if (random_integer == 1) {
+        zombiedeath2_.play();
+    }
+    else {
+        zombiedeath3_.play();
+    }
 }

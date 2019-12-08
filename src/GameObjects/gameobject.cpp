@@ -145,7 +145,6 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
 void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;
-        dead_ = true;
         collidable_ = false;
     }
     else {
