@@ -59,13 +59,7 @@ void Scene::Loop() {
                 break;
         }
 
-        std::vector<Projectile*> projectiles = player_->Action(GetObjects());
 
-        if (projectiles.empty() == false) {
-            for (Projectile* p : projectiles) {
-                projectiles_.push_back(p);
-            }
-        }
 
         Update();
         Render();
@@ -74,6 +68,16 @@ void Scene::Loop() {
 
 /* Update game logic (bullets etc.) */
 void Scene::Update() {
+    // Handle player action
+    AddProjectiles(player_->Action(GetObjects()));
+
+    // Handle enemy action
+    for (auto e : map_.enemies) {
+        if (!e->dead_) {
+            AddProjectiles(e->Action(GetObjects(), player_->GetPosition()));
+        }
+    }
+
     // Handle projectiles
     for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
         if ((*p)->GetVelocity().Length() == 0) {
@@ -83,17 +87,14 @@ void Scene::Update() {
         else {
             (*p)->CheckCollisions(map_.objects);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
-            (*p)->Decelerate((*p)->GetSlowRate());
+            (*p)->Decelerate((*p)->GetAcceleration());
         }
     }
+
     // Handle objects
     for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
         // Enemies
         if ((*o)->GetType() == ENEMY) {
-            if ((*o)->dead_ == false) {
-                (*o)->Action(player_->GetPosition(), map_.objects);
-            }
-
             if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
                 (*o)->dead_ = true;
                 (*o)->collidable_ = false;
@@ -139,4 +140,13 @@ void Scene::Render() {
     main_window->draw(player_->GetHitbox());
 
     main_window->display();
+}
+
+void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
+    if (projectiles.empty() == false) {
+        for (Projectile* p : projectiles) {
+            projectiles_.push_back(p);
+        }
+    }
+
 }

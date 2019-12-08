@@ -3,21 +3,33 @@
 #include <iostream>
 #include "gameobject.hpp"
 
+struct Bullet {
+    std::string texture;
+    RectHitbox hitbox;
+    int type;
+    float max_speed;
+    float acceleration;
+    float damage;
+};
+
+const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(10.f, 10.f), BULLET, 30.f, 0.6f, 1};
+const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 10.f, 1.0f, 1};
+
 /* Abstract parent class for all projectile */
 class Projectile : public GameObject {
 public:
     /* Constructor */
-    Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(10.f, 10.f), BULLET, "Bullet", 5, 1, 0, false, 1) { }
+    Projectile(PhysicsVector pos, int owner, Bullet bullet = plasma) :
+    GameObject(pos, bullet.texture, bullet.hitbox, bullet.type, bullet.max_speed, bullet.acceleration, bullet.damage),
+    owner_(owner) { }
 
     /* Destructor */
     ~Projectile() = default;
 
     void CheckCollisions(std::vector<GameObject*> objects);
 
-    double GetSlowRate() { return slow_rate_; }
-    double GetSpeed() { return speed_; }
+    int GetOwner() { return owner_; }
 
 private:
-    double slow_rate_ = 0.6f;
-    double speed_ = 30.f;
+    int owner_;
 };

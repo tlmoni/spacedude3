@@ -36,6 +36,8 @@ public:
     void SetMaxSpeed(float max_speed);
 
     PhysicsVector GetVelocity() { return current_velocity_; }
+    float GetMaxSpeed() { return max_speed_; }
+    float GetAcceleration() { return acceleration_; }
 
 private:
     float max_speed_;

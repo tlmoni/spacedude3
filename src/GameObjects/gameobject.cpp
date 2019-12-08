@@ -1,16 +1,16 @@
 #include "gameobject.hpp"
 
 /* Constructor */
-GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type, std::string name, double max_speed,
-                       double acceleration, float hitpoints, bool shootable, int damage) :
+GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type, double max_speed,
+                       double acceleration, int damage, float hitpoints, bool shootable, float attack_delay) :
 Movement(max_speed, acceleration) {
     hitpoints_ = hitpoints;
     max_hitpoints_ = hitpoints;
     shootable_ = shootable;
     damage_ = damage;
     pos_ = pos;
-    name_ = name;
     type_ = type;
+    attack_delay_ = attack_delay;
     texture_ = new sf::Texture();
     if(!texture_->loadFromFile(file)) {
         // Error checking.
@@ -83,7 +83,6 @@ void GameObject::UpdateHP() {
 
 /* Move player character on the scene and check collisions. */
 void GameObject::Move(PhysicsVector direction) {
-
     if (direction.Length() > 0) {
         Accelerate(DirectionOfVector(direction));
     }

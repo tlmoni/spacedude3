@@ -1,17 +1,17 @@
 #pragma once
 
-#include "gameobject.hpp"
+#include "projectile.hpp"
 
 class Zombie : public GameObject {
 public:
     /* Constructor */
-    Zombie(PhysicsVector pos) :
-    GameObject(pos, "src/Textures/zombie.png", RectHitbox(64.f, 64.f), ENEMY, "Zombie", 2.0f, 0.5f, 1000, true) { SetOrigin(25, 30); }
+    Zombie(PhysicsVector pos);
 
     /* Destructor */
     ~Zombie() = default;
 
-    void Action(PhysicsVector pos, std::vector<GameObject*> objects);
+    std::vector<Projectile*> Action(std::vector<GameObject*> objects, PhysicsVector pos);
 
 private:
+    Bullet bullet_;
 };
