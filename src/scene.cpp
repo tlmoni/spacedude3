@@ -3,6 +3,23 @@
 /* Contructor */
 Scene::Scene() { }
 
+/* Copy constructor */
+Scene::Scene(const Scene& scene) {
+    *this = scene;
+}
+
+/* Copy assignment operator */
+Scene& Scene::operator=(const Scene& scene) {
+    map_ = scene.map_;
+    background_ = scene.background_;
+    player_ = scene.player_;
+    objects_ = scene.objects_;
+    enemies_ = scene.enemies_;
+    projectiles_ = scene.projectiles_;
+
+    return *this;
+}
+
 /* Destructor */
 Scene::~Scene() {
     main_window->clear();
@@ -17,13 +34,13 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
-    auto map = MapLoader::LoadMap("src/Maps/map1.txt");
+    map_ = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, map.player_location);
-    objects_ = map.objects;
-    enemies_ = map.enemies;
+    player_ = new Player(spurdo, map_.player_location);
+    objects_ = map_.objects;
+    enemies_ = map_.enemies;
 
-    if (!background_.loadFromFile(map.background_file)) {
+    if (!background_.loadFromFile(map_.background_file)) {
         // Error handling
     }
 
@@ -32,10 +49,8 @@ void Scene::Init() {
     Loop();
 }
 
-
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
-
     while (main_window->isOpen()) {
         sf::Event event;
 
@@ -63,7 +78,6 @@ void Scene::Loop() {
 
 /* Update game logic (bullets etc.) */
 void Scene::Update() {
-
     for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
         if ((*p)->GetVelocity().Length() == 0) {
             projectiles_.erase(p);
@@ -115,7 +129,6 @@ void Scene::Render() {
     }
     main_window->draw(player_->GetSprite());
     //main_window->draw(player_->GetHitbox());
-
 
     main_window->display();
 }

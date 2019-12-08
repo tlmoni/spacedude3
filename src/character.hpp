@@ -18,7 +18,7 @@ public:
     max_speed_(max_speed),
     acceleration_(acceleration),
     hitbox_(hitbox),
-    origin_(origin) {}
+    origin_(origin) { }
 
     /* Default destructor */
     ~Character() = default;
@@ -31,7 +31,6 @@ public:
     double GetAcceleration() { return acceleration_; }
     RectHitbox GetHitBox() { return hitbox_; }
     PhysicsVector GetOrigin() { return origin_; }
-
 
 private:
     std::string texture_file_;
