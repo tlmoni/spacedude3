@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "character_spurdo.hpp"
+#include <SFML/Audio.hpp>
+#include "character_spacedude.hpp"
 #include "GameObjects/projectile.hpp"
 
 /* Forward declaration of Scene needed here */
@@ -9,6 +10,10 @@ class Projectile;
 
 /* Allows the usege of global variable main_window and its functions */
 extern sf::RenderWindow* main_window;
+
+/* Allows the usage of global variables sound_on and music_on */
+extern bool sound_on;
+extern bool music_on;
 
 /* Player object, subclass of GameObject,  */
 class Player : public GameObject {
@@ -40,4 +45,6 @@ private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     sf::Clock reload_timer_;
+    sf::SoundBuffer buffer_; // Buffer for gun sound effect
+    sf::Sound gunshot_; // Gun sound effect
 };

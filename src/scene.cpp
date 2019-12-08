@@ -17,11 +17,15 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
-
-    auto objects = MapLoader::LoadMap("src/Maps/map1.txt");
+    auto map = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, objects.first);
-    objects_ = objects.second;
+    player_ = new Player(spurdo, map.player_location);
+    objects_ = map.objects;
+    enemies_ = map.enemies;
+
+    if (!background_.loadFromFile(map.background_file)) {
+        // Error handling
+    }
 
     main_window->setFramerateLimit(g_fps);
     Render();
@@ -67,6 +71,7 @@ void Scene::Update() {
         }
         else {
             (*p)->CheckCollisions(objects_);
+            (*p)->CheckCollisions(enemies_);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
             (*p)->Decelerate((*p)->GetSlowRate());
         }
@@ -75,10 +80,20 @@ void Scene::Update() {
 
 /* Render the game and update graphics */
 void Scene::Render() {
-
     main_window->clear();
+
+    sf::Sprite background;
+    background.setTexture(background_);
+    background.setScale(sf::Vector2f(0.8f, 0.8f));
+    background.setPosition(sf::Vector2f(-400.f, -400.f));
+    main_window->draw(background);
+
     for(GameObject* obj : objects_) {
         main_window->draw(obj->GetSprite());
+        //main_window->draw(obj->GetHitbox());
+    }
+    for(GameObject* enemy : enemies_) {
+        main_window->draw(enemy->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {

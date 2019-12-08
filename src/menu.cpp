@@ -5,7 +5,7 @@ Menu::Menu() {
     if (!main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png")) {
         // Error checking
     }
-    if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/menu_background.png")) {
+    if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/background.png")) {
         // Error checking
     }
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
@@ -14,11 +14,16 @@ Menu::Menu() {
     if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
         // Error checking
     }
+    if (!game_.openFromFile("src/Audio/Music/music_game.ogg")) {
+        // Error checking
+    }
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
         // Error checking
     }
     button_.setBuffer(buffer_);
     menu_status = 0;
+    x_ = 0;
+    clock_.restart();
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
@@ -40,6 +45,16 @@ Menu::~Menu() {
 void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
+
+    if (clock_.getElapsedTime().asMilliseconds() > 18150) {
+        x_ = 0;
+        clock_.restart();
+    }
+    else {
+        x_ += 1;
+    }
+    background.setTextureRect(sf::Rect(x_, 0, 3200, 1200));
+
     main_window->draw(background);
     for (sf::Sprite* it : menu_items_) {
         main_window->draw(*it);
@@ -49,6 +64,15 @@ void Menu::Draw() {
     }
     if (menu_status == 2) {
         std::string inputstr = playername_.getString().toAnsiString();
+        sf::Text userinput;
+        userinput.setFont(font_);
+        userinput.setCharacterSize(50);
+        userinput.setPosition(main_window->getSize().x / 3.4 , main_window->getSize().y / 3);
+        userinput.setString(inputstr);
+        main_window->draw(userinput);
+    }
+    if (menu_status == 5) {
+        std::string inputstr = sIP_.getString().toAnsiString();
         sf::Text userinput;
         userinput.setFont(font_);
         userinput.setCharacterSize(50);
@@ -380,7 +404,13 @@ void Menu::Init() {
                     }
                     Clear_MenuItems();
                     music_.stop();
+                    if (music_on) {
+                        game_.play();
+                        game_.setVolume(100);
+                        game_.setLoop(true);
+                    }
                     scene->Init();
+                    game_.stop();
                     delete scene;
                 }
             }
@@ -388,8 +418,22 @@ void Menu::Init() {
 
         // Join menu
         else if (menu_status == 5) {
+            std::string ip;
             if (event.type == sf::Event::Closed) {
                 main_window->close();
+            }
+
+            if (event.type == sf::Event::TextEntered) {
+                if (event.text.unicode == 8 && sIP_.getString().getSize() > 0) {
+                    sf::String temporary = sIP_.getString();
+                    temporary.erase(temporary.getSize() - 1, temporary.getSize());
+                    sIP_.setString(temporary);
+                }
+
+                else if (event.text.unicode < 127 && event.text.unicode > 31) {
+                    ip += event.text.unicode;
+                    sIP_.setString(sIP_.getString() + ip);
+                }
             }
 
             if (event.type == sf::Event::MouseMoved) {
@@ -403,13 +447,6 @@ void Menu::Init() {
                 else {
                     menu_items_[0]->setColor(sf::Color(sf::Color::White));
                 }
-
-                if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
-                    menu_items_[1]->setColor(sf::Color(sf::Color::Red));
-                }
-                else {
-                    menu_items_[1]->setColor(sf::Color(sf::Color::White));
-                }
             }
 
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -422,16 +459,6 @@ void Menu::Init() {
                         button_.play();
                     }
                     Load_PlayMenu();
-                }
-
-                else if (menu_items_[1]->getGlobalBounds().contains(mouse_pos)) {
-                    if (sound_on) {
-                        button_.play();
-                    }
-                    Clear_MenuItems();
-                    music_.stop();
-                    scene->Init();
-                    delete scene;
                 }
             }
         }
@@ -565,6 +592,12 @@ void Menu::Load_HostMenu() {
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite* back = new sf::Sprite();
     sf::Sprite* play = new sf::Sprite();
+    sf::Text* ip = new sf::Text();
+
+    std::string str = "IP: " + sf::IpAddress::getPublicAddress().toString();
+    ip->setFont(font_);
+    ip->setString(str);
+    ip->setPosition(sf::Vector2f(window_size.x / 2.5 , window_size.y / 2.5));
 
     back->setTexture(main_menu_texture_);
     back->setTextureRect(sf::Rect(0, 360, 250, 120));
@@ -576,6 +609,7 @@ void Menu::Load_HostMenu() {
 
     menu_items_.push_back(back);
     menu_items_.push_back(play);
+    menu_text_items_.push_back(ip);
 }
 
 /* Add join menu sprites to the menuitems vector */
@@ -584,18 +618,19 @@ void Menu::Load_JoinMenu() {
     menu_status = 5;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite* back = new sf::Sprite();
-    sf::Sprite* play = new sf::Sprite();
+    sf::Text* help = new sf::Text();
+
+    std::string str = "Enter the IP to be joined";
+    help->setFont(font_);
+    help->setString(str);
+    help->setPosition(sf::Vector2f(window_size.x / 4.2 , window_size.y / 4));
 
     back->setTexture(main_menu_texture_);
     back->setTextureRect(sf::Rect(0, 360, 250, 120));
     back->setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 1.7));
 
-    play->setTexture(main_menu_texture_);
-    play->setTextureRect(sf::Rect(0, 0, 250, 120));
-    play->setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 4));
-
     menu_items_.push_back(back);
-    menu_items_.push_back(play);
+    menu_text_items_.push_back(help);
 }
 
 /* Clear menu items vector of sprites */

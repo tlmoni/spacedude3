@@ -10,13 +10,14 @@ Menu* menu = new Menu();
 
 int g_fps = 60;
 float g_friction = 1.3f;
+bool music_on = true;
+bool sound_on = true;
+
 
 int main() {
     menu->Init();
-    //scene->Init();
 
     delete menu;
-    //delete scene;
     delete main_window;
 
     return 0;
