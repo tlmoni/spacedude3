@@ -13,7 +13,7 @@ struct Bullet {
 };
 
 const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(10.f, 10.f), BULLET, 30.f, 0.6f, 1};
-const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 10.f, 1.0f, 1};
+const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 30.f, 1.0f, 10};
 
 /* Abstract parent class for all projectile */
 class Projectile : public GameObject {

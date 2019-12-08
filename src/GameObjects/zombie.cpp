@@ -10,7 +10,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     std::vector<Projectile*> projectiles;
 
     sf::Time time = attack_timer_.getElapsedTime();
-    if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
+    if (direction.Length() < 300 && time.asMilliseconds() > GetAttackDelay()) {
         direction = direction.UnitVector();
         attack_timer_.restart();
         /*
@@ -19,7 +19,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
         }
         */
 
-        Projectile* bullet = new Projectile(GetPosition(), GetType(), bullet_);
+        Projectile* bullet = new Projectile(GetPosition(), ENEMY, bullet_);
         PhysicsVector vel = GetVelocity().UnitVector();
         SetVelocity(vel.Scale(0.01f));
         direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
