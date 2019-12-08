@@ -404,6 +404,7 @@ void Menu::Init() {
                         music_.setLoop(true);
                     }
                     main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
                     Load_MainMenu();
                 }
             }
