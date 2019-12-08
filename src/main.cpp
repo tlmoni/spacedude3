@@ -9,7 +9,7 @@ Scene* scene = new Scene();
 Menu* menu = new Menu();
 
 int g_fps = 60;
-float g_friction = 1.3f;
+float g_friction = 1.0f;
 bool music_on = true;
 bool sound_on = true;
 

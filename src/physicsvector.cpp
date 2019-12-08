@@ -33,6 +33,10 @@ float PhysicsVector::DotProduct(PhysicsVector vector) {
     return this->x*vector.x + this->y*vector.y;
 }
 
+PhysicsVector PhysicsVector::Scale(float multiplier) {
+    return PhysicsVector(this->x * multiplier, this->y * multiplier);
+}
+
 /* Returns the sum of the vectors (self & parameter) */
 PhysicsVector PhysicsVector::IncreaseBy(PhysicsVector vector) {
     return PhysicsVector(this->x + vector.x, this->y + vector.y);

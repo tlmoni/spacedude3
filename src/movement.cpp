@@ -68,6 +68,10 @@ void Movement::Decelerate(float friction) {
     current_velocity_ = current_velocity_.DecreaseBy(dec);
 }
 
+void Movement::SetMaxSpeed(float max_speed) {
+    max_speed_ = max_speed;
+}
+
 /* Returns the direction of the vector as an int (enum) */
 int DirectionOfVector(sf::Vector2f dir_vector) {
 

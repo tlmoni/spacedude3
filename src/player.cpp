@@ -19,31 +19,6 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     PhysicsVector dir_vector = PhysicsVector(0.0f, 0.0f);
     std::vector<Projectile*> projectiles;
 
-    // Movement to the left
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        dir_vector += PhysicsVector(-1.0f, 0.0f);
-    }
-
-    // Movement to the right
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        dir_vector += PhysicsVector(1.0f, 0.0f);
-    }
-
-    // Movement Projectile* bullet = new Projectile(GetPosition());up
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        dir_vector += PhysicsVector(0.0f, -1.0f);
-    }
-
-    // Movement down
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        dir_vector += PhysicsVector(0.0f, 1.0f);
-    }
-
-    Move(dir_vector);
-    CheckCollisions(objects);
-    SetPosition(GetPosition() + GetVelocity());
-    Rotate();
-
     // Handle bullet spawning and setting of initial speed
     sf::Time time = reload_timer_.getElapsedTime();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
@@ -51,12 +26,44 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
         if (sound_on) {
             gunshot_.play();
         }
+
         Projectile* bullet = new Projectile(GetPosition());
         PhysicsVector direction = GetCurrentCursorDirection();
+
+        PhysicsVector vel = GetVelocity().UnitVector();
+        SetVelocity(vel.Scale(0.5f));
         direction = PhysicsVector(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
         bullet->SetVelocity(direction + GetVelocity());
         projectiles.push_back(bullet);
     }
+    else {
+        // Movement to the left
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            dir_vector += PhysicsVector(-1.0f, 0.0f);
+        }
+
+        // Movement to the right
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            dir_vector += PhysicsVector(1.0f, 0.0f);
+        }
+
+        // Movement Projectile* bullet = new Projectile(GetPosition());up
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            dir_vector += PhysicsVector(0.0f, -1.0f);
+        }
+
+        // Movement down
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            dir_vector += PhysicsVector(0.0f, 1.0f);
+        }
+    }
+
+
+
+    Move(dir_vector);
+    CheckCollisions(objects);
+    SetPosition(GetPosition() + GetVelocity());
+    Rotate();
 
     player_cam_.setCenter(GetPosition());
     main_window->setView(GetView());

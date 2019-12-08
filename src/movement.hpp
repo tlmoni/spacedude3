@@ -33,10 +33,13 @@ public:
     void SetVelocity(float x, float y) { current_velocity_ = PhysicsVector(x, y); }
     void SetXVelocity(float x) { current_velocity_.x = x; }
     void SetYVelocity(float y) { current_velocity_.y = y; }
+    void SetMaxSpeed(float max_speed);
+
     PhysicsVector GetVelocity() { return current_velocity_; }
 
 private:
     float max_speed_;
+    float max_speed_const_;
     float acceleration_;
     PhysicsVector current_velocity_;
 };
