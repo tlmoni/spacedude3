@@ -26,6 +26,7 @@ Menu::Menu() {
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
+    game_.setVolume(60);
     Draw();
 }
 

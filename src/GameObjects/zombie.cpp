@@ -59,5 +59,4 @@ void Zombie::DeathSound() {
     else {
         zombiedeath3_.play();
     }
-    std::cout << random_integer << std::endl;
 }
