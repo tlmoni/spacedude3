@@ -18,7 +18,6 @@ int main() {
     menu->Init();
 
     delete menu;
-    delete scene;
     delete main_window;
 
     return 0;
