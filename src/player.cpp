@@ -2,8 +2,8 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetMaxSpeed(), character->GetAcceleration()) {
-
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetMaxSpeed(), character->GetAcceleration(),
+character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
@@ -22,7 +22,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 
     // Handle bullet spawning and setting of initial speed
     sf::Time time = attack_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > GetAttackDelay()) {
         attack_timer_.restart();
         if (sound_on) {
             gunshot_.play();

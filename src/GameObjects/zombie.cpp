@@ -10,7 +10,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     std::vector<Projectile*> projectiles;
 
     sf::Time time = attack_timer_.getElapsedTime();
-    if (direction.Length() < 300 && time.asMilliseconds() > GetAttackDelay()) {
+    if (direction.Length() < 200 && time.asMilliseconds() > GetAttackDelay()) {
         direction = direction.UnitVector();
         attack_timer_.restart();
         /*

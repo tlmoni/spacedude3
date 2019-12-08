@@ -11,15 +11,16 @@
 class Character {
 public:
     /* Constructor */
-    Character(std::string texture_file, std::string name, int hitpoints, double max_speed, double acceleration, RectHitbox hitbox, PhysicsVector origin) :
+    Character(std::string texture_file, RectHitbox hitbox, std::string name, double max_speed, double acceleration, float damage, float hitpoints, int attack_delay, PhysicsVector origin) :
         texture_file_(texture_file),
         name_(name),
+        damage_(damage),
         hitpoints_(hitpoints),
         max_speed_(max_speed),
         acceleration_(acceleration),
         hitbox_(hitbox),
-        origin_(origin) {
-    }
+        origin_(origin),
+        attack_delay_(attack_delay) { }
 
     /* Default destructor */
     ~Character() = default;
@@ -27,18 +28,22 @@ public:
     // Get functions
     std::string GetTextureFile() { return texture_file_; }
     std::string GetIdentity() { return name_; }
-    int GetHP() { return hitpoints_; }
+    float GetDamage() { return damage_; }
+    float GetHP() { return hitpoints_; }
     double GetMaxSpeed() { return max_speed_; }
     double GetAcceleration() { return acceleration_; }
     RectHitbox GetHitBox() { return hitbox_; }
     PhysicsVector GetOrigin() { return origin_; }
+    int GetAttackDelay() { return attack_delay_; }
 
 private:
     std::string texture_file_;
     std::string name_;
-    int hitpoints_;
+    float hitpoints_;
     double max_speed_;
     double acceleration_;
     RectHitbox hitbox_;
     PhysicsVector origin_;
+    float damage_;
+    int attack_delay_;
 };
