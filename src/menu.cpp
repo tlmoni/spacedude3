@@ -23,7 +23,6 @@ Menu::Menu() {
     button_.setBuffer(buffer_);
     menu_status = 0;
     x_ = 0;
-    clock_.restart();
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
@@ -35,12 +34,12 @@ void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
 
-    if (clock_.getElapsedTime().asMilliseconds() > 18600) {
+    if (x_ > 3200) {
+        std::cout << "reset" << std::endl;
         x_ = 0;
-        clock_.restart();
     }
     else {
-        x_ += 0.5;
+        x_ += 0.3;
     }
     background.setTextureRect(sf::Rect(int(x_), 0, 3200, 1200));
 

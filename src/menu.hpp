@@ -62,7 +62,6 @@ private:
     sf::Sound button_; // Sound that holds the button press sample
     sf::SoundBuffer buffer_; // Buffer for the button sample
     sf::Text sIP_; // Holds the IP address to be joined
-    sf::Clock clock_; // Timer for the menu animation
     float x_; // Variable for menu animation position change
     int menu_status; // Indicates which menu scenario is to be loaded
 };
