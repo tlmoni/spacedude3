@@ -49,7 +49,7 @@ GameObject::~GameObject() {
 }
 
 /* Sets position of the object and its sprite */
-void GameObject::SetPosition(sf::Vector2f new_pos) {
+void GameObject::SetPosition(PhysicsVector new_pos) {
     pos_ = new_pos;
     sprite_.setPosition(new_pos);
     hitbox_.setPosition(new_pos);

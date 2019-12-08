@@ -22,7 +22,7 @@ public:
     virtual ~GameObject();
 
     /* Sets position of the object and its sprite */
-    void SetPosition(sf::Vector2f new_pos);
+    void SetPosition(PhysicsVector new_pos);
 
     /* Set object origin */
     void SetOrigin(float x, float y);
