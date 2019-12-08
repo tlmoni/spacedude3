@@ -85,7 +85,10 @@ void Scene::Update() {
             p--;
         }
         else {
+            std::vector<GameObject*> player;
+            player.push_back(player_);
             (*p)->CheckCollisions(map_.objects);
+            (*p)->CheckCollisions(player);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
             (*p)->Decelerate((*p)->GetAcceleration());
         }
