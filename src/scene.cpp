@@ -75,6 +75,12 @@ void Scene::Update() {
             (*p)->Decelerate((*p)->GetSlowRate());
         }
     }
+    for (auto e = enemies_.begin(); e != enemies_.end(); e++) {
+        if ((*e)->GetHitPoints() <= 0) {
+            enemies_.erase(e);
+            e--;
+        }
+    }
 }
 
 /* Render the game and update graphics */

@@ -37,6 +37,7 @@ public:
     sf::Vector2f GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
     sf::Texture* GetTexture() { return texture_; }
+    int GetHitPoints() { return hitpoints_; }
 
 private:
     std::string name_;
