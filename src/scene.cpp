@@ -36,6 +36,11 @@ void Scene::Init() {
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map_.player_location);
 
+    if (!zombiedeathbuffer_.loadFromFile("src/Audio/Sound/sound_zombiedeath.ogg")) {
+        std::cout << "ERROR: Loading zombie death sound failed!" << std::endl;
+    }
+    zombiedeath_.setBuffer(zombiedeathbuffer_);
+
     if (!background_.loadFromFile(map_.background_file)) {
         // Error handling
     }
@@ -101,6 +106,7 @@ void Scene::Update() {
             }
 
             if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
+                zombiedeath_.play();
                 (*o)->dead_ = true;
                 (*o)->collidable_ = false;
                 (*o)->deadtimer_.restart();

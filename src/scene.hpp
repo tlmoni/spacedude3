@@ -43,4 +43,6 @@ private:
     sf::Texture background_;
     Player* player_;
     std::vector<Projectile*> projectiles_;
+    sf::SoundBuffer zombiedeathbuffer_; // Buffer for zombie death sound effect
+    sf::Sound zombiedeath_; // Zombie death sound effect
 };
