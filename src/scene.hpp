@@ -15,6 +15,12 @@ public:
     /* Constructor */
     Scene();
 
+    /* Copy constructor */
+    Scene(const Scene&);
+
+    /* Copy assignment operator */
+    Scene& operator=(const Scene&);
+
     /* Destructor */
     ~Scene();
 
@@ -30,12 +36,12 @@ public:
     /* Render the game and update graphics */
     void Render();
 
-    std::vector<GameObject*> GetObjects() { return objects_; }
+    std::vector<GameObject*> GetObjects() { return map_.objects; }
+    std::vector<GameObject*> GetEnemies() { return map_.enemies; }
 
 private:
+    Map map_;
     sf::Texture background_;
-    std::vector<GameObject*> objects_;
-    std::vector<GameObject*> enemies_;
-    std::vector<Projectile*> projectiles_;
     Player* player_;
+    std::vector<Projectile*> projectiles_;
 };

@@ -3,10 +3,25 @@
 /* Contructor */
 Scene::Scene() { }
 
+/* Copy constructor */
+Scene::Scene(const Scene& scene) {
+    *this = scene;
+}
+
+/* Copy assignment operator */
+Scene& Scene::operator=(const Scene& scene) {
+    map_ = scene.map_;
+    background_ = scene.background_;
+    player_ = scene.player_;
+    projectiles_ = scene.projectiles_;
+
+    return *this;
+}
+
 /* Destructor */
 Scene::~Scene() {
     main_window->clear();
-    for(GameObject* obj : objects_) {
+    for(GameObject* obj : map_.objects) {
         delete obj;
     }
     for(Projectile* p : projectiles_) {
@@ -17,16 +32,11 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
-    auto map = MapLoader::LoadMap("src/Maps/map1.txt");
+    map_ = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, map.player_location);
-    objects_ = map.objects;
-    for (auto e : map.enemies) {
-        objects_.push_back(e);
-    }
-    enemies_ = map.enemies;
+    player_ = new Player(spurdo, map_.player_location);
 
-    if (!background_.loadFromFile(map.background_file)) {
+    if (!background_.loadFromFile(map_.background_file)) {
         // Error handling
     }
 
@@ -37,7 +47,6 @@ void Scene::Init() {
 
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
-
     while (main_window->isOpen()) {
         sf::Event event;
 
@@ -65,24 +74,23 @@ void Scene::Loop() {
 
 /* Update game logic (bullets etc.) */
 void Scene::Update() {
-
     for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
         if ((*p)->GetVelocity().Length() == 0) {
             projectiles_.erase(p);
             p--;
         }
         else {
-            (*p)->CheckCollisions(objects_);
-            (*p)->CheckCollisions(enemies_);
+            (*p)->CheckCollisions(map_.objects);
+            (*p)->CheckCollisions(map_.enemies);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
             (*p)->Decelerate((*p)->GetSlowRate());
         }
     }
-    for (auto e = enemies_.begin(); e != enemies_.end(); e++) {
+    for (auto e = map_.enemies.begin(); e != map_.enemies.end(); e++) {
         (*e)->Action(player_->GetPosition(), GetObjects());
 
         if ((*e)->GetHitPoints() <= 0) {
-            enemies_.erase(e);
+            map_.enemies.erase(e);
             e--;
         }
     }
@@ -98,8 +106,12 @@ void Scene::Render() {
     background.setPosition(sf::Vector2f(-400.f, -400.f));
     main_window->draw(background);
 
-    for(GameObject* obj : objects_) {
+    for(GameObject* obj : map_.objects) {
         main_window->draw(obj->GetSprite());
+        //main_window->draw(obj->GetHitbox());
+    }
+    for(GameObject* e : map_.enemies) {
+        main_window->draw(e->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {
@@ -110,7 +122,6 @@ void Scene::Render() {
     }
     main_window->draw(player_->GetSprite());
     //main_window->draw(player_->GetHitbox());
-
 
     main_window->display();
 }
