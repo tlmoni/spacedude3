@@ -1,4 +1,4 @@
-# Laser Squad - ELEC-A7151 Object oriented programming with C++
+## Laser Squad - ELEC-A7151 Object oriented programming with C++
 
 
 This is the git repository for our programming project.
