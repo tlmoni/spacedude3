@@ -17,6 +17,24 @@ hitpoints_(hitpoints), shootable_(shootable) {
     SetPosition(pos);
 }
 
+/* Copy constructor */
+GameObject::GameObject(const GameObject& obj) : Movement() {
+    *this = obj;
+}
+
+/* Copy assignment operator */
+GameObject& GameObject::operator=(const GameObject& obj) {
+    name_ = obj.name_;
+    pos_ = obj.pos_;
+    sprite_ = obj.sprite_;
+    texture_ = obj.texture_;
+    hitbox_ = obj.hitbox_;
+    hitpoints_ = obj.hitpoints_;
+    shootable_ = obj.shootable_;
+
+    return *this;
+}
+
 /* Destructor */
 GameObject::~GameObject() {
     delete texture_;
@@ -97,4 +115,3 @@ std::ostream& operator<<(std::ostream& os, GameObject obj) {
     os << "<" << obj.GetName() << ">";
     return os;
 }
-

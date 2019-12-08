@@ -8,8 +8,16 @@ extern sf::RenderWindow* main_window;
 /* Parent class for all game objects */
 class GameObject : public Movement {
 public:
-    GameObject() = default;
+    /* Constructor */
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f, double acceleration = 1.f, int hitpoints = 69, bool shootable = false);
+
+    /* Copy constructor */
+    GameObject(const GameObject&);
+
+    /* Copy assignment operator */
+    GameObject& operator=(const GameObject&);
+
+    /* Destructor */
     ~GameObject();
 
     /* Sets position of the object and its sprite */
@@ -37,8 +45,8 @@ public:
 
 private:
     std::string name_;
-    sf::Vector2f pos_; /* Variable tracking player position in the scene */
-    sf::Sprite sprite_; /* Variable to hold player sprite */
+    sf::Vector2f pos_; // Variable tracking player position in the scene
+    sf::Sprite sprite_; // Variable to hold player sprite
     sf::Texture* texture_;
     RectHitbox hitbox_;
     int hitpoints_;
