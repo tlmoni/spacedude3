@@ -6,7 +6,7 @@ class Zombie : public GameObject {
 public:
     /* Constructor */
     Zombie(PhysicsVector pos) :
-    GameObject(pos, "src/Textures/zombie.png", RectHitbox(64.f, 64.f), ENEMY, "Zombie", 5.0f, 0.5f, 150, true) { SetOrigin(25, 30); }
+    GameObject(pos, "src/Textures/zombie.png", RectHitbox(64.f, 64.f), ENEMY, "Zombie", 2.0f, 0.5f, 1000, true) { SetOrigin(25, 30); }
 
     /* Destructor */
     ~Zombie() = default;

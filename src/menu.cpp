@@ -74,7 +74,7 @@ void Menu::Draw() {
 /* Initialize the window and loads main menu by default. menu_status indicates
    the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
 void Menu::Init() {
-    main_window->setFramerateLimit(g_fps*3);
+    main_window->setFramerateLimit(g_fps*6);
     while (main_window->isOpen()) {
         main_window->clear();
         sf::Event event;

@@ -33,7 +33,7 @@ public:
     float DotProduct(PhysicsVector vector);
 
     /* Multiply vector by some value */
-    PhysicsVector MultiplyBy(float multiplier);
+    PhysicsVector Scale(float multiplier);
 
     /* Returns the sum of the vectors (self & parameter) */
     PhysicsVector IncreaseBy(PhysicsVector vector);

@@ -8,7 +8,7 @@ sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1000, 1000), 
 Menu* menu = new Menu();
 
 int g_fps = 60;
-float g_friction = 1.3f;
+float g_friction = 1.0f;
 bool music_on = true;
 bool sound_on = true;
 
