@@ -56,6 +56,9 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     virtual void CheckCollisions(std::vector<GameObject*> objects);
 
+    /* Take damage */
+    void TakeDamage(float damage);
+
     std::string GetName() { return name_; }
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }
