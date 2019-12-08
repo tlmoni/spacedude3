@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <stdlib.h>
+#include <SFML/Audio.hpp>
 #include "../movement.hpp"
 
 extern sf::RenderWindow* main_window;
@@ -58,6 +60,8 @@ public:
 
     /* Take damage */
     void TakeDamage(float damage);
+
+    virtual void DeathSound() { }
 
     std::string GetName() { return name_; }
     PhysicsVector GetPosition() { return pos_; }
