@@ -14,6 +14,7 @@ struct Map {
     PhysicsVector player_location;
     std::vector<GameObject*> objects;
     std::vector<GameObject*> enemies;
+    std::vector<GameObject*> map_objects;
 };
 
 class MapLoader {
@@ -61,12 +62,16 @@ public:
 
                         // Wall object
                         else if (object == "w") {
-                            map.objects.push_back(new Wall(PhysicsVector(x, y)));
+                            Wall* wall = new Wall(PhysicsVector(x, y));
+                            map.objects.push_back(wall);
+                            map.map_objects.push_back(wall);
                         }
 
                         // Zombie
                         else if (object == "Z") {
-                            map.enemies.push_back(new Zombie(PhysicsVector(x, y)));
+                            Zombie* zombie = new Zombie(PhysicsVector(x, y));
+                            map.enemies.push_back(zombie);
+                            map.objects.push_back(zombie);
                         }
 
                         x += 64.f;
