@@ -11,16 +11,17 @@
 class Character {
 public:
     /* Constructor */
-    Character(std::string texture_file, RectHitbox hitbox, std::string name, double max_speed, double acceleration, float damage, float hitpoints, int attack_delay, PhysicsVector origin) :
-        texture_file_(texture_file),
-        name_(name),
-        damage_(damage),
-        hitpoints_(hitpoints),
-        max_speed_(max_speed),
-        acceleration_(acceleration),
-        hitbox_(hitbox),
-        origin_(origin),
-        attack_delay_(attack_delay) { }
+    Character(std::string texture_file, RectHitbox hitbox, std::string name, double max_speed, double acceleration, float damage, float hitpoints, int attack_delay, PhysicsVector origin) {
+        texture_file_ = texture_file;
+        name_ = name;
+        damage_ = damage;
+        hitpoints = hitpoints;
+        max_speed_ = max_speed;
+        acceleration_ = acceleration;
+        hitbox_ = hitbox;
+        origin_ = origin;
+        attack_delay_ = attack_delay;
+    }
 
     /* Default destructor */
     ~Character() = default;
