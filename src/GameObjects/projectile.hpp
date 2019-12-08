@@ -7,7 +7,7 @@
 class Projectile : public GameObject {
 public:
     /* Constructor */
-    Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(20.f, 20.f), "Bullet", 5, 1) { }
+    Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(10.f, 10.f), "Bullet", 5, 1, 0, false, 10) { }
 
     /* Destructor */
     ~Projectile() = default;

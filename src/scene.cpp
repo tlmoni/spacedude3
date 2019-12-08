@@ -87,17 +87,18 @@ void Scene::Update() {
         }
     }
     for (auto e = map_.enemies.begin(); e != map_.enemies.end(); e++) {
-        (*e)->Action(player_->GetPosition(), map_.objects);
+        if ((*e)->dead_ == false) {
+            (*e)->Action(player_->GetPosition(), map_.objects);
+        }
 
-        if ((*e)->GetHitPoints() <= 0) {
+        if ((*e)->GetHitPoints() <= 0 && !(*e)->dead_) {
+            (*e)->dead_ = true;
+            (*e)->deadtimer_.restart();
+            (*e)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+        }
+        else if ((*e)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*e)->dead_) {
             map_.enemies.erase(e);
             e--;
-        }
-    }
-    for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
-        if ((*o)->GetHitPoints() <= 0) {
-            map_.objects.erase(o);
-            o--;
         }
     }
 }
@@ -112,8 +113,12 @@ void Scene::Render() {
     background.setPosition(sf::Vector2f(-400.f, -400.f));
     main_window->draw(background);
 
-    for(GameObject* obj : map_.objects) {
+    for(GameObject* obj : map_.map_objects) {
         main_window->draw(obj->GetSprite());
+        //main_window->draw(obj->GetHitbox());
+    }
+    for(GameObject* e : map_.enemies) {
+        main_window->draw(e->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {

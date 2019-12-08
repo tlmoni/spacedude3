@@ -9,7 +9,8 @@ extern sf::RenderWindow* main_window;
 class GameObject : public Movement {
 public:
     /* Constructor */
-    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f, double acceleration = 1.f, int hitpoints = 69, bool shootable = false);
+    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f,
+        double acceleration = 1.f, int hitpoints = 69, bool shootable = false, int damage = 0);
 
     /* Copy constructor */
     GameObject(const GameObject&);
@@ -54,13 +55,17 @@ public:
     sf::Texture* GetTexture() { return texture_; }
     int& GetHitPoints() { return hitpoints_; }
     bool IsShootable() { return shootable_; }
+    int GetDamage() { return damage_; }
 
+    sf::Clock deadtimer_; // Timer for tracking how long has object been dead
+    bool dead_ = false; // Indicates if the object is dead or alive
 private:
     std::string name_;
     PhysicsVector pos_;
     sf::Sprite sprite_;
     sf::Texture* texture_;
     RectHitbox hitbox_;
+    int damage_; // Damage for gameobject
     int hitpoints_;
     bool shootable_;
 };
