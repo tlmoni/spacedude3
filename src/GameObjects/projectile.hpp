@@ -9,6 +9,9 @@ public:
     /* Constructor */
     Projectile(PhysicsVector pos) : GameObject(pos, "src/Textures/bullet.png", RectHitbox(20.f, 20.f), "Bullet", 5, 1) { }
 
+    /* Destructor */
+    ~Projectile() = default;
+
     double GetSlowRate() { return slow_rate_; }
     double GetSpeed() { return speed_; }
 

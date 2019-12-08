@@ -18,7 +18,7 @@ public:
     GameObject& operator=(const GameObject&);
 
     /* Destructor */
-    ~GameObject();
+    virtual ~GameObject();
 
     /* Sets position of the object and its sprite */
     void SetPosition(sf::Vector2f new_pos);
