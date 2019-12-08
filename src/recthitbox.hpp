@@ -9,8 +9,10 @@ class RectHitbox : public sf::RectangleShape {
 public:
     /* Default contstructor */
     RectHitbox() = default;
+
     /* Constructor */
-    RectHitbox(float width, float height) : sf::RectangleShape(PhysicsVector(width, height)) {}
+    RectHitbox(float width, float height) : sf::RectangleShape(PhysicsVector(width, height)) { }
+
     /* Destructor */
     ~RectHitbox() = default;
 

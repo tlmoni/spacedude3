@@ -10,7 +10,7 @@ class GameObject : public Movement {
 public:
     /* Constructor */
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f,
-        double acceleration = 1.f, float hitpoints = 69, bool shootable = false, int damage = 0);
+               double acceleration = 1.f, float hitpoints = 69, bool shootable = false, int damage = 0);
 
     /* Copy constructor */
     GameObject(const GameObject&);
@@ -64,6 +64,7 @@ public:
 
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
+
 private:
     std::string name_;
     PhysicsVector pos_;
@@ -72,7 +73,7 @@ private:
     RectHitbox hitbox_;
     sf::RectangleShape hpbar_;
     sf::RectangleShape hpbarbackground_;
-    int damage_; // Damage for gameobject
+    int damage_;
     float hitpoints_;
     float max_hitpoints_;
     bool shootable_;

@@ -5,15 +5,14 @@
 #include "character_spacedude.hpp"
 #include "GameObjects/projectile.hpp"
 
-/* Forward declaration of Scene needed here */
+// Forward declaration of Scene needed here
 class Projectile;
 
-/* Allows the usege of global variable main_window and its functions */
+// Allows the usege of global variable main_window and its functions
 extern sf::RenderWindow* main_window;
 
-/* Allows the usage of global variables sound_on and music_on */
-extern bool sound_on;
-extern bool music_on;
+// Allows the usage of global variables sound_on and music_on
+extern bool sound_on, music_on;
 
 /* Player object, subclass of GameObject,  */
 class Player : public GameObject {
