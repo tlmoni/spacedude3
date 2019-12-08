@@ -1,13 +1,16 @@
 # Brawl Stars
 
 **Software Project for ELEC-A7151 Object oriented programming with C++**
+
 Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
+
 
 ![Image](./menu_500px.png) ![Image](./gameplay_500px.png)
 
+
 ### Features
 
-* A Brawl Stars-like game
+* A [Brawl Stars](https://supercell.com/en/games/brawlstars/)-like game
 * A real-time game
 * 2D-graphics (top-down view)
 * Pixelated art style
@@ -40,5 +43,10 @@ Once you have the dependencies (see above), run the following command in your te
 * Avoid getting hit enemies to remain alive
 
 ### Implementation Details
+
+We used [SFML](https://www.sfml-dev.org/) library to implement
+our graphics, sounds and game structure.
+We decided to use it because it seemed easy to use and suitable for our usage.
+Also we were encouraged to use SFML by our project topic page.
 
 *Under construction*

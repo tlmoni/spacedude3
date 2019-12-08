@@ -13,6 +13,7 @@ struct Map {
     std::string background_file;
     PhysicsVector player_location;
     std::vector<GameObject*> objects;
+    std::vector<Zombie*> enemies;
 };
 
 class MapLoader {
@@ -68,6 +69,7 @@ public:
                         else if (object == "Z") {
                             Zombie* zombie = new Zombie(PhysicsVector(x, y));
                             map.objects.push_back(zombie);
+                            map.enemies.push_back(zombie);
                         }
 
                         x += 64.f;

@@ -36,6 +36,8 @@ public:
     /* Render the game and update graphics */
     void Render();
 
+    void AddProjectiles(std::vector<Projectile*> projectiles);
+
     std::vector<GameObject*> GetObjects() { return map_.objects; }
 
 private:

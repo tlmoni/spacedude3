@@ -13,16 +13,15 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
 
         if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
                     SetXVelocity(0);
                 }
-
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -32,7 +31,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -40,7 +39,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -50,7 +49,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
         }
         if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -58,7 +57,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
             }
             if (obj_pos.y >= position.y + rect.height) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -68,7 +67,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
         }
         if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {
@@ -76,7 +75,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
             }
             if (obj_pos.y >= position.y + rect.height) {
-                if (obj->IsShootable()) {
+                if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
                 else {

@@ -2,8 +2,8 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
-
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetMaxSpeed(), character->GetAcceleration(),
+character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
@@ -11,6 +11,7 @@ GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, cha
     }
     gunshot_.setBuffer(buffer_);
     gunshot_.setVolume(80);
+    bullet_ = plasma;
 }
 
 /* Handle keypress and their effects on player character */
@@ -20,19 +21,19 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     std::vector<Projectile*> projectiles;
 
     // Handle bullet spawning and setting of initial speed
-    sf::Time time = reload_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > 140) {
-        reload_timer_.restart();
+    sf::Time time = attack_timer_.getElapsedTime();
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > GetAttackDelay()) {
+        attack_timer_.restart();
         if (sound_on) {
             gunshot_.play();
         }
 
-        Projectile* bullet = new Projectile(GetPosition());
+        Projectile* bullet = new Projectile(GetPosition(), GetType(), bullet_);
         PhysicsVector direction = GetCurrentCursorDirection();
 
         PhysicsVector vel = GetVelocity().UnitVector();
         SetVelocity(vel.Scale(0.5f));
-        direction = PhysicsVector(direction.x * bullet->GetSpeed()/sqrt(2), direction.y * bullet->GetSpeed()/sqrt(2));
+        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
         bullet->SetVelocity(direction + GetVelocity());
         projectiles.push_back(bullet);
     }
@@ -57,8 +58,6 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
             dir_vector += PhysicsVector(0.0f, 1.0f);
         }
     }
-
-
 
     Move(dir_vector);
     CheckCollisions(objects);

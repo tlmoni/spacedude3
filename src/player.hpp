@@ -40,7 +40,7 @@ public:
 private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
-    sf::Clock reload_timer_;
     sf::SoundBuffer buffer_; // Buffer for gun sound effect
     sf::Sound gunshot_; // Gun sound effect
+    Bullet bullet_;
 };
