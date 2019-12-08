@@ -69,6 +69,12 @@ void Scene::Loop() {
 
         Update();
         Render();
+
+        // If Esc key is pressed, return to menu
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            break;
+        }
     }
 }
 

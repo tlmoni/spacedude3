@@ -9,7 +9,6 @@
 
 extern sf::RenderWindow* main_window;
 extern int g_fps;
-extern Scene* scene;
 extern bool sound_on, music_on;
 
 /* Menu class handles the composition of different menu scenarios. menu_items_ vector holds

@@ -395,12 +395,15 @@ void Menu::Init() {
                         game_.play();
                         game_.setLoop(true);
                     }
-                    scene->Init();
+                    Scene scene = Scene();
+                    scene.Init();
                     game_.stop();
-                    delete scene;
+                    // delete scene;
                     if (music_on) {
                         music_.play();
-                        music_.setLoop(true);                    }
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
                     Load_MainMenu();
                 }
             }
