@@ -23,7 +23,6 @@ Menu::Menu() {
     button_.setBuffer(buffer_);
     menu_status = 0;
     x_ = 0;
-    clock_.restart();
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
@@ -35,14 +34,14 @@ void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
 
-    if (clock_.getElapsedTime().asMilliseconds() > 18150) {
+    if (x_ > 3200) {
+        std::cout << "reset" << std::endl;
         x_ = 0;
-        clock_.restart();
     }
     else {
-        x_ += 1;
+        x_ += 0.3;
     }
-    background.setTextureRect(sf::Rect(x_, 0, 3200, 1200));
+    background.setTextureRect(sf::Rect(int(x_), 0, 3200, 1200));
 
     main_window->draw(background);
     for (sf::Sprite it : menu_items_) {
@@ -395,12 +394,15 @@ void Menu::Init() {
                         game_.play();
                         game_.setLoop(true);
                     }
-                    scene->Init();
+                    Scene scene = Scene();
+                    scene.Init();
                     game_.stop();
-                    delete scene;
                     if (music_on) {
                         music_.play();
-                        music_.setLoop(true);                    }
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
                     Load_MainMenu();
                 }
             }

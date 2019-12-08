@@ -9,7 +9,6 @@
 
 extern sf::RenderWindow* main_window;
 extern int g_fps;
-extern Scene* scene;
 extern bool sound_on, music_on;
 
 /* Menu class handles the composition of different menu scenarios. menu_items_ vector holds
@@ -63,7 +62,6 @@ private:
     sf::Sound button_; // Sound that holds the button press sample
     sf::SoundBuffer buffer_; // Buffer for the button sample
     sf::Text sIP_; // Holds the IP address to be joined
-    sf::Clock clock_; // Timer for the menu animation
-    int x_; // Variable for menu animation position change
+    float x_; // Variable for menu animation position change
     int menu_status; // Indicates which menu scenario is to be loaded
 };
