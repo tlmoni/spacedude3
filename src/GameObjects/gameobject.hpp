@@ -5,11 +5,19 @@
 
 extern sf::RenderWindow* main_window;
 
+enum Type {
+    OBJECT,
+    ENEMY,
+    PLAYER,
+    WALL,
+    BULLET
+};
+
 /* Parent class for all game objects */
 class GameObject : public Movement {
 public:
     /* Constructor */
-    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f,
+    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type = OBJECT, std::string name = "GameObject", double max_speed = 5.f,
                double acceleration = 1.f, float hitpoints = 69, bool shootable = false, int damage = 0);
 
     /* Copy constructor */
@@ -22,7 +30,7 @@ public:
     virtual ~GameObject();
 
     /* Sets position of the object and its sprite */
-    void SetPosition(sf::Vector2f new_pos);
+    void SetPosition(PhysicsVector new_pos);
 
     /* Set object origin */
     void SetOrigin(float x, float y);
@@ -61,9 +69,11 @@ public:
     float& GetHitPoints() { return hitpoints_; }
     float GetMaxHitPoints() { return max_hitpoints_; }
     bool IsShootable() { return shootable_; }
+    int GetType() { return type_; }
 
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
+    bool collidable_ = true;
 
 private:
     std::string name_;
@@ -77,6 +87,7 @@ private:
     float hitpoints_;
     float max_hitpoints_;
     bool shootable_;
+    int type_;
 };
 
 /* Overload << operator for printing */
