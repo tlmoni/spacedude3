@@ -7,4 +7,5 @@ void Zombie::Action(PhysicsVector pos, std::vector<GameObject*> objects) {
     Move(direction);
     CheckCollisions(objects);
     SetPosition(GetPosition() + GetVelocity());
+    SetRotation(direction);
 }

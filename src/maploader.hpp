@@ -66,7 +66,9 @@ public:
 
                         // Zombie
                         else if (object == "Z") {
-                            map.enemies.push_back(new Zombie(PhysicsVector(x, y)));
+                            Zombie* zombie = new Zombie(PhysicsVector(x, y));
+                            map.enemies.push_back(zombie);
+                            map.objects.push_back(zombie);
                         }
 
                         x += 64.f;

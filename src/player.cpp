@@ -67,7 +67,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 /* Rotate player */
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
-    SetRotation(direction.x, direction.y); // Rotate the player sprite into new position.
+    SetRotation(direction); // Rotate the player sprite into new position.
 }
 
 /* Function that calculates current mousewise direction of the player sprite

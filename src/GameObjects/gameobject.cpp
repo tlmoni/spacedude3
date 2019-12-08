@@ -54,8 +54,8 @@ void GameObject::SetOrigin(float x, float y) {
 }
 
 /* Set object rotation */
-void GameObject::SetRotation(float x, float y) {
-    sprite_.setRotation(std::atan2(y, x) * 180 / M_PI); // Set the rotaion in degrees
+void GameObject::SetRotation(PhysicsVector direction) {
+    sprite_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI); // Set the rotaion in degrees
 }
 
 /* Set new hitbox for GameObject */
@@ -83,83 +83,41 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     sf::Rect rect = GetRect();
     sf::Vector2f position = GetRectPosition();
 
-    PhysicsVector velocity = GetVelocity();
-
     for (GameObject* obj : objects) {
         sf::Rect obj_rect = obj->GetRect();
         sf::Vector2f obj_pos = obj->GetPosition();
 
-        if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetXVelocity(0);
-                }
+        if (obj_rect.contains(position + PhysicsVector(0,0) + GetVelocity())) {
 
-            }
             if (obj_pos.y + obj_rect.height <= position.y) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetYVelocity(0);
-                }
+                SetYVelocity(0);
+            }
+            else if (obj_pos.x + obj_rect.width <= position.x) {
+                SetXVelocity(0);
             }
         }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
+        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + GetVelocity())) {
             if (obj_pos.x >= position.x + rect.width) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetXVelocity(0);
-                }
+                SetXVelocity(0);
             }
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetYVelocity(0);
-                }
+            else if (obj_pos.y + obj_rect.height <= position.y) {
+                SetYVelocity(0);
             }
         }
-        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
-            if (obj_pos.x + obj_rect.width <= position.x) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetXVelocity(0);
-                }
-            }
+        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + GetVelocity())) {
             if (obj_pos.y >= position.y + rect.height) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetYVelocity(0);
-                }
+                SetYVelocity(0);
+            }
+            else if (obj_pos.x + obj_rect.width <= position.x) {
+                SetXVelocity(0);
             }
         }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
-            if (obj_pos.x >= position.x + rect.width) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetXVelocity(0);
-                }
-            }
+        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + GetVelocity())) {
             if (obj_pos.y >= position.y + rect.height) {
-                if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
-                }
-                else {
-                    SetYVelocity(0);
-                }
+                SetYVelocity(0);
+            }
+            else if (obj_pos.x >= position.x + rect.width) {
+                SetXVelocity(0);
             }
         }
     }

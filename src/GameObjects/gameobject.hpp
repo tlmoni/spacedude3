@@ -27,7 +27,7 @@ public:
     void SetOrigin(float x, float y);
 
     /* Set object rotation */
-    void SetRotation(float x, float y);
+    void SetRotation(PhysicsVector direction);
 
     /* Set new hitbox for GameObject */
     void SetHitbox(RectHitbox hitbox);
@@ -43,7 +43,7 @@ public:
     T* Action(std::vector<GameObject*>) { }
 
     /* Check if player is colliding with items and change movement according to that */
-    void CheckCollisions(std::vector<GameObject*> objects);
+    virtual void CheckCollisions(std::vector<GameObject*> objects);
 
     std::string GetName() { return name_; }
     PhysicsVector GetPosition() { return pos_; }
@@ -52,7 +52,8 @@ public:
     PhysicsVector GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
     sf::Texture* GetTexture() { return texture_; }
-    int GetHitPoints() { return hitpoints_; }
+    int& GetHitPoints() { return hitpoints_; }
+    bool IsShootable() { return shootable_; }
 
 private:
     std::string name_;

@@ -12,6 +12,8 @@ public:
     /* Destructor */
     ~Projectile() = default;
 
+    void CheckCollisions(std::vector<GameObject*> objects);
+
     double GetSlowRate() { return slow_rate_; }
     double GetSpeed() { return speed_; }
 

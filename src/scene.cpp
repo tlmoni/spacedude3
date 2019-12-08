@@ -87,11 +87,17 @@ void Scene::Update() {
         }
     }
     for (auto e = map_.enemies.begin(); e != map_.enemies.end(); e++) {
-        (*e)->Action(player_->GetPosition(), GetObjects());
+        (*e)->Action(player_->GetPosition(), map_.objects);
 
         if ((*e)->GetHitPoints() <= 0) {
             map_.enemies.erase(e);
             e--;
+        }
+    }
+    for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
+        if ((*o)->GetHitPoints() <= 0) {
+            map_.objects.erase(o);
+            o--;
         }
     }
 }
@@ -108,10 +114,6 @@ void Scene::Render() {
 
     for(GameObject* obj : map_.objects) {
         main_window->draw(obj->GetSprite());
-        //main_window->draw(obj->GetHitbox());
-    }
-    for(GameObject* e : map_.enemies) {
-        main_window->draw(e->GetSprite());
         //main_window->draw(obj->GetHitbox());
     }
     if (projectiles_.empty() == false) {
