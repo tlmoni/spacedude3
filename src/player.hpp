@@ -30,9 +30,6 @@ public:
     /* Function handling keypress and their effects on player character */
     std::vector<Projectile*> Action(std::vector<GameObject*> objects);
 
-    /* Function resposible for updating player character position */
-    void Move(PhysicsVector dir_vector);
-
     /* Rotote player */
     void Rotate();
 

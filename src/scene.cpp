@@ -32,7 +32,6 @@ void Scene::Init() {
     Loop();
 }
 
-
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
 

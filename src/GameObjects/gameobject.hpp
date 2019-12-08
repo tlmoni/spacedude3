@@ -24,6 +24,9 @@ public:
     /* Set new hitbox for GameObject */
     void SetHitbox(RectHitbox hitbox);
 
+    /* Function resposible for updating player character position */
+    void Move(PhysicsVector direction);
+
     /* Check if player is colliding with items and change movement according to that */
     void CheckCollisions(std::vector<GameObject*> objects);
 

@@ -45,6 +45,20 @@ void GameObject::SetHitbox(RectHitbox hitbox) {
     hitbox_ = hitbox;
 }
 
+/* Move player character on the scene and check collisions. */
+void GameObject::Move(PhysicsVector direction) {
+
+    if (direction.Length() > 0) {
+        Accelerate(DirectionOfVector(dir_vector));
+    }
+    else if (GetVelocity().Length() > 0) {
+        Decelerate(g_friction);
+    }
+    else {
+        return;
+    }
+}
+
 /* Check if player is colliding with items and change movement according to that */
 void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     /* hitbox rect of player */

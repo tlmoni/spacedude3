@@ -64,20 +64,6 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     return projectiles;
 }
 
-/* Move player character on the scene and check collisions. */
-void Player::Move(PhysicsVector dir_vector) {
-
-    if (dir_vector.Length() > 0) {
-        Accelerate(DirectionOfVector(dir_vector));
-    }
-    else if (GetVelocity().Length() > 0) {
-        Decelerate(g_friction);
-    }
-    else {
-        return;
-    }
-}
-
 /* Rotate player */
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
