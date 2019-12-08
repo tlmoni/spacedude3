@@ -9,7 +9,8 @@ extern sf::RenderWindow* main_window;
 class GameObject : public Movement {
 public:
     GameObject() = default;
-    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f, double acceleration = 1.f, int hitpoints = 69, bool shootable = false);
+    GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name = "GameObject", double max_speed = 5.f,
+               double acceleration = 1.f, int hitpoints = 69, bool shootable = false, int damage = 0);
     ~GameObject();
 
     /* Sets position of the object and its sprite */
@@ -34,14 +35,18 @@ public:
     sf::Vector2f GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
     sf::Texture* GetTexture() { return texture_; }
+    int GetDamage() { return damage_; }
     int GetHitPoints() { return hitpoints_; }
 
+    sf::Clock deadtimer_; // Timer for tracking how long has object been dead
+    bool dead_ = false; // Indicates if the object is dead or alive
 private:
     std::string name_;
     sf::Vector2f pos_; /* Variable tracking player position in the scene */
     sf::Sprite sprite_; /* Variable to hold player sprite */
     sf::Texture* texture_;
     RectHitbox hitbox_;
+    int damage_; // Damage for gameobject
     int hitpoints_;
     bool shootable_;
 };

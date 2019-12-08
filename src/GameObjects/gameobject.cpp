@@ -1,9 +1,12 @@
 #include "gameobject.hpp"
 
 /* Constructor */
-GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name, double max_speed, double acceleration, int hitpoints, bool shootable) :
-Movement(max_speed, acceleration),
-hitpoints_(hitpoints), shootable_(shootable) {
+GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name, double max_speed,
+                       double acceleration, int hitpoints, bool shootable, int damage) :
+Movement(max_speed, acceleration) {
+    hitpoints_ = hitpoints;
+    shootable_ = shootable;
+    damage_ = damage;
     pos_ = pos;
     name_ = name;
     texture_ = new sf::Texture();
@@ -60,7 +63,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
         if (obj_rect.contains(position + PhysicsVector(0,0) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetXVelocity(0);
@@ -69,7 +72,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetYVelocity(0);
@@ -79,7 +82,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
         if (obj_rect.contains(position + PhysicsVector(rect.width,0) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetXVelocity(0);
@@ -87,7 +90,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetYVelocity(0);
@@ -97,7 +100,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
         if (obj_rect.contains(position + PhysicsVector(0,rect.height) + velocity)) {
             if (obj_pos.x + obj_rect.width <= position.x) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetXVelocity(0);
@@ -105,7 +108,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             }
             if (obj_pos.y >= position.y + rect.height) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetYVelocity(0);
@@ -115,7 +118,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
         if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + velocity)) {
             if (obj_pos.x >= position.x + rect.width) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetXVelocity(0);
@@ -123,7 +126,7 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             }
             if (obj_pos.y >= position.y + rect.height) {
                 if (obj->shootable_) {
-                    obj->hitpoints_ -= 10;
+                    obj->hitpoints_ -= GetDamage();
                 }
                 else {
                     SetYVelocity(0);

@@ -77,7 +77,12 @@ void Scene::Update() {
         }
     }
     for (auto e = enemies_.begin(); e != enemies_.end(); e++) {
-        if ((*e)->GetHitPoints() <= 0) {
+        if ((*e)->GetHitPoints() <= 0 && !(*e)->dead_) {
+            (*e)->dead_ = true;
+            (*e)->deadtimer_.restart();
+            (*e)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+        }
+        else if ((*e)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*e)->dead_) {
             enemies_.erase(e);
             e--;
         }
