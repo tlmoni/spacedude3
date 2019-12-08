@@ -2,7 +2,7 @@
 
 /* Constructor. Get parameter for what character player chose. */
 Player::Player(Character* character, sf::Vector2f pos) :
-GameObject(pos, character->GetTextureFile(), character->GetHitBox(), character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
+GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetIdentity(), character->GetMaxSpeed(), character->GetAcceleration()) {
 
     SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());

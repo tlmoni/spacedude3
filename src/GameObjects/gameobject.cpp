@@ -1,7 +1,7 @@
 #include "gameobject.hpp"
 
 /* Constructor */
-GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, std::string name, double max_speed,
+GameObject::GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type, std::string name, double max_speed,
                        double acceleration, float hitpoints, bool shootable, int damage) :
 Movement(max_speed, acceleration) {
     hitpoints_ = hitpoints;
@@ -10,6 +10,7 @@ Movement(max_speed, acceleration) {
     damage_ = damage;
     pos_ = pos;
     name_ = name;
+    type_ = type;
     texture_ = new sf::Texture();
     if(!texture_->loadFromFile(file)) {
         // Error checking.
@@ -49,7 +50,7 @@ GameObject::~GameObject() {
 }
 
 /* Sets position of the object and its sprite */
-void GameObject::SetPosition(sf::Vector2f new_pos) {
+void GameObject::SetPosition(PhysicsVector new_pos) {
     pos_ = new_pos;
     sprite_.setPosition(new_pos);
     hitbox_.setPosition(new_pos);
@@ -99,40 +100,42 @@ void GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     sf::Vector2f position = GetRectPosition();
 
     for (GameObject* obj : objects) {
-        sf::Rect obj_rect = obj->GetRect();
-        sf::Vector2f obj_pos = obj->GetPosition();
+        if (obj->collidable_) {
+            sf::Rect obj_rect = obj->GetRect();
+            sf::Vector2f obj_pos = obj->GetPosition();
 
-        if (obj_rect.contains(position + PhysicsVector(0,0) + GetVelocity())) {
+            if (obj_rect.contains(position + PhysicsVector(0,0) + GetVelocity())) {
 
-            if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
+                if (obj_pos.y + obj_rect.height <= position.y) {
+                    SetYVelocity(0);
+                }
+                else if (obj_pos.x + obj_rect.width <= position.x) {
+                    SetXVelocity(0);
+                }
             }
-            else if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
+            if (obj_rect.contains(position + PhysicsVector(rect.width,0) + GetVelocity())) {
+                if (obj_pos.x >= position.x + rect.width) {
+                    SetXVelocity(0);
+                }
+                else if (obj_pos.y + obj_rect.height <= position.y) {
+                    SetYVelocity(0);
+                }
             }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,0) + GetVelocity())) {
-            if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
+            if (obj_rect.contains(position + PhysicsVector(0,rect.height) + GetVelocity())) {
+                if (obj_pos.y >= position.y + rect.height) {
+                    SetYVelocity(0);
+                }
+                else if (obj_pos.x + obj_rect.width <= position.x) {
+                    SetXVelocity(0);
+                }
             }
-            else if (obj_pos.y + obj_rect.height <= position.y) {
-                SetYVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(0,rect.height) + GetVelocity())) {
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-            else if (obj_pos.x + obj_rect.width <= position.x) {
-                SetXVelocity(0);
-            }
-        }
-        if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + GetVelocity())) {
-            if (obj_pos.y >= position.y + rect.height) {
-                SetYVelocity(0);
-            }
-            else if (obj_pos.x >= position.x + rect.width) {
-                SetXVelocity(0);
+            if (obj_rect.contains(position + PhysicsVector(rect.width,rect.height) + GetVelocity())) {
+                if (obj_pos.y >= position.y + rect.height) {
+                    SetYVelocity(0);
+                }
+                else if (obj_pos.x >= position.x + rect.width) {
+                    SetXVelocity(0);
+                }
             }
         }
     }

@@ -37,7 +37,6 @@ public:
     void Render();
 
     std::vector<GameObject*> GetObjects() { return map_.objects; }
-    std::vector<GameObject*> GetEnemies() { return map_.enemies; }
 
 private:
     Map map_;

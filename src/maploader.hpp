@@ -13,8 +13,6 @@ struct Map {
     std::string background_file;
     PhysicsVector player_location;
     std::vector<GameObject*> objects;
-    std::vector<GameObject*> enemies;
-    std::vector<GameObject*> map_objects;
 };
 
 class MapLoader {
@@ -64,13 +62,11 @@ public:
                         else if (object == "w") {
                             Wall* wall = new Wall(PhysicsVector(x, y));
                             map.objects.push_back(wall);
-                            map.map_objects.push_back(wall);
                         }
 
                         // Zombie
                         else if (object == "Z") {
                             Zombie* zombie = new Zombie(PhysicsVector(x, y));
-                            map.enemies.push_back(zombie);
                             map.objects.push_back(zombie);
                         }
 

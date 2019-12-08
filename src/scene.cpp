@@ -74,6 +74,7 @@ void Scene::Loop() {
 
 /* Update game logic (bullets etc.) */
 void Scene::Update() {
+    // Handle projectiles
     for (auto p = projectiles_.begin(); p != projectiles_.end(); p++) {
         if ((*p)->GetVelocity().Length() == 0) {
             projectiles_.erase(p);
@@ -81,24 +82,28 @@ void Scene::Update() {
         }
         else {
             (*p)->CheckCollisions(map_.objects);
-            (*p)->CheckCollisions(map_.enemies);
             (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
             (*p)->Decelerate((*p)->GetSlowRate());
         }
     }
-    for (auto e = map_.enemies.begin(); e != map_.enemies.end(); e++) {
-        if ((*e)->dead_ == false) {
-            (*e)->Action(player_->GetPosition(), map_.objects);
-        }
+    // Handle objects
+    for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
+        // Enemies
+        if ((*o)->GetType() == ENEMY) {
+            if ((*o)->dead_ == false) {
+                (*o)->Action(player_->GetPosition(), map_.objects);
+            }
 
-        if ((*e)->GetHitPoints() <= 0 && !(*e)->dead_) {
-            (*e)->dead_ = true;
-            (*e)->deadtimer_.restart();
-            (*e)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
-        }
-        else if ((*e)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*e)->dead_) {
-            map_.enemies.erase(e);
-            e--;
+            if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
+                (*o)->dead_ = true;
+                (*o)->collidable_ = false;
+                (*o)->deadtimer_.restart();
+                (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+            }
+            else if ((*o)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*o)->dead_) {
+                map_.objects.erase(o);
+                o--;
+            }
         }
     }
 }
@@ -113,29 +118,25 @@ void Scene::Render() {
     background.setPosition(sf::Vector2f(-400.f, -400.f));
     main_window->draw(background);
 
-    for(GameObject* obj : map_.map_objects) {
-        main_window->draw(obj->GetSprite());
-        //main_window->draw(obj->GetHitbox());
-    }
-    for(GameObject* enemy : map_.enemies) {
-        main_window->draw(enemy->GetSprite());
-        if (!enemy->dead_) {
-            enemy->UpdateHP();
-            main_window->draw(enemy->GetHPBackground());
-            main_window->draw(enemy->GetHPBar());
+    for(GameObject* o : map_.objects) {
+        main_window->draw(o->GetSprite());
+        if (!o->dead_) {
+            o->UpdateHP();
+            main_window->draw(o->GetHPBackground());
+            main_window->draw(o->GetHPBar());
         }
-        //main_window->draw(obj->GetHitbox());
+        //main_window->draw(o->GetHitbox());
     }
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
-            //main_window->draw(p->GetHitbox());
+            main_window->draw(p->GetHitbox());
         }
     }
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
-    //main_window->draw(player_->GetHitbox());
+    main_window->draw(player_->GetHitbox());
 
     main_window->display();
 }
