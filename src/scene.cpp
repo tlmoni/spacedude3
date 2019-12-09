@@ -109,7 +109,6 @@ void Scene::Update() {
                     (*o)->DeathSound();
                 }
                 (*o)->dead_ = true;
-                (*o)->collidable_ = false;
                 (*o)->deadtimer_.restart();
                 (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
             }

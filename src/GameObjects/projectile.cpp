@@ -16,7 +16,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
                 }
             }
@@ -24,7 +24,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetYVelocity(0);
                 }
             }
@@ -34,7 +34,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
                 }
             }
@@ -42,7 +42,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetYVelocity(0);
                 }
             }
@@ -52,7 +52,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
                 }
             }
@@ -60,7 +60,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetYVelocity(0);
                 }
             }
@@ -70,7 +70,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
                 }
             }
@@ -78,7 +78,7 @@ void Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 if (obj->IsShootable() && GetOwner() != obj->GetType()) {
                     obj->TakeDamage(GetDamage());
                 }
-                else {
+                else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetYVelocity(0);
                 }
             }
