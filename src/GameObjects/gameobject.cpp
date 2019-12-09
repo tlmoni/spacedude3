@@ -147,6 +147,9 @@ void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;
         collidable_ = false;
+        if (GetType() != ENEMY) {
+            dead_ = true;
+        }
     }
     else {
         hitpoints_ -= damage;

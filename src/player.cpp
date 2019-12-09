@@ -9,6 +9,10 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
         std::cout << "ERROR: Loading gun sound failed!" << std::endl;
     }
+    if (!deathbuffer_.loadFromFile("src/Audio/Sound/sound_playerdeath.ogg")) {
+        std::cout << "ERROR: Loading player death sound failed!" << std::endl;
+    }
+    death_.setBuffer(deathbuffer_);
     gunshot_.setBuffer(buffer_);
     gunshot_.setVolume(80);
     bullet_ = plasma;
@@ -83,4 +87,16 @@ PhysicsVector Player::GetCurrentCursorDirection() {
     sf::Vector2f worldCursor = main_window->mapPixelToCoords(cursor); // Get the mouse position in world coordinates
     sf::Vector2f direction = worldCursor - GetPosition(); // Get the relative direction
     return PhysicsVector(direction).UnitVector();
+}
+
+/* Play player death sound and set loop true */
+void Player::PlayDeathSound() {
+    death_.setLoop(true);
+    death_.play();
+}
+
+/* Stop player death sound and set loop true */
+void Player::StopDeathSound() {
+    death_.setLoop(false);
+    death_.stop();
 }

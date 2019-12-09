@@ -14,9 +14,6 @@ Menu::Menu() {
     if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
         // Error checking
     }
-    if (!game_.openFromFile("src/Audio/Music/music_game.ogg")) {
-        // Error checking
-    }
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
         // Error checking
     }
@@ -26,7 +23,6 @@ Menu::Menu() {
     Load_MainMenu();
     music_.play();
     music_.setLoop(true);
-    game_.setVolume(60);
     Draw();
 }
 
@@ -391,13 +387,8 @@ void Menu::Init() {
                     }
                     Clear_MenuItems();
                     music_.stop();
-                    if (music_on) {
-                        game_.play();
-                        game_.setLoop(true);
-                    }
                     Scene scene = Scene();
                     scene.Init();
-                    game_.stop();
                     if (music_on) {
                         music_.play();
                         music_.setLoop(true);
