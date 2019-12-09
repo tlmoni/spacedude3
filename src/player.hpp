@@ -54,11 +54,19 @@ public:
     /* Function that calculates current mousewise direction, relative to player sprite */
     PhysicsVector GetCurrentCursorDirection();
 
+    /* Play player death sound and set loop true */
+    void PlayDeathSound();
+
+    /* Stop player death sound and set loop true */
+    void StopDeathSound();
+
     sf::View GetView() { return player_cam_; }
 
 private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
+    sf::SoundBuffer deathbuffer_ ; // Buffer for death sound effect
+    sf::Sound death_; // Death sound effect
     sf::SoundBuffer buffer_; // Buffer for gun sound effect
     sf::Sound gunshot_; // Gun sound effect
     Weapon weapon_;

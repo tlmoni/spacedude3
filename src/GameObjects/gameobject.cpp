@@ -147,9 +147,22 @@ void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;
         collidable_ = false;
+        if (GetType() != ENEMY) {
+            dead_ = true;
+        }
     }
     else {
         hitpoints_ -= damage;
+    }
+}
+
+/* Set object sprite */
+void GameObject::SetSprite(std::string file) {
+    if (texture_->loadFromFile(file)) {
+        sprite_.setTexture(*texture_);
+    }
+    else {
+        std::cout << "ERROR loading object texture" << std::endl;
     }
 }
 

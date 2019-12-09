@@ -14,9 +14,6 @@ Menu::Menu() {
     if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
         // Error checking
     }
-    if (!game_.openFromFile("src/Audio/Music/music_game.ogg")) {
-        // Error checking
-    }
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
         // Error checking
     }
@@ -35,7 +32,6 @@ void Menu::Draw() {
     background.setTexture(main_menu_background_);
 
     if (x_ > 3200) {
-        std::cout << "reset" << std::endl;
         x_ = 0;
     }
     else {
@@ -390,13 +386,8 @@ void Menu::Init() {
                     }
                     Clear_MenuItems();
                     music_.stop();
-                    if (music_on) {
-                        game_.play();
-                        game_.setLoop(true);
-                    }
                     Scene scene = Scene();
                     scene.Init();
-                    game_.stop();
                     if (music_on) {
                         music_.play();
                         music_.setLoop(true);
