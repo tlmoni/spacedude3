@@ -91,12 +91,20 @@ void Scene::Update() {
             p--;
         }
         else {
+            bool collided1 = false;
+            bool collided2 = false;
             std::vector<GameObject*> player;
             player.push_back(player_);
-            (*p)->CheckCollisions(map_.objects);
-            (*p)->CheckCollisions(player);
-            (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
-            (*p)->Decelerate((*p)->GetAcceleration());
+            collided1 = (*p)->CheckCollisions(map_.objects);
+            collided2 = (*p)->CheckCollisions(player);
+            if (collided1 || collided2) {
+                projectiles_.erase(p);
+                p--;
+            }
+            else {
+                (*p)->SetPosition((*p)->GetPosition() + (*p)->GetVelocity());
+                (*p)->Decelerate((*p)->GetAcceleration());
+            }
         }
     }
 
@@ -145,6 +153,7 @@ void Scene::Render() {
             main_window->draw(p->GetHitbox());
         }
     }
+    player_->UpdateHP();
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
