@@ -58,7 +58,7 @@ public:
     virtual void DeathSound() { }
 
     /* Set object sprite */
-    void SetSprite(std::string file);
+    void SetSprite(sf::Texture texture);
 
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }

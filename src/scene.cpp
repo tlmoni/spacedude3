@@ -101,7 +101,11 @@ void Scene::Loop() {
     gameend.setScale(sf::Vector2f(1.3, 1.3));
     gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
 
-    player_->SetSprite("src/Textures/deadspacedude.png");
+    sf::Texture texture;
+    if (!texture.loadFromFile("src/Textures/deadspacedude.png")) {
+        std::cout << "ERROR loading spacedudedead" << std::endl;
+    }
+    player_->SetSprite(texture);
     Update();
     Render();
 
@@ -117,6 +121,7 @@ void Scene::Loop() {
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             player_->StopDeathSound();
             break;
@@ -196,6 +201,27 @@ void Scene::Update() {
 
 /* Render the game and update graphics */
 void Scene::Render() {
+    // Handle animations
+    /*
+    if (player_->GetVelocity().Length() != 0) {
+        if (player_animations_.animation_clock_.getElapsedTime().asMilliseconds() > 500) {
+            if (player_animations_.animation_state_ == 1) {
+                player_->SetSprite(player_animations_.textures_[0]);
+                player_animations_.animation_state_ = 0;
+                player_animations_.animation_clock_.restart();
+            }
+            else {
+                player_->SetSprite(player_animations_.textures_[1]);
+                player_animations_.animation_state_ = 1;
+                player_animations_.animation_clock_.restart();
+            }
+        }
+    }
+    else {
+        player_->SetSprite(player_animations_.textures_[1]);
+    }
+    */
+
     main_window->clear();
 
     sf::Sprite background;
