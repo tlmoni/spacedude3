@@ -45,4 +45,6 @@ private:
     sf::Texture background_;
     Player* player_;
     std::vector<Projectile*> projectiles_;
+    sf::Texture cursor_;
+    sf::Sprite cursor_sprite_;
 };

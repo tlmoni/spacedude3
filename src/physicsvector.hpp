@@ -26,8 +26,14 @@ public:
     /* Calculates angle from x-axis in range -180 to 180 degrees */
     float Angle();
 
+    /* Calculates angle from x-axis in range -pi to pi in radians*/
+    float AngleRad();
+
     /* Returns the angle between 2 vectors (self & parameter), returns angle in radians. */
     float AngleBetween(PhysicsVector vector);
+
+    /* Rotate vector by angle(degrees) */
+    void Rotate(float angle);
 
     /* Dot product of 2 vectors, returns double */
     float DotProduct(PhysicsVector vector);

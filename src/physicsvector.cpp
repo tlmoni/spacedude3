@@ -18,6 +18,11 @@ float PhysicsVector::Angle() {
     return 180/M_PI*atan2(y,x);
 }
 
+/* Calculates angle from x-axis in range -180 to 180 degrees */
+float PhysicsVector::AngleRad() {
+    return atan2(y,x);
+}
+
 /* Returns the angle between 2 vectors (self & parameter) */
 float PhysicsVector::AngleBetween(PhysicsVector vector) {
     float length = this->Length() * vector.Length();
@@ -28,11 +33,20 @@ float PhysicsVector::AngleBetween(PhysicsVector vector) {
     return angle;
 }
 
+/* Rotate vector by angle(degrees) */
+void PhysicsVector::Rotate(float angle) {
+    float length = Length();
+    angle = angle*M_PI/180;
+    x = length * cosf(AngleRad() + angle);
+    y = length * sinf(AngleRad() + angle);
+}
+
 /* Returns the result of the vector multiplication (self & parameter) */
 float PhysicsVector::DotProduct(PhysicsVector vector) {
     return this->x*vector.x + this->y*vector.y;
 }
 
+/* Multiply vector by some value */
 PhysicsVector PhysicsVector::Scale(float multiplier) {
     return PhysicsVector(this->x * multiplier, this->y * multiplier);
 }

@@ -11,7 +11,7 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     }
     gunshot_.setBuffer(buffer_);
     gunshot_.setVolume(80);
-    bullet_ = plasma;
+    weapon_ = blaster;
 }
 
 /* Handle keypress and their effects on player character */
@@ -22,20 +22,15 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 
     // Handle bullet spawning and setting of initial speed
     sf::Time time = attack_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > GetAttackDelay()) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > weapon_.shoot_delay) {
         attack_timer_.restart();
+        Shoot();
+
         if (sound_on) {
             gunshot_.play();
         }
 
-        Projectile* bullet = new Projectile(GetPosition(), GetType(), bullet_);
-        PhysicsVector direction = GetCurrentCursorDirection();
-
-        PhysicsVector vel = GetVelocity().UnitVector();
-        SetVelocity(vel.Scale(0.5f));
-        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
-        bullet->SetVelocity(direction + GetVelocity());
-        projectiles.push_back(bullet);
+        projectiles = Shoot();
     }
     else {
         // Movement to the left
@@ -57,6 +52,15 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             dir_vector += PhysicsVector(0.0f, 1.0f);
         }
+
+        //Switch weapons from number buttons
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+            SwitchWeapon(BLASTER);
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+            SwitchWeapon(SHOTGUN);
+        }
+
     }
 
     Move(dir_vector);
@@ -68,6 +72,45 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     main_window->setView(GetView());
 
     return projectiles;
+}
+
+std::vector<Projectile*> Player::Shoot() {
+    std::vector<Projectile*> projectiles;
+    if (weapon_.type == BLASTER) {
+        Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
+        PhysicsVector direction = GetCurrentCursorDirection();
+
+        PhysicsVector vel = GetVelocity().UnitVector();
+        SetVelocity(vel.Scale(0.5f));
+        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
+        bullet->SetVelocity(direction + GetVelocity());
+        projectiles.push_back(bullet);
+    }
+    else if (weapon_.type == SHOTGUN) {
+        for (int i = -2; i < 3; i++) {
+            Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
+            PhysicsVector direction = GetCurrentCursorDirection();
+            direction.Rotate(i*15);
+
+            PhysicsVector vel = GetVelocity().UnitVector();
+            SetVelocity(vel.Scale(0.01f));
+
+            direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
+            bullet->SetVelocity(direction + GetVelocity());
+            projectiles.push_back(bullet);
+        }
+    }
+
+    return projectiles;
+}
+
+void Player::SwitchWeapon(int weapon_type) {
+    if (weapon_type == BLASTER) {
+        weapon_ = blaster;
+    }
+    else if (weapon_type == SHOTGUN) {
+        weapon_ = shotgun;
+    }
 }
 
 /* Rotate player */

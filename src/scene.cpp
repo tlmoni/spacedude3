@@ -1,7 +1,13 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene() { }
+Scene::Scene() {
+    if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
+        // Error checking.
+    }
+    cursor_sprite_.setTexture(cursor_);
+    cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
+}
 
 /* Copy constructor */
 Scene::Scene(const Scene& scene) {
@@ -32,6 +38,11 @@ Scene::~Scene() {
 
 /* Run and setup singleplayer scene */
 void Scene::Init() {
+    // Init cursor
+    main_window->setMouseCursorVisible(false);
+
+
+    // Init map
     map_ = MapLoader::LoadMap("src/Maps/map1.txt");
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map_.player_location);
@@ -66,6 +77,7 @@ void Scene::Loop() {
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             break;
         }
@@ -126,6 +138,8 @@ void Scene::Update() {
             }
         }
     }
+    // Move cursor
+    cursor_sprite_.setPosition(main_window->getView().getCenter() - sf::Vector2f(500,500) + static_cast<sf::Vector2f>(sf::Mouse::getPosition(*main_window)));
 }
 
 /* Render the game and update graphics */
@@ -158,6 +172,8 @@ void Scene::Render() {
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
     main_window->draw(player_->GetHitbox());
+
+    main_window->draw(cursor_sprite_);
 
     main_window->display();
 }

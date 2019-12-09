@@ -5,6 +5,21 @@
 #include "character_spacedude.hpp"
 #include "GameObjects/projectile.hpp"
 
+enum WeaponType {
+    BLASTER,
+    SHOTGUN
+};
+
+struct Weapon {
+    int type;
+    Bullet bullet;
+    int shoot_delay;
+    std::string texture;
+};
+
+const static Weapon blaster = {BLASTER, plasma, 100, "src/Textures/blaster.png"};
+const static Weapon shotgun = {SHOTGUN, pellet, 500, "src/Textures/shotgun.png"};
+
 // Forward declaration of Scene needed here
 class Projectile;
 
@@ -29,6 +44,10 @@ public:
     /* Function handling keypress and their effects on player character */
     std::vector<Projectile*> Action(std::vector<GameObject*> objects);
 
+    std::vector<Projectile*> Shoot();
+
+    void SwitchWeapon(int weapon_type);
+
     /* Rotote player */
     void Rotate();
 
@@ -42,5 +61,5 @@ private:
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
     sf::SoundBuffer buffer_; // Buffer for gun sound effect
     sf::Sound gunshot_; // Gun sound effect
-    Bullet bullet_;
+    Weapon weapon_;
 };
