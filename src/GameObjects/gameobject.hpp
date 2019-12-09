@@ -57,6 +57,9 @@ public:
 
     virtual void DeathSound() { }
 
+    /* Set object sprite */
+    void SetSprite(std::string file);
+
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }

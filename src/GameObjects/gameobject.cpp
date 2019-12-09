@@ -156,6 +156,16 @@ void GameObject::TakeDamage(float damage) {
     }
 }
 
+/* Set object sprite */
+void GameObject::SetSprite(std::string file) {
+    if (texture_->loadFromFile(file)) {
+        sprite_.setTexture(*texture_);
+    }
+    else {
+        std::cout << "ERROR loading object texture" << std::endl;
+    }
+}
+
 /* Overload << operator for printing */
 std::ostream& operator<<(std::ostream& os, GameObject obj) {
     os << "<" << obj.GetType() << ">";

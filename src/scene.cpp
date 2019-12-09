@@ -78,6 +78,21 @@ void Scene::Loop() {
             break;
         }
     }
+    sf::Font font;
+    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR loading font" << std::endl;
+    }
+    sf::Text gameend;
+    std::string str = "YOU DIED! Press ESC to return to menu";
+    gameend.setFont(font);
+    gameend.setString(str);
+    gameend.setFillColor(sf::Color::Red);
+    gameend.setScale(sf::Vector2f(1.3, 1.3));
+    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    player_->SetSprite("src/Textures/deadspacedude.png");
+    Update();
+    Render();
 
     while (main_window->isOpen()) {
         sf::Event event;
@@ -95,6 +110,8 @@ void Scene::Loop() {
             player_->StopDeathSound();
             break;
         }
+        main_window->draw(gameend);
+        main_window->display();
     }
 }
 
