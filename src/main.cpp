@@ -3,7 +3,7 @@
 #include "menu.hpp"
 
 // Define main_window and scene as global variables
-sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1000, 1000), "<insert game name here>"); // Main window, contains everything within the game
+sf::RenderWindow* main_window = new sf::RenderWindow(sf::VideoMode(1000, 1000), "Spacedude 3: Return of the Zombies", sf::Style::Titlebar); // Main window, contains everything within the game
 
 Menu* menu = new Menu();
 
