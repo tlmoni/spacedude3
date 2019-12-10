@@ -201,27 +201,6 @@ void Scene::Update() {
 
 /* Render the game and update graphics */
 void Scene::Render() {
-    // Handle animations
-    /*
-    if (player_->GetVelocity().Length() != 0) {
-        if (player_animations_.animation_clock_.getElapsedTime().asMilliseconds() > 500) {
-            if (player_animations_.animation_state_ == 1) {
-                player_->SetSprite(player_animations_.textures_[0]);
-                player_animations_.animation_state_ = 0;
-                player_animations_.animation_clock_.restart();
-            }
-            else {
-                player_->SetSprite(player_animations_.textures_[1]);
-                player_animations_.animation_state_ = 1;
-                player_animations_.animation_clock_.restart();
-            }
-        }
-    }
-    else {
-        player_->SetSprite(player_animations_.textures_[1]);
-    }
-    */
-
     main_window->clear();
 
     sf::Sprite background;

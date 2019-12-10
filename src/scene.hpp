@@ -5,26 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include "maploader.hpp"
 
-/*
-class Animations {
-public:
-    Animations(std::vector<std::string> files) {
-        files_ = files;
-        sf::Texture texture;
-        for (auto file : files) {
-            if(!texture.loadFromFile(file)) {
-                std::cout << "Error loading animations." << std::endl;
-            }
-            textures_.push_back(texture);
-        }
-    }
-    std::vector<std::string> files_;
-    std::vector<sf::Texture> textures_;
-    sf::Clock animation_clock_;
-    int animation_state_ = 0;
-};
-*/
-
 
 class GameObject;
 
@@ -65,8 +45,6 @@ public:
     std::vector<GameObject*> GetObjects() { return map_.objects; }
 
     bool end_ = false;
-    // Animations player_animations_ = Animations({"ekatexture", "tokatexture", "kolmastexture"});
-
 private:
     Map map_;
     sf::Texture background_;
