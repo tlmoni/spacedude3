@@ -30,25 +30,25 @@ public:
     void Init();
 
     /* Add main menu sprites to the menuitems vector */
-    void Load_MainMenu();
+    void LoadMainMenu();
 
     /* Add settings menu sprites to the menuitems vector */
-    void Load_SettingsMenu();
+    void LoadSettingsMenu();
 
     /* Add name menu sprites to the menuitems vector */
-    void Load_NameMenu();
+    void LoadNameMenu();
 
     /* Add play menu sprites to the menuitems vector */
-    void Load_PlayMenu();
+    void LoadGameMode();
 
     /* Add host menu sprites to the menuitems vector */
-    void Load_HostMenu();
+    void LoadCampaign();
 
     /* Add join menu sprites to the menuitems vector */
-    void Load_JoinMenu();
+    void LoadSurvival();
 
     /* Clear window and menu items list of sprites */
-    void Clear_MenuItems();
+    void ClearMenuItems();
 
 private:
     std::vector<sf::Sprite> menu_items_; // Vector that holds all the menu sprites

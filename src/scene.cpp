@@ -1,10 +1,11 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene() {
+Scene::Scene(std::string map) {
     if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
         // Error checking.
     }
+    map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
 }
@@ -50,7 +51,7 @@ void Scene::Init() {
         music_.setLoop(true);
         music_.play();
     }
-    map_ = MapLoader::LoadMap("src/Maps/map1.txt");
+
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map_.player_location);
 

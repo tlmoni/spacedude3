@@ -16,7 +16,7 @@ extern bool sound_on;
 class Scene {
 public:
     /* Constructor */
-    Scene();
+    Scene(std::string map);
 
     /* Copy constructor */
     Scene(const Scene&);
