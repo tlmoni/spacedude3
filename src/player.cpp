@@ -27,11 +27,14 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     animations[ANIM1] = std::pair<int, int>(0, 4);
     animations[ANIM2] = std::pair<int, int>(0, 3);
 
-    animation_ = Animation("src/Textures/player.png", animations, 64);
+    sprite_legs_.setPosition(GetPosition());
+    sprite_weapon_.setPosition(GetPosition());
+
+    animation_ = Animation("src/Textures/player.png", animations, 64, 250);
     sprite_legs_ = animation_.Stop(MOVE);
     sprite_weapon_ = animation_.Stop(ANIM1);
-    sprite_legs_.setOrigin(character->GetOrigin().x, character->GetOrigin().y);
-    sprite_weapon_.setOrigin(character->GetOrigin().x, character->GetOrigin().y);
+    sprite_legs_.setOrigin(26,32);
+    sprite_weapon_.setOrigin(26,32);
 }
 
 /* Handle keypress and their effects on player character */
@@ -172,9 +175,9 @@ void Player::StopDeathSound() {
 /* Draws all player sprites to main_window(global) */
 void Player::Draw() {
     sprite_legs_.setPosition(GetPosition());
-    //sprite_weapon_.setPosition(GetPosition());
+    sprite_weapon_.setPosition(GetPosition());
     main_window->draw(sprite_legs_);
-    // main_window->draw(sprite_weapon_);
+    main_window->draw(sprite_weapon_);
     main_window->draw(GetSprite());
 
     main_window->draw(GetHPBackground());

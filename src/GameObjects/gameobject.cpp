@@ -105,7 +105,6 @@ bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             sf::Vector2f obj_pos = obj->GetPosition();
 
             if (obj_rect.contains(position + PhysicsVector(0,0) + GetVelocity())) {
-
                 if (obj_pos.y + obj_rect.height <= position.y) {
                     SetYVelocity(0);
                 }
