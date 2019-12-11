@@ -64,7 +64,7 @@ public:
     void SetSprite(sf::Texture texture);
 
     PhysicsVector GetPosition() { return pos_; }
-    sf::Sprite GetSprite() { return sprite_; }
+    sf::Sprite& GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
     PhysicsVector GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
@@ -82,7 +82,7 @@ public:
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
     bool collidable_ = true;
-    bool shootable_;
+    bool shootable_ = false;
 private:
     PhysicsVector pos_;
     sf::Sprite sprite_;

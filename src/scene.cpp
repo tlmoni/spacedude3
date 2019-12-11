@@ -28,10 +28,10 @@ Scene& Scene::operator=(const Scene& scene) {
 /* Destructor */
 Scene::~Scene() {
     main_window->clear();
-    for(GameObject* obj : map_.objects) {
+    for (GameObject* obj : map_.objects) {
         delete obj;
     }
-    for(Projectile* p : projectiles_) {
+    for (Projectile* p : projectiles_) {
         delete p;
     }
     delete player_;
@@ -78,8 +78,6 @@ void Scene::Loop() {
                 break;
         }
 
-
-
         Update();
         Render();
 
@@ -87,7 +85,7 @@ void Scene::Loop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            break;
+            return;
         }
 
         /* Hidden kill switch to kill all enemies of the map
@@ -126,7 +124,6 @@ void Scene::Loop() {
         std::cout << "ERROR loading spacedudedead" << std::endl;
     }
     player_->SetSprite(texture);
-    Update();
     Render();
 
     while (main_window->isOpen()) {
@@ -143,7 +140,9 @@ void Scene::Loop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            player_->StopDeathSound();
+            if (sound_on) {
+                player_->StopDeathSound();
+            }
             break;
         }
         main_window->draw(gameend);

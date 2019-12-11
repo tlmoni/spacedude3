@@ -164,8 +164,9 @@ void GameObject::TakeDamage(float damage) {
 
 /* Set object sprite */
 void GameObject::SetSprite(sf::Texture texture) {
+    delete texture_;
     texture_ = &texture;
-    sprite_.setTexture(*texture_);
+    sprite_.setTexture(texture);
 }
 
 /* Overload << operator for printing */
