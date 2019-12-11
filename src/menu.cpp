@@ -55,15 +55,6 @@ void Menu::Draw() {
         userinput.setString(inputstr);
         main_window->draw(userinput);
     }
-    if (menu_status == 5) {
-        std::string inputstr = sIP_.getString().toAnsiString();
-        sf::Text userinput;
-        userinput.setFont(font_);
-        userinput.setCharacterSize(50);
-        userinput.setPosition(main_window->getSize().x / 3.4 , main_window->getSize().y / 3);
-        userinput.setString(inputstr);
-        main_window->draw(userinput);
-    }
 }
 
 /* Initialize the window and loads main menu by default. menu_status indicates
