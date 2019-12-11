@@ -20,7 +20,7 @@ Menu::Menu() {
     button_.setBuffer(buffer_);
     menu_status = 0;
     x_ = 0;
-    Load_MainMenu();
+    LoadMainMenu();
     music_.play();
     music_.setLoop(true);
     Draw();
@@ -48,15 +48,6 @@ void Menu::Draw() {
     }
     if (menu_status == 2) {
         std::string inputstr = playername_.getString().toAnsiString();
-        sf::Text userinput;
-        userinput.setFont(font_);
-        userinput.setCharacterSize(50);
-        userinput.setPosition(main_window->getSize().x / 3.4 , main_window->getSize().y / 3);
-        userinput.setString(inputstr);
-        main_window->draw(userinput);
-    }
-    if (menu_status == 5) {
-        std::string inputstr = sIP_.getString().toAnsiString();
         sf::Text userinput;
         userinput.setFont(font_);
         userinput.setCharacterSize(50);
@@ -117,14 +108,14 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_NameMenu();
+                    LoadNameMenu();
                 }
 
                 else if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_SettingsMenu();
+                    LoadSettingsMenu();
                 }
 
                 else if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
@@ -181,7 +172,7 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_MainMenu();
+                    LoadMainMenu();
                 }
 
                 else {
@@ -251,7 +242,7 @@ void Menu::Init() {
                 if (sound_on) {
                     button_.play();
                 }
-                Load_PlayMenu();
+                LoadGameMode();
             }
 
             if (event.type == sf::Event::MouseMoved) {
@@ -276,7 +267,7 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_MainMenu();
+                    LoadMainMenu();
                 }
             }
         }
@@ -323,26 +314,26 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_NameMenu();
+                    LoadNameMenu();
                 }
 
                 else if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_HostMenu();
+                    LoadCampaign();
                 }
 
                 else if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_JoinMenu();
+                    LoadSurvival();
                 }
             }
         }
 
-        // Host menu
+        // Campaign menu
         else if (menu_status == 4) {
             if (event.type == sf::Event::Closed) {
                 main_window->close();
@@ -366,6 +357,20 @@ void Menu::Init() {
                 else {
                     menu_items_[1].setColor(sf::Color(sf::Color::White));
                 }
+
+                if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[2].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[2].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[3].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[3].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[3].setColor(sf::Color(sf::Color::White));
+                }
             }
 
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -377,16 +382,16 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_PlayMenu();
+                    LoadGameMode();
                 }
 
                 else if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
                     if (sound_on) {
                         button_.play();
                     }
-                    Clear_MenuItems();
+                    ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene();
+                    Scene scene = Scene("src/Maps/campaign_map1.txt");
                     scene.Init();
                     if (music_on) {
                         music_.play();
@@ -394,29 +399,49 @@ void Menu::Init() {
                     }
                     main_window->setView(sf::View());
                     main_window->setFramerateLimit(g_fps*6);
-                    Load_MainMenu();
+                    LoadMainMenu();
+                }
+
+                else if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
+                    ClearMenuItems();
+                    music_.stop();
+                    Scene scene = Scene("src/Maps/campaign_map2.txt");
+                    scene.Init();
+                    if (music_on) {
+                        music_.play();
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
+                    LoadMainMenu();
+                }
+
+                else if (menu_items_[3].getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
+                    ClearMenuItems();
+                    music_.stop();
+                    Scene scene = Scene("src/Maps/campaign_map3.txt");
+                    scene.Init();
+                    if (music_on) {
+                        music_.play();
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
+                    LoadMainMenu();
                 }
             }
         }
 
-        // Join menu
+        // Survival menu
         else if (menu_status == 5) {
-            std::string ip;
             if (event.type == sf::Event::Closed) {
                 main_window->close();
-            }
-
-            if (event.type == sf::Event::TextEntered) {
-                if (event.text.unicode == 8 && sIP_.getString().getSize() > 0) {
-                    sf::String temporary = sIP_.getString();
-                    temporary.erase(temporary.getSize() - 1, temporary.getSize());
-                    sIP_.setString(temporary);
-                }
-
-                else if (event.text.unicode < 127 && event.text.unicode > 31) {
-                    ip += event.text.unicode;
-                    sIP_.setString(sIP_.getString() + ip);
-                }
             }
 
             if (event.type == sf::Event::MouseMoved) {
@@ -430,6 +455,27 @@ void Menu::Init() {
                 else {
                     menu_items_[0].setColor(sf::Color(sf::Color::White));
                 }
+
+                if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[1].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[1].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[2].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[2].setColor(sf::Color(sf::Color::White));
+                }
+
+                if (menu_items_[3].getGlobalBounds().contains(mouse_pos)) {
+                    menu_items_[3].setColor(sf::Color(sf::Color::Red));
+                }
+                else {
+                    menu_items_[3].setColor(sf::Color(sf::Color::White));
+                }
             }
 
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -441,7 +487,58 @@ void Menu::Init() {
                     if (sound_on) {
                         button_.play();
                     }
-                    Load_PlayMenu();
+                    LoadGameMode();
+                }
+
+                else if (menu_items_[1].getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
+                    ClearMenuItems();
+                    music_.stop();
+                    Scene scene = Scene("src/Maps/survival_map1.txt");
+                    scene.Init();
+                    if (music_on) {
+                        music_.play();
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
+                    LoadMainMenu();
+                }
+
+                else if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
+                    ClearMenuItems();
+                    music_.stop();
+                    Scene scene = Scene("src/Maps/survival_map2.txt");
+                    scene.Init();
+                    if (music_on) {
+                        music_.play();
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
+                    LoadMainMenu();
+                }
+
+                else if (menu_items_[3].getGlobalBounds().contains(mouse_pos)) {
+                    if (sound_on) {
+                        button_.play();
+                    }
+                    ClearMenuItems();
+                    music_.stop();
+                    Scene scene = Scene("src/Maps/survival_map3.txt");
+                    scene.Init();
+                    if (music_on) {
+                        music_.play();
+                        music_.setLoop(true);
+                    }
+                    main_window->setView(sf::View());
+                    main_window->setFramerateLimit(g_fps*6);
+                    LoadMainMenu();
                 }
             }
         }
@@ -451,8 +548,8 @@ void Menu::Init() {
 }
 
 /* Add main menu sprites to the menuitems vector */
-void Menu::Load_MainMenu() {
-    Clear_MenuItems();
+void Menu::LoadMainMenu() {
+    ClearMenuItems();
     menu_status = 0;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite play;
@@ -477,8 +574,8 @@ void Menu::Load_MainMenu() {
 }
 
 /* Add settings menu sprites to the menuitems vector */
-void Menu::Load_SettingsMenu() {
-    Clear_MenuItems();
+void Menu::LoadSettingsMenu() {
+    ClearMenuItems();
     menu_status = 1;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite music;
@@ -515,8 +612,8 @@ void Menu::Load_SettingsMenu() {
 }
 
 /* Add name menu sprites to the menuitems vector */
-void Menu::Load_NameMenu() {
-    Clear_MenuItems();
+void Menu::LoadNameMenu() {
+    ClearMenuItems();
     menu_status = 2;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite back;
@@ -536,8 +633,8 @@ void Menu::Load_NameMenu() {
 }
 
 /* Add play menu sprites to the menuitems vector */
-void Menu::Load_PlayMenu() {
-    Clear_MenuItems();
+void Menu::LoadGameMode() {
+    ClearMenuItems();
     menu_status = 3;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite back;
@@ -545,10 +642,10 @@ void Menu::Load_PlayMenu() {
     sf::Sprite join;
     sf::Text help;
 
-    std::string str = "Choose whether to host or join a game";
+    std::string str = "Select a game mode";
     help.setFont(font_);
     help.setString(str);
-    help.setPosition(sf::Vector2f(window_size.x / 4.2 , window_size.y / 4));
+    help.setPosition(sf::Vector2f(window_size.x / 2.8 , window_size.y / 4));
 
     back.setTexture(main_menu_texture_);
     back.setTextureRect(sf::Rect(0, 360, 250, 120));
@@ -569,55 +666,71 @@ void Menu::Load_PlayMenu() {
 }
 
 /* Add host menu sprites to the menuitems vector */
-void Menu::Load_HostMenu() {
-    Clear_MenuItems();
+void Menu::LoadCampaign() {
+    ClearMenuItems();
     menu_status = 4;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite back;
-    sf::Sprite play;
-    sf::Text ip;
-
-    std::string str = "IP: " + sf::IpAddress::getPublicAddress().toString();
-    ip.setFont(font_);
-    ip.setString(str);
-    ip.setPosition(sf::Vector2f(window_size.x / 2.5 , window_size.y / 2.5));
+    sf::Sprite level1;
+    sf::Sprite level2;
+    sf::Sprite level3;
 
     back.setTexture(main_menu_texture_);
     back.setTextureRect(sf::Rect(0, 360, 250, 120));
     back.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 1.7));
 
-    play.setTexture(main_menu_texture_);
-    play.setTextureRect(sf::Rect(0, 0, 250, 120));
-    play.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 4));
+    level1.setTexture(main_menu_texture_);
+    level1.setTextureRect(sf::Rect(0, 1200, 250, 120));
+    level1.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 7.9));
+
+    level2.setTexture(main_menu_texture_);
+    level2.setTextureRect(sf::Rect(0, 1320, 250, 120));
+    level2.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 3.55));
+
+    level3.setTexture(main_menu_texture_);
+    level3.setTextureRect(sf::Rect(0, 1440, 250, 120));
+    level3.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 2.3));
 
     menu_items_.push_back(back);
-    menu_items_.push_back(play);
-    menu_text_items_.push_back(ip);
+    menu_items_.push_back(level1);
+    menu_items_.push_back(level2);
+    menu_items_.push_back(level3);
 }
 
 /* Add join menu sprites to the menuitems vector */
-void Menu::Load_JoinMenu() {
-    Clear_MenuItems();
+void Menu::LoadSurvival() {
+    ClearMenuItems();
     menu_status = 5;
     sf::Vector2u window_size = main_window->getSize();
     sf::Sprite back;
-    sf::Text help;
-
-    std::string str = "Enter the IP to be joined";
-    help.setFont(font_);
-    help.setString(str);
-    help.setPosition(sf::Vector2f(window_size.x / 4.2 , window_size.y / 4));
+    sf::Sprite level1;
+    sf::Sprite level2;
+    sf::Sprite level3;
 
     back.setTexture(main_menu_texture_);
     back.setTextureRect(sf::Rect(0, 360, 250, 120));
     back.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 1.7));
 
+    level1.setTexture(main_menu_texture_);
+    level1.setTextureRect(sf::Rect(0, 1200, 250, 120));
+    level1.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 7.9));
+
+    level2.setTexture(main_menu_texture_);
+    level2.setTextureRect(sf::Rect(0, 1320, 250, 120));
+    level2.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 3.55));
+
+    level3.setTexture(main_menu_texture_);
+    level3.setTextureRect(sf::Rect(0, 1440, 250, 120));
+    level3.setPosition(sf::Vector2f(window_size.x / 2.6 , window_size.y / 2.3));
+
     menu_items_.push_back(back);
-    menu_text_items_.push_back(help);
+    menu_items_.push_back(level1);
+    menu_items_.push_back(level2);
+    menu_items_.push_back(level3);
 }
 
 /* Clear menu items vector of sprites */
-void Menu::Clear_MenuItems() {
+void Menu::ClearMenuItems() {
     menu_items_.clear();
     menu_text_items_.clear();
 }

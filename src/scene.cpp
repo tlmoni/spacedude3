@@ -1,10 +1,11 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene() {
+Scene::Scene(std::string map) {
     if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
         // Error checking.
     }
+    map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
 }
@@ -50,7 +51,7 @@ void Scene::Init() {
         music_.setLoop(true);
         music_.play();
     }
-    map_ = MapLoader::LoadMap("src/Maps/map1.txt");
+
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map_.player_location);
 
@@ -88,6 +89,25 @@ void Scene::Loop() {
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             break;
         }
+
+        /* Hidden kill switch to kill all enemies of the map
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
+            for (auto e : map_.enemies) {
+                if (!e->dead_) {
+                    e->dead_ = true;
+                    if (sound_on) {
+                        (e)->DeathSound();
+                    }
+                    e->collidable_ = false;
+                    e->shootable_ = false;
+                    e->dead_ = true;
+                    e->deadtimer_.restart();
+                    e->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+                }
+            }
+        }
+        */
+
     }
     sf::Font font;
     if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
@@ -176,6 +196,8 @@ void Scene::Update() {
                     if (sound_on) {
                         (*o)->DeathSound();
                     }
+                    (*o)->collidable_ = false;
+                    (*o)->shootable_ = false;
                     (*o)->dead_ = true;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");

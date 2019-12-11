@@ -82,7 +82,7 @@ public:
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
     bool collidable_ = true;
-
+    bool shootable_;
 private:
     PhysicsVector pos_;
     sf::Sprite sprite_;
@@ -94,7 +94,6 @@ private:
     float attack_delay_;
     float hitpoints_;
     float max_hitpoints_;
-    bool shootable_;
     int type_;
 };
 
