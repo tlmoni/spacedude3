@@ -225,11 +225,7 @@ void Scene::Render() {
         }
     }
     player_->UpdateHP();
-    main_window->draw(player_->GetSprite());
-    main_window->draw(player_->GetHPBackground());
-    main_window->draw(player_->GetHPBar());
-    main_window->draw(player_->GetHitbox());
-
+    player_->Draw();
     main_window->draw(cursor_sprite_);
 
     main_window->display();

@@ -52,6 +52,9 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
+    /* Heal object */
+    void Heal(float amount);
+
     /* Take damage */
     void TakeDamage(float damage);
 

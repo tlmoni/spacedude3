@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include "character_spacedude.hpp"
 #include "GameObjects/projectile.hpp"
+#include "animations.hpp"
 
 enum WeaponType {
     BLASTER,
@@ -44,8 +45,10 @@ public:
     /* Function handling keypress and their effects on player character */
     std::vector<Projectile*> Action(std::vector<GameObject*> objects);
 
+    /* Handles shooting for different types of weapon */
     std::vector<Projectile*> Shoot();
 
+    /* Switch weapon to weapon_type */
     void SwitchWeapon(int weapon_type);
 
     /* Rotote player */
@@ -60,14 +63,22 @@ public:
     /* Stop player death sound and set loop true */
     void StopDeathSound();
 
+    /* Draws all player sprites to main_window(global) */
+    void Draw();
+
     sf::View GetView() { return player_cam_; }
 
 private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
+
     sf::SoundBuffer deathbuffer_ ; // Buffer for death sound effect
     sf::Sound death_; // Death sound effect
     sf::SoundBuffer buffer_; // Buffer for gun sound effect
     sf::Sound gunshot_; // Gun sound effect
     Weapon weapon_;
+
+    Animation animation_;
+    sf::Sprite sprite_legs_;
+    sf::Sprite sprite_weapon_;
 };

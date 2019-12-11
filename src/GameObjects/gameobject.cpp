@@ -143,6 +143,13 @@ bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     return false;
 }
 
+void GameObject::Heal(float amount) {
+    hitpoints_ += amount;
+    if (hitpoints_ > GetMaxHitPoints()) {
+        hitpoints_ = GetMaxHitPoints();
+    }
+}
+
 void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;
