@@ -56,6 +56,9 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
+    /* Check if the GameObject collides with the GameObject given as parameter */
+    bool CollidesWith(GameObject object);
+
     /* Take damage */
     void TakeDamage(float damage);
 
@@ -84,6 +87,7 @@ public:
     bool dead_ = false; // Indicates if the object is dead or alive
     bool collidable_ = true;
     bool shootable_;
+
 private:
     PhysicsVector pos_;
     sf::Sprite sprite_;

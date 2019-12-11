@@ -62,7 +62,7 @@ public:
 
                         // Wall object
                         else if (object == "w") {
-                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/wall.png");
+                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
                             map.objects.push_back(wall);
                         }
 
@@ -76,7 +76,7 @@ public:
                         else if (object == "X") {
                             map.goal.SetPosition(PhysicsVector(x, y));
                             map.goal.SetOrigin(47, 47);
-                            map.goal.collideable_ = false;
+                            map.goal.collidable_ = false;
                         }
 
                         x += 64.f;

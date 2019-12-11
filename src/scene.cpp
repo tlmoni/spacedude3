@@ -90,6 +90,15 @@ void Scene::Loop() {
             break;
         }
 
+        // Check if the player has rached the goal
+        if (map_.goal.collidable_) {
+            if (map_.goal.CollidesWith(*player_)) {
+                main_window->setMouseCursorVisible(true);
+                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                break;
+            }
+        }
+
         /* Hidden kill switch to kill all enemies of the map
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
             for (auto e : map_.enemies) {
@@ -141,6 +150,7 @@ void Scene::Loop() {
             player_->StopDeathSound();
             break;
         }
+
         main_window->draw(gameend);
         main_window->display();
     }
@@ -242,7 +252,10 @@ void Scene::Render() {
         }
     }
 
+    // Render goal and make it accessible
     if (map_.enemies.size() <= 1) {
+        map_.goal.collidable_ = true;
+        map_.goal.SetSprite("src/Textures/portal.png");
         main_window->draw(map_.goal.GetSprite());
     }
 
@@ -263,5 +276,4 @@ void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
             projectiles_.push_back(p);
         }
     }
-
 }
