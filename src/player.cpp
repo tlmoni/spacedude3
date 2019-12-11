@@ -30,7 +30,7 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     sprite_legs_.setPosition(GetPosition());
     sprite_weapon_.setPosition(GetPosition());
 
-    animation_ = Animation("src/Textures/player.png", animations, 64, 250);
+    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 100, 500);
     sprite_legs_ = animation_.Stop(MOVE);
     sprite_weapon_ = animation_.Stop(ANIM1);
     sprite_legs_.setOrigin(26,32);
@@ -44,8 +44,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     std::vector<Projectile*> projectiles;
 
     // Handle bullet spawning and setting of initial speed
-    sf::Time time = attack_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > weapon_.shoot_delay) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
         attack_timer_.restart();
         Shoot();
 
@@ -84,6 +83,22 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
             SwitchWeapon(SHOTGUN);
         }
 
+        if (attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
+            if (weapon_.type == BLASTER) {
+            sprite_weapon_ = animation_.Stop(ANIM1);
+            }
+            else if (weapon_.type == SHOTGUN) {
+                sprite_weapon_ = animation_.Stop(ANIM2);
+            }
+        }
+        else {
+            if (weapon_.type == BLASTER) {
+                sprite_weapon_ = animation_.NextFrame(ANIM1);
+            }
+            else if (weapon_.type == SHOTGUN) {
+                sprite_weapon_ = animation_.NextFrame(ANIM2);
+            }
+        }
     }
 
     Move(dir_vector);
@@ -107,6 +122,8 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 std::vector<Projectile*> Player::Shoot() {
     std::vector<Projectile*> projectiles;
     if (weapon_.type == BLASTER) {
+        sprite_weapon_ = animation_.NextFrame(ANIM1);
+
         Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
         PhysicsVector direction = GetCurrentCursorDirection();
 
@@ -117,6 +134,8 @@ std::vector<Projectile*> Player::Shoot() {
         projectiles.push_back(bullet);
     }
     else if (weapon_.type == SHOTGUN) {
+        sprite_weapon_ = animation_.NextFrame(ANIM2);
+
         for (int i = -2; i < 3; i++) {
             Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
             PhysicsVector direction = GetCurrentCursorDirection();
@@ -137,9 +156,11 @@ std::vector<Projectile*> Player::Shoot() {
 void Player::SwitchWeapon(int weapon_type) {
     if (weapon_type == BLASTER) {
         weapon_ = blaster;
+        sprite_weapon_ = animation_.Stop(ANIM1);
     }
     else if (weapon_type == SHOTGUN) {
         weapon_ = shotgun;
+        sprite_weapon_ = animation_.Stop(ANIM2);
     }
 }
 

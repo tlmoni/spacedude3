@@ -17,16 +17,16 @@ class Animation {
 public:
     Animation() = default;
 
-    Animation(std::string file, std::map<int, std::pair<int, int>> animation_map, int size, int animation_delay);
+    Animation(std::string file, std::map<int, std::pair<int, int>> animation_map, int size, int move_delay, int anim1_delay, int anim2_delay);
 
     sf::Sprite NextFrame(int animation_index);
 
     sf::Sprite Stop(int animation_index);
 
-    sf::Clock timer_;
+    std::map<int, sf::Clock> timers_;
 private:
     sf::Texture texture_;
     std::map<int, std::pair<int, int>> animations_;
     int size_;
-    int animation_delay_;
+    std::map<int, int> animation_delays_;
 };
