@@ -1,13 +1,17 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene(std::string map) {
+Scene::Scene(std::string map, sf::Text playername) {
     if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
         // Error checking.
     }
     map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
+    playername_ = playername;
+    //sf::Font font;
+    //font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
+    //playername_.setFont(font);
 }
 
 /* Copy constructor */
@@ -221,10 +225,12 @@ void Scene::Render() {
         }
     }
     player_->UpdateHP();
+    playername_.setPosition(player_->GetPosition());
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
     main_window->draw(player_->GetHitbox());
+    main_window->draw(playername_);
 
     main_window->draw(cursor_sprite_);
 

@@ -82,6 +82,7 @@ public:
 
 private:
     PhysicsVector pos_;
+
     sf::Sprite sprite_;
     sf::Texture* texture_;
     RectHitbox hitbox_;
