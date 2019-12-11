@@ -89,6 +89,25 @@ void Scene::Loop() {
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             break;
         }
+
+        /* Hidden kill switch to kill all enemies of the map
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
+            for (auto e : map_.enemies) {
+                if (!e->dead_) {
+                    e->dead_ = true;
+                    if (sound_on) {
+                        (e)->DeathSound();
+                    }
+                    e->collidable_ = false;
+                    e->shootable_ = false;
+                    e->dead_ = true;
+                    e->deadtimer_.restart();
+                    e->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+                }
+            }
+        }
+        */
+
     }
     sf::Font font;
     if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
@@ -172,6 +191,8 @@ void Scene::Update() {
                     if (sound_on) {
                         (*o)->DeathSound();
                     }
+                    (*o)->collidable_ = false;
+                    (*o)->shootable_ = false;
                     (*o)->dead_ = true;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
