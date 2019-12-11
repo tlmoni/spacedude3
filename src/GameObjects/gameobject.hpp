@@ -12,12 +12,16 @@ enum Type {
     ENEMY,
     PLAYER,
     WALL,
-    BULLET
+    BULLET,
+    GOAL
 };
 
 /* Parent class for all game objects */
 class GameObject : public Movement {
 public:
+    /* Default constructor */
+    GameObject() = default;
+
     /* Constructor */
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type = OBJECT, double max_speed = 5.f,
                double acceleration = 1.f, int damage = 0, float hitpoints = 69, bool shootable = false, float attack_delay = 1000);

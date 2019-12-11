@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "gameobject.hpp"
 
 class GameObject;
@@ -9,7 +10,7 @@ class GameObject;
 class Wall : public GameObject {
 public:
     /* Constructor */
-    Wall(PhysicsVector pos) : GameObject(pos, "src/Textures/crate.png", RectHitbox(64.f, 64.f), WALL) { dead_ = true; }
+    Wall(PhysicsVector pos, std::string texture) : GameObject(pos, texture, RectHitbox(64.f, 64.f), WALL) { dead_ = true; }
 
     /* Destructor */
     ~Wall() = default;

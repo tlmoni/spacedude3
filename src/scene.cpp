@@ -2,7 +2,7 @@
 
 /* Contructor */
 Scene::Scene(std::string map) {
-    if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
+    if(!cursor_.loadFromFile("src/Textures/crosshair31.png")) {
         // Error checking.
     }
     map_ = MapLoader::LoadMap(map);
@@ -220,6 +220,11 @@ void Scene::Render() {
             main_window->draw(p->GetHitbox());
         }
     }
+
+    if (map_.enemies.size() <= 1) {
+        main_window->draw(map_.goal.GetSprite());
+    }
+
     player_->UpdateHP();
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
