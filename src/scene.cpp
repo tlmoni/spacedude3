@@ -94,8 +94,7 @@ void Scene::Loop() {
 
             // Check if the player has rached the goal
             if (player_->CollidesWith(map_.goal)) {
-                main_window->setMouseCursorVisible(true);
-                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                DisplayVictoryScreen();
                 return;
             }
         }
@@ -160,6 +159,12 @@ void Scene::Update() {
                 else if ((*o)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*o)->dead_) {
                     map_.objects.erase(o);
                     o--;
+                }
+            }
+            else if ((*o)->GetType() == WALL) {
+                if ((*o)->dead_) {
+                    (*o)->shootable_ = false;
+                    (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
                 }
             }
         }
@@ -245,7 +250,7 @@ void Scene::DisplayVictoryScreen() {
     std::string str = "VICTORY! You defeated all the zombies.";
     game_win.setFont(font);
     game_win.setString(str);
-    game_win.setFillColor(sf::Color::Green);
+    game_win.setFillColor(sf::Color(0,100,0));
     game_win.setScale(sf::Vector2f(1.3, 1.3));
     game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
 
@@ -281,12 +286,20 @@ void Scene::DisplayDeathScreen() {
         std::cout << "ERROR loading font" << std::endl;
     }
     sf::Text game_end;
-    std::string str = "YOU DIED! Press ESC to return to menu";
+    std::string str = "YOU DIED!";
     game_end.setFont(font);
     game_end.setString(str);
     game_end.setFillColor(sf::Color::Red);
     game_end.setScale(sf::Vector2f(1.3, 1.3));
     game_end.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    sf::Text game_end2;
+    std::string str2 = "Press ESC to return to menu";
+    game_end2.setFont(font);
+    game_end2.setString(str);
+    game_end2.setFillColor(sf::Color::Red);
+    game_end2.setScale(sf::Vector2f(1.3, 1.3));
+    game_end2.setPosition(main_window->getView().getCenter() - sf::Vector2f(420, 200));
 
     player_->SetSprite("src/Textures/deadspacedude.png");
     Update();
