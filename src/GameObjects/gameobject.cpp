@@ -93,6 +93,11 @@ void GameObject::Move(PhysicsVector direction) {
     }
 }
 
+/* Rotate GameObject by degrees given as parameter */
+void GameObject::Rotate(float angle) {
+    sprite_.setRotation(sprite_.getRotation() + angle); // Set the rotaion in degrees
+}
+
 /* Check if player is colliding with items and change movement according to that */
 bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     /* hitbox rect of player */
