@@ -3,7 +3,7 @@
 /* Contructor */
 Scene::Scene(std::string map) {
     if(!cursor_.loadFromFile("src/Textures/crosshair31.png")) {
-        // Error checking.
+        std::cout << "ERROR while reading cursor texture file" << std::endl;
     }
     map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
@@ -18,7 +18,6 @@ Scene::Scene(const Scene& scene) {
 /* Copy assignment operator */
 Scene& Scene::operator=(const Scene& scene) {
     map_ = scene.map_;
-    background_ = scene.background_;
     player_ = scene.player_;
     projectiles_ = scene.projectiles_;
 
@@ -55,10 +54,6 @@ void Scene::Init() {
 
     CharacterSpurdo* spurdo = new CharacterSpurdo();
     player_ = new Player(spurdo, map_.player_location);
-
-    if (!background_.loadFromFile(map_.background_file)) {
-        // Error handling
-    }
 
     main_window->setFramerateLimit(g_fps);
     Render();
@@ -211,11 +206,9 @@ void Scene::Update() {
 void Scene::Render() {
     main_window->clear();
 
-    sf::Sprite background;
-    background.setTexture(background_);
-    background.setScale(sf::Vector2f(0.8f, 0.8f));
-    background.setPosition(sf::Vector2f(-400.f, -400.f));
-    main_window->draw(background);
+    for (auto b : map_.background) {
+        main_window->draw(*b);
+    }
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
@@ -226,6 +219,7 @@ void Scene::Render() {
         }
         //main_window->draw(o->GetHitbox());
     }
+
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
