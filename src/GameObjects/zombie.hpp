@@ -15,7 +15,6 @@ public:
     /* Function to randomize and play death sound */
     void DeathSound();
 
-
 private:
     sf::SoundBuffer zombiedeathbuffer_; // Buffer for zombie death sound effect
     sf::Sound zombiedeath_; // Zombie death sound effect

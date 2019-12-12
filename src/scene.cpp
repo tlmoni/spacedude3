@@ -81,62 +81,28 @@ void Scene::Loop() {
             default:
                 break;
         }
+        if (main_window->hasFocus()) {
+            Update();
+            Render();
 
-        Update();
-        Render();
+            // If Esc key is pressed, return to menu
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                main_window->setMouseCursorVisible(true);
+                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                return;
+            }
 
-        // If Esc key is pressed, return to menu
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            return;
+            // Check if the player has rached the goal
+            if (player_->CollidesWith(map_.goal)) {
+                music_.stop();
+                DisplayVictoryScreen();
+                return;
+            }
         }
 
-        // Check if the player has rached the goal
-        if (player_->CollidesWith(map_.goal)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            return;
-        }
     }
 
-    sf::Font font;
-    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
-        std::cout << "ERROR loading font" << std::endl;
-    }
-    sf::Text gameend;
-    std::string str = "YOU DIED! Press ESC to return to menu";
-    gameend.setFont(font);
-    gameend.setString(str);
-    gameend.setFillColor(sf::Color::Red);
-    gameend.setScale(sf::Vector2f(1.3, 1.3));
-    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
-
-    player_->SetSprite("src/Textures/deadspacedude.png");
-    Update();
-    Render();
-
-    while (main_window->isOpen()) {
-        sf::Event event;
-        switch (event.type) {
-            case sf::Event::Closed:
-                main_window->close();
-                break;
-            default:
-                break;
-        }
-
-        // If Esc key is pressed, return to menu
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            player_->StopDeathSound();
-            return;
-        }
-
-        main_window->draw(gameend);
-        main_window->display();
-    }
+    DisplayDeathScreen();
 }
 
 /* Update game logic (bullets etc.) */
@@ -178,6 +144,16 @@ void Scene::Update() {
 
         // Handle objects
         for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
+            (*o)->UpdateHP();
+
+            // Objects
+            if ((*o)->GetType() == WALL) {
+                if ((*o)->dead_) {
+                    (*o)->shootable_ = false;
+                    (*o)->GetTexture()->loadFromFile("src/Textures/broken_crate.png");
+                }
+            }
+
             // Enemies
             if ((*o)->GetType() == ENEMY) {
                 if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
@@ -200,7 +176,14 @@ void Scene::Update() {
 
         // Make the goal portal accessible
         if (map_.enemies_left == 0) {
-            map_.goal->collidable_ = true;
+            if (!map_.goal->collidable_) {
+                if (!map_.portal_buffer.loadFromFile("src/Audio/Sound/sound_portal.ogg")) {
+                    std::cout << "ERROR while loading portal sound effect" << std::endl;
+                }
+                map_.portal_sound.setBuffer(map_.portal_buffer);
+                map_.portal_sound.play();
+                map_.goal->collidable_ = true;
+            }
             map_.goal->Rotate(-2);
         }
     }
@@ -226,8 +209,7 @@ void Scene::Render() {
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
-        if (!o->dead_) {
-            o->UpdateHP();
+        if (!o->dead_ && o->GetType() != WALL) {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
@@ -247,7 +229,7 @@ void Scene::Render() {
 
     player_->UpdateHP();
     player_->Draw();
-    playername_.setPosition(player_->GetPosition().x-(3.5* (playername_.getString().getSize())), player_->GetPosition().y-60);
+    playername_.setPosition(player_->GetPosition().x - (3.5 * (playername_.getString().getSize())), player_->GetPosition().y - 60);
     main_window->draw(playername_);
     killcount_ = "Kills: " + std::to_string(map_.enemies_total - map_.enemies_left);
     kills_.setString(killcount_);
@@ -269,30 +251,37 @@ void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
     }
 }
 
-/*
 void Scene::DisplayVictoryScreen() {
-
-}
-
-void Scene::DisplayDeathScreen() {
     sf::Font font;
     if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         std::cout << "ERROR loading font" << std::endl;
     }
-    sf::Text gameend;
-    std::string str = "YOU DIED! Press ESC to return to menu";
-    gameend.setFont(font);
-    gameend.setString(str);
-    gameend.setFillColor(sf::Color::Red);
-    gameend.setScale(sf::Vector2f(1.3, 1.3));
-    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
 
-    sf::Texture* texture = new sf::Texture;
-    if (!texture->loadFromFile("src/Textures/deadspacedude.png")) {
-        std::cout << "ERROR loading spacedudedead" << std::endl;
+    sf::Text game_win;
+    std::string str = "VICTORY!";
+    game_win.setFont(font);
+    game_win.setString(str);
+    game_win.setFillColor(sf::Color(30,150,30));
+    game_win.setScale(sf::Vector2f(1.3, 1.3));
+    game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_win.getString().getSize()), 200));
+
+    sf::Text game_win2;
+    std::string str2 = "Press ESC to return to menu";
+    game_win2.setFont(font);
+    game_win2.setString(str2);
+    game_win2.setFillColor(sf::Color(30,150,30));
+    game_win2.setScale(sf::Vector2f(1.3, 1.3));
+    game_win2.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_win2.getString().getSize()), 160));
+
+    sf::Sound victory_sound;
+    sf::SoundBuffer victory_buffer;
+    if (!victory_buffer.loadFromFile("src/Audio/Sound/sound_victory.ogg")) {
+        std::cout << "ERROR while loading victory sound effect" << std::endl;
     }
+    victory_sound.setBuffer(victory_buffer);
+    victory_sound.play();
 
-    player_->SetSprite(texture);
+    Update();
     Render();
 
     while (main_window->isOpen()) {
@@ -305,23 +294,66 @@ void Scene::DisplayDeathScreen() {
                 break;
         }
 
-        Update();
-        main_window->draw(gameend);
+        // If Esc key is pressed, return to menu
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            player_->StopDeathSound();
+            return;
+        }
+
+        main_window->draw(game_win);
+        main_window->draw(game_win2);
         main_window->display();
+    }
+}
+
+void Scene::DisplayDeathScreen() {
+    sf::Font font;
+    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR loading font" << std::endl;
+    }
+    sf::Text game_end;
+    std::string str = "YOU DIED!";
+    game_end.setFont(font);
+    game_end.setString(str);
+    game_end.setFillColor(sf::Color::Red);
+    game_end.setScale(sf::Vector2f(1.3, 1.3));
+    game_end.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_end.getString().getSize()), 200));
+
+    sf::Text game_end2;
+    std::string str2 = "Press ESC to return to menu";
+    game_end2.setFont(font);
+    game_end2.setString(str2);
+    game_end2.setFillColor(sf::Color::Red);
+    game_end2.setScale(sf::Vector2f(1.3, 1.3));
+    game_end2.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_end2.getString().getSize()), 160));
+
+    player_->SetSprite("src/Textures/deadspacedude.png");
+    Update();
+    Render();
+
+    while (main_window->isOpen()) {
+        sf::Event event;
+        switch (event.type) {
+            case sf::Event::Closed:
+                main_window->close();
+                break;
+            default:
+                break;
+        }
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            ReturnToMenu(event);
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            player_->StopDeathSound();
             return;
         }
+
+        main_window->draw(game_end);
+        main_window->draw(game_end2);
+        main_window->display();
     }
 }
 
-void Scene::ReturnToMenu(sf::Event event) {
-    main_window->setMouseCursorVisible(true);
-    while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-    if (sound_on) {
-        player_->StopDeathSound();
-    }
-}
-*/
