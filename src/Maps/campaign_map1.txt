@@ -1,3 +1,6 @@
+#gamemode
+campaign
+
 #background
 src/Textures/background.png
 
