@@ -393,6 +393,7 @@ void Menu::Init() {
                     music_.stop();
                     Scene scene = Scene("src/Maps/campaign_map1.txt", playername_);
                     scene.Init();
+
                     if (music_on) {
                         music_.play();
                         music_.setLoop(true);

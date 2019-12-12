@@ -55,19 +55,23 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
+    /* Heal object */
+    void Heal(float amount);
+
     /* Check if the GameObject collides with the GameObject given as parameter */
     bool CollidesWith(GameObject* object);
 
     /* Take damage */
     void TakeDamage(float damage);
 
+    /* Play object's death sound */
     virtual void DeathSound() { }
 
     /* Set object sprite */
     void SetSprite(std::string file);
 
     PhysicsVector GetPosition() { return pos_; }
-    sf::Sprite GetSprite() { return sprite_; }
+    sf::Sprite& GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
     PhysicsVector GetRectPosition() { return hitbox_.getPosition() - hitbox_.getOrigin(); }
     sf::RectangleShape GetHitbox() { return hitbox_; }
@@ -85,7 +89,7 @@ public:
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
     bool collidable_ = true;
-    bool shootable_;
+    bool shootable_ = false;
 
 private:
     PhysicsVector pos_;

@@ -105,7 +105,6 @@ bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
             sf::Vector2f obj_pos = obj->GetPosition();
 
             if (obj_rect.contains(position + PhysicsVector(0,0) + GetVelocity())) {
-
                 if (obj_pos.y + obj_rect.height <= position.y) {
                     SetYVelocity(0);
                 }
@@ -143,6 +142,14 @@ bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     return false;
 }
 
+/* Heals object */
+void GameObject::Heal(float amount) {
+    hitpoints_ += amount;
+    if (hitpoints_ > GetMaxHitPoints()) {
+        hitpoints_ = GetMaxHitPoints();
+    }
+}
+
 /* Check if the GameObject collides with the GameObject given as parameter */
 bool GameObject::CollidesWith(GameObject* object) {
     if (object->collidable_) {
@@ -168,12 +175,10 @@ void GameObject::TakeDamage(float damage) {
 
 /* Set object sprite */
 void GameObject::SetSprite(std::string file) {
-    if (texture_->loadFromFile(file)) {
-        sprite_.setTexture(*texture_);
+    if (!texture_->loadFromFile(file)) {
+        std::cout << "ERROR loading font" << std::endl;
     }
-    else {
-        std::cout << "ERROR loading object texture" << std::endl;
-    }
+    sprite_.setTexture(*texture_);
 }
 
 /* Overload << operator for printing */

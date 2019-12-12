@@ -10,7 +10,8 @@
 #include "player.hpp"
 
 struct Map {
-    std::string background_file;
+    std::vector<sf::Sprite*> background;
+    sf::Texture* background_texture = new sf::Texture();
     PhysicsVector player_location;
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
@@ -48,7 +49,10 @@ public:
         while (std::getline(is, line)) {
             if (line == "#background") {
                 std::getline(is, line);
-                map.background_file = line;
+
+                if (!map.background_texture->loadFromFile(line)) {
+                    std::cout << "ERROR while opening" << line << std::endl;
+                }
             }
 
             else if (line == "#map") {
@@ -86,6 +90,17 @@ public:
 
                     y += 64.f;
                 }
+            }
+        }
+
+        auto texture_size = map.background_texture->getSize();
+        int offset = 500;
+        for (int j = -offset; j < (y + offset); j += texture_size.y) {
+            for (int i = -offset; i < (x + offset); i += texture_size.x) {
+                sf::Sprite* sprite = new sf::Sprite();
+                sprite->setTexture(*map.background_texture);
+                sprite->setPosition(i, j);
+                map.background.push_back(sprite);
             }
         }
 

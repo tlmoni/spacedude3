@@ -4,8 +4,11 @@
 Player::Player(Character* character, sf::Vector2f pos) :
 GameObject(pos, character->GetTextureFile(), character->GetHitBox(), PLAYER, character->GetMaxSpeed(), character->GetAcceleration(),
 character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
+    // Origin and camera
     SetOrigin(character->GetOrigin().x, character->GetOrigin().y);
     player_cam_.setCenter(GetPosition());
+
+    // Sounds
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
         std::cout << "ERROR: Loading gun sound failed!" << std::endl;
     }
@@ -15,7 +18,24 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     death_.setBuffer(deathbuffer_);
     gunshot_.setBuffer(buffer_);
     gunshot_.setVolume(80);
+
     weapon_ = blaster;
+
+    // Animations
+    std::map<int, std::pair<int, int>> animations;
+    animations[MOVE] = std::pair<int, int>(0, 2);
+    animations[ANIM1] = std::pair<int, int>(0, 4);
+    animations[ANIM2] = std::pair<int, int>(0, 3);
+    animations[ANIM3] = std::pair<int, int>(0, 1);
+
+    sprite_legs_.setPosition(GetPosition());
+    sprite_weapon_.setPosition(GetPosition());
+
+    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 50, 150);
+    sprite_legs_ = animation_.Stop(MOVE);
+    sprite_weapon_ = animation_.Stop(ANIM1);
+    sprite_legs_.setOrigin(26,32);
+    sprite_weapon_.setOrigin(26,32);
 }
 
 /* Handle keypress and their effects on player character */
@@ -25,8 +45,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
     std::vector<Projectile*> projectiles;
 
     // Handle bullet spawning and setting of initial speed
-    sf::Time time = attack_timer_.getElapsedTime();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && time.asMilliseconds() > weapon_.shoot_delay) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
         attack_timer_.restart();
         Shoot();
 
@@ -64,10 +83,36 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
             SwitchWeapon(SHOTGUN);
         }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+            SwitchWeapon(BANDAGE);
+        }
 
+        if (attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
+            if (weapon_.type == BLASTER) {
+            sprite_weapon_ = animation_.Stop(ANIM1);
+            }
+            else if (weapon_.type == SHOTGUN) {
+                sprite_weapon_ = animation_.Stop(ANIM2);
+            }
+        }
+        else {
+            if (weapon_.type == BLASTER) {
+                sprite_weapon_ = animation_.NextFrame(ANIM1);
+            }
+            else if (weapon_.type == SHOTGUN) {
+                sprite_weapon_ = animation_.NextFrame(ANIM2);
+            }
+        }
     }
 
     Move(dir_vector);
+    if (GetVelocity().Length() != 0) {
+        sprite_legs_ = animation_.NextFrame(MOVE);
+    }
+    else {
+        sprite_legs_ = animation_.Stop(MOVE);
+    }
+
     CheckCollisions(objects);
     SetPosition(GetPosition() + GetVelocity());
     Rotate();
@@ -81,6 +126,8 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 std::vector<Projectile*> Player::Shoot() {
     std::vector<Projectile*> projectiles;
     if (weapon_.type == BLASTER) {
+        sprite_weapon_ = animation_.NextFrame(ANIM1);
+
         Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
         PhysicsVector direction = GetCurrentCursorDirection();
 
@@ -91,6 +138,8 @@ std::vector<Projectile*> Player::Shoot() {
         projectiles.push_back(bullet);
     }
     else if (weapon_.type == SHOTGUN) {
+        sprite_weapon_ = animation_.NextFrame(ANIM2);
+
         for (int i = -2; i < 3; i++) {
             Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
             PhysicsVector direction = GetCurrentCursorDirection();
@@ -104,6 +153,20 @@ std::vector<Projectile*> Player::Shoot() {
             projectiles.push_back(bullet);
         }
     }
+    else if (weapon_.type == BANDAGE) {
+        sprite_weapon_ = animation_.Stop(ANIM3);
+
+        Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
+        PhysicsVector direction = GetCurrentCursorDirection();
+
+        PhysicsVector vel = GetVelocity().UnitVector();
+        SetVelocity(vel.Scale(0.01f));
+        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
+        bullet->SetVelocity(direction + GetVelocity());
+        projectiles.push_back(bullet);
+
+        Heal(1);
+    }
 
     return projectiles;
 }
@@ -114,12 +177,18 @@ void Player::SwitchWeapon(int weapon_type) {
             std::cout << "ERROR: Loading gun sound failed!" << std::endl;
         }
         weapon_ = blaster;
+        sprite_weapon_ = animation_.Stop(ANIM1);
     }
     else if (weapon_type == SHOTGUN) {
         if (!buffer_.loadFromFile("src/Audio/Sound/sound_shotgun.ogg")) {
             std::cout << "ERROR: Loading gun sound failed!" << std::endl;
         }
         weapon_ = shotgun;
+        sprite_weapon_ = animation_.Stop(ANIM2);
+    }
+    else if (weapon_type == BANDAGE) {
+        weapon_ = bandage;
+        sprite_weapon_ = animation_.Stop(ANIM3);
     }
 }
 
@@ -127,6 +196,8 @@ void Player::SwitchWeapon(int weapon_type) {
 void Player::Rotate() {
     sf::Vector2f direction = GetCurrentCursorDirection(); // Get current mouse direction, relative to the player.
     SetRotation(direction); // Rotate the player sprite into new position.
+    sprite_legs_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
+    sprite_weapon_.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
 }
 
 /* Function that calculates current mousewise direction of the player sprite
@@ -148,4 +219,16 @@ void Player::PlayDeathSound() {
 void Player::StopDeathSound() {
     death_.setLoop(false);
     death_.stop();
+}
+
+/* Draws all player sprites to main_window(global) */
+void Player::Draw() {
+    sprite_legs_.setPosition(GetPosition());
+    sprite_weapon_.setPosition(GetPosition());
+    main_window->draw(sprite_legs_);
+    main_window->draw(sprite_weapon_);
+    main_window->draw(GetSprite());
+
+    main_window->draw(GetHPBackground());
+    main_window->draw(GetHPBar());
 }
