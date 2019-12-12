@@ -1,6 +1,6 @@
 #include "zombie.hpp"
 
-Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", RectHitbox(64.f, 64.f), ENEMY, 5.0f, 0.1f, 10, 500, true, 1000) {
+Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", RectHitbox(62.f, 62.f), ENEMY, 5.0f, 0.1f, 10, 500, true, 1000) {
     bullet_ = rock;
     SetOrigin(25, 30);
     if (!zombiedeathbuffer_.loadFromFile("src/Audio/Sound/sound_zombiedeath.ogg")) {
