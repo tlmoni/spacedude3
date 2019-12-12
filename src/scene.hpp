@@ -46,9 +46,6 @@ public:
     /* Death sreen */
     void DisplayDeathScreen();
 
-    /* Return to menu */
-    void ReturnToMenu(sf::Event event);
-
     /* Add projectiles to scene */
     void AddProjectiles(std::vector<Projectile*> projectiles);
 

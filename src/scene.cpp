@@ -81,62 +81,28 @@ void Scene::Loop() {
             default:
                 break;
         }
+        if (main_window->hasFocus()) {
+            Update();
+            Render();
 
-        Update();
-        Render();
+            // If Esc key is pressed, return to menu
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                main_window->setMouseCursorVisible(true);
+                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                return;
+            }
 
-        // If Esc key is pressed, return to menu
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            return;
+            // Check if the player has rached the goal
+            if (player_->CollidesWith(map_.goal)) {
+                main_window->setMouseCursorVisible(true);
+                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                return;
+            }
         }
 
-        // Check if the player has rached the goal
-        if (player_->CollidesWith(map_.goal)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            return;
-        }
     }
 
-    sf::Font font;
-    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
-        std::cout << "ERROR loading font" << std::endl;
-    }
-    sf::Text gameend;
-    std::string str = "YOU DIED! Press ESC to return to menu";
-    gameend.setFont(font);
-    gameend.setString(str);
-    gameend.setFillColor(sf::Color::Red);
-    gameend.setScale(sf::Vector2f(1.3, 1.3));
-    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
-
-    player_->SetSprite("src/Textures/deadspacedude.png");
-    Update();
-    Render();
-
-    while (main_window->isOpen()) {
-        sf::Event event;
-        switch (event.type) {
-            case sf::Event::Closed:
-                main_window->close();
-                break;
-            default:
-                break;
-        }
-
-        // If Esc key is pressed, return to menu
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            player_->StopDeathSound();
-            return;
-        }
-
-        main_window->draw(gameend);
-        main_window->display();
-    }
+    DisplayDeathScreen();
 }
 
 /* Update game logic (bullets etc.) */
@@ -278,30 +244,21 @@ void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
     }
 }
 
-/*
 void Scene::DisplayVictoryScreen() {
-
-}
-
-void Scene::DisplayDeathScreen() {
     sf::Font font;
     if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         std::cout << "ERROR loading font" << std::endl;
     }
-    sf::Text gameend;
-    std::string str = "YOU DIED! Press ESC to return to menu";
-    gameend.setFont(font);
-    gameend.setString(str);
-    gameend.setFillColor(sf::Color::Red);
-    gameend.setScale(sf::Vector2f(1.3, 1.3));
-    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
 
-    sf::Texture* texture = new sf::Texture;
-    if (!texture->loadFromFile("src/Textures/deadspacedude.png")) {
-        std::cout << "ERROR loading spacedudedead" << std::endl;
-    }
+    sf::Text game_win;
+    std::string str = "VICTORY! You defeated all the zombies.";
+    game_win.setFont(font);
+    game_win.setString(str);
+    game_win.setFillColor(sf::Color::Green);
+    game_win.setScale(sf::Vector2f(1.3, 1.3));
+    game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
 
-    player_->SetSprite(texture);
+    Update();
     Render();
 
     while (main_window->isOpen()) {
@@ -314,23 +271,56 @@ void Scene::DisplayDeathScreen() {
                 break;
         }
 
-        Update();
-        main_window->draw(gameend);
+        // If Esc key is pressed, return to menu
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            player_->StopDeathSound();
+            return;
+        }
+
+        main_window->draw(game_win);
         main_window->display();
+    }
+}
+
+void Scene::DisplayDeathScreen() {
+    sf::Font font;
+    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR loading font" << std::endl;
+    }
+    sf::Text game_end;
+    std::string str = "YOU DIED! Press ESC to return to menu";
+    game_end.setFont(font);
+    game_end.setString(str);
+    game_end.setFillColor(sf::Color::Red);
+    game_end.setScale(sf::Vector2f(1.3, 1.3));
+    game_end.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    player_->SetSprite("src/Textures/deadspacedude.png");
+    Update();
+    Render();
+
+    while (main_window->isOpen()) {
+        sf::Event event;
+        switch (event.type) {
+            case sf::Event::Closed:
+                main_window->close();
+                break;
+            default:
+                break;
+        }
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            ReturnToMenu(event);
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            player_->StopDeathSound();
             return;
         }
+
+        main_window->draw(game_end);
+        main_window->display();
     }
 }
 
-void Scene::ReturnToMenu(sf::Event event) {
-    main_window->setMouseCursorVisible(true);
-    while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-    if (sound_on) {
-        player_->StopDeathSound();
-    }
-}
-*/
