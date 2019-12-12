@@ -113,6 +113,9 @@ void Player::SwitchWeapon(int weapon_type) {
         weapon_ = blaster;
     }
     else if (weapon_type == SHOTGUN) {
+        if (!buffer_.loadFromFile("src/Audio/Sound/sound_shotgun.ogg")) {
+            std::cout << "ERROR: Loading gun sound failed!" << std::endl;
+        }
         weapon_ = shotgun;
     }
 }
