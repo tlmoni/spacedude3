@@ -19,6 +19,7 @@ Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", R
     zombiedeath3_.setBuffer(zombiedeathbuffer3_);
 }
 
+/* Handle zombie shooting */
 std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, PhysicsVector pos) {
     PhysicsVector direction = pos - GetPosition();
     std::vector<Projectile*> projectiles;

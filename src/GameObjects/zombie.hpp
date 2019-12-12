@@ -10,6 +10,7 @@ public:
     /* Destructor */
     ~Zombie() = default;
 
+    /* Handle zombie shooting */
     std::vector<Projectile*> Action(std::vector<GameObject*> objects, PhysicsVector pos);
 
     /* Play a random death sound for zombie from 3 different audios. */
