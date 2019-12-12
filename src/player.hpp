@@ -20,7 +20,7 @@ struct Weapon {
 
 const static Weapon blaster = {BLASTER, plasma, 100};
 const static Weapon shotgun = {SHOTGUN, pellet, 1000};
-const static Weapon bandage = {BANDAGE, heal, 100};
+const static Weapon bandage = {BANDAGE, heal, 900};
 
 // Forward declaration of Scene needed here
 class Projectile;

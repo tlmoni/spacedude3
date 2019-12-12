@@ -165,7 +165,7 @@ std::vector<Projectile*> Player::Shoot() {
         bullet->SetVelocity(direction + GetVelocity());
         projectiles.push_back(bullet);
 
-        Heal(2);
+        Heal(8);
     }
 
     return projectiles;
@@ -187,7 +187,7 @@ void Player::SwitchWeapon(int weapon_type) {
         sprite_weapon_ = animation_.Stop(ANIM2);
     }
     else if (weapon_type == BANDAGE) {
-        if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
+        if (!buffer_.loadFromFile("src/Audio/Sound/sound_heal.ogg")) {
             std::cout << "ERROR: Loading gun sound failed!" << std::endl;
         }
         weapon_ = bandage;
