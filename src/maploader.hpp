@@ -125,4 +125,13 @@ public:
         is.close();
         return map;
     }
+
+    static void SpawnZombies(Map& map) {
+        for (PhysicsVector z : map.zombie_spawns) {
+            Zombie* zombie = new Zombie(PhysicsVector(z.x, z.y));
+            map.objects.push_back(zombie);
+            map.enemies.push_back(zombie);
+            map.enemies_left++;
+        }
+    }
 };
