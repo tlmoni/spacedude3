@@ -12,6 +12,7 @@ Scene::Scene(std::string map, sf::Text playername) {
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         std::cout << "ERROR while loading font" << std::endl;
     }
+    killcount_ = 0;
     kills_.setFont(font_);
     kills_.setCharacterSize(30);
     playername_.setFont(font_);
@@ -60,8 +61,8 @@ void Scene::Init() {
         music_.play();
     }
 
-    CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, map_.player_location);
+    SpaceDude* spacedude = new SpaceDude();
+    player_ = new Player(spacedude, map_.player_location);
 
     main_window->setFramerateLimit(g_fps);
     Render();
@@ -147,9 +148,14 @@ void Scene::Update() {
             (*o)->UpdateHP();
 
             // Objects
-            if ((*o)->GetType() == WALL) {
+            if ((*o)->GetType() == DESTRUCTABLE_WALL) {
                 if ((*o)->dead_) {
-                    (*o)->shootable_ = false;
+                    if ((*o)->shootable_) {
+                        if (sound_on) {
+                            (*o)->DeathSound();
+                        }
+                        (*o)->shootable_ = false;
+                    }
                     (*o)->GetTexture()->loadFromFile("src/Textures/broken_crate.png");
                 }
             }
@@ -163,6 +169,7 @@ void Scene::Update() {
                     (*o)->collidable_ = false;
                     (*o)->shootable_ = false;
                     (*o)->dead_ = true;
+                    killcount_++;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
                     map_.enemies_left--;
@@ -209,17 +216,15 @@ void Scene::Render() {
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
-        if (!o->dead_ && o->GetType() != WALL) {
+        if (!o->dead_ && o->GetType() != DESTRUCTABLE_WALL && o->GetType() != WALL) {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
-        //main_window->draw(o->GetHitbox());
     }
 
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
-            // main_window->draw(p->GetHitbox());
         }
     }
 
@@ -231,12 +236,9 @@ void Scene::Render() {
     player_->Draw();
     playername_.setPosition(player_->GetPosition().x - (3.5 * (playername_.getString().getSize())), player_->GetPosition().y - 60);
     main_window->draw(playername_);
-    killcount_ = "Kills: " + std::to_string(map_.enemies_total - map_.enemies_left);
-    kills_.setString(killcount_);
+    kills_.setString("Kills: " + std::to_string(killcount_));
     kills_.setPosition(player_->GetPosition().x - 500, player_->GetPosition().y - 500);
     main_window->draw(kills_);
-
-    // main_window->draw(player_->GetHitbox());
 
     main_window->draw(cursor_sprite_);
 

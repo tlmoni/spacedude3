@@ -58,7 +58,7 @@ private:
     Player* player_;
     sf::Text playername_;
     sf::Text kills_;
-    std::string killcount_;
+    int killcount_;
     sf::Font font_;
     std::vector<Projectile*> projectiles_;
     sf::Texture cursor_;

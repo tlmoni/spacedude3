@@ -3,19 +3,19 @@
 /* Construct and load default main menu */
 Menu::Menu() {
     if (!main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png")) {
-        // Error checking
+        std::cout << "ERROR loading main menu button texture!" << std::endl;
     }
     if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/background.png")) {
-        // Error checking
+        std::cout << "ERROR loading main menu background texture!" << std::endl;
     }
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
-        // Error checking
+        std::cout << "ERROR loading main menu button font!" << std::endl;
     }
     if (!music_.openFromFile("src/Audio/Music/music_menu.ogg")) {
-        // Error checking
+        std::cout << "ERROR loading main menu music!" << std::endl;
     }
     if (!buffer_.loadFromFile("src/Audio/Sound/sound_button.ogg")) {
-        // Error checking
+        std::cout << "ERROR loading main menu button sound!" << std::endl;
     }
     button_.setBuffer(buffer_);
     menu_status = 0;
@@ -26,7 +26,7 @@ Menu::Menu() {
     Draw();
 }
 
-/* Draws all the sprites in the menu items vector */
+/* Draws all the sprites in the menu items vector and handle menu background animation */
 void Menu::Draw() {
     sf::Sprite background;
     background.setTexture(main_menu_background_);
@@ -57,8 +57,8 @@ void Menu::Draw() {
     }
 }
 
-/* Initialize the window and loads main menu by default. menu_status indicates
-   the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
+/* Initialize the window and loads main menu by default. Handle button hover and button clicks.
+   menu_status indicates the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
 void Menu::Init() {
     main_window->setFramerateLimit(g_fps*6);
     while (main_window->isOpen()) {
@@ -666,7 +666,7 @@ void Menu::LoadGameMode() {
     menu_text_items_.push_back(help);
 }
 
-/* Add host menu sprites to the menuitems vector */
+/* Add campaign menu sprites to the menuitems vector */
 void Menu::LoadCampaign() {
     ClearMenuItems();
     menu_status = 4;
@@ -698,7 +698,7 @@ void Menu::LoadCampaign() {
     menu_items_.push_back(level3);
 }
 
-/* Add join menu sprites to the menuitems vector */
+/* Add survival menu sprites to the menuitems vector */
 void Menu::LoadSurvival() {
     ClearMenuItems();
     menu_status = 5;

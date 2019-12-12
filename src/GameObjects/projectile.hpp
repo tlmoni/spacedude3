@@ -28,6 +28,7 @@ public:
     /* Destructor */
     ~Projectile() = default;
 
+    /* Check if player is colliding with items and change movement according to that */
     bool CheckCollisions(std::vector<GameObject*> objects);
 
     int GetOwner() { return owner_; }

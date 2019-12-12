@@ -22,11 +22,11 @@ public:
     /* Destructor */
     ~Menu() = default;
 
-    /* Draws all the sprites in the menu items vector. */
+    /* Draws all the sprites in the menu items vector and handle menu background animation */
     void Draw();
 
-    /* Initialize the window and loads main menu by default. menu_status indicates
-       the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
+    /* Initialize the window and loads main menu by default. Handle button hover and button clicks.
+       menu_status indicates the screen to be loaded. 0 = Main menu, 1 = Settings menu... */
     void Init();
 
     /* Add main menu sprites to the menuitems vector */
@@ -60,7 +60,6 @@ private:
     sf::Music music_; // Music that holds the main menu music
     sf::Sound button_; // Sound that holds the button press sample
     sf::SoundBuffer buffer_; // Buffer for the button sample
-    sf::Text sIP_; // Holds the IP address to be joined
     float x_; // Variable for menu animation position change
     int menu_status; // Indicates which menu scenario is to be loaded
 };

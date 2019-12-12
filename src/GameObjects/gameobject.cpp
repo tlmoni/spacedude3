@@ -165,6 +165,7 @@ bool GameObject::CollidesWith(GameObject* object) {
     return false;
 }
 
+/* Lessen objects hitpoints and set dead if it reaches 0 */
 void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;
@@ -184,6 +185,11 @@ void GameObject::SetSprite(std::string file) {
         std::cout << "ERROR loading font" << std::endl;
     }
     sprite_.setTexture(*texture_);
+}
+
+/* Set hitbox position to a new location */
+void GameObject::SetHitboxPosition(PhysicsVector new_pos) {
+    hitbox_.setPosition(new_pos);
 }
 
 /* Overload << operator for printing */

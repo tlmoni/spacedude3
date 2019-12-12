@@ -218,7 +218,7 @@ void Player::PlayDeathSound() {
     death_.play();
 }
 
-/* Stop player death sound and set loop true */
+/* Stop player death sound and set loop false */
 void Player::StopDeathSound() {
     death_.setLoop(false);
     death_.stop();

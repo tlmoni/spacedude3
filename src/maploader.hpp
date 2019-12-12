@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "GameObjects/wall.hpp"
+#include "GameObjects/destructable_wall.hpp"
 #include "GameObjects/zombie.hpp"
 #include "player.hpp"
 
@@ -13,11 +14,12 @@ struct Map {
     std::vector<sf::Sprite*> background;
     sf::Texture* background_texture = new sf::Texture();
     PhysicsVector player_location;
+    std::vector<PhysicsVector> zombie_spawns;
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
     int enemies_left = 0;
     int enemies_total = 0;
-    GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
+    GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(5.f, 5.f));
     sf::Sound portal_sound;
     sf::SoundBuffer portal_buffer;
 };
@@ -36,7 +38,7 @@ public:
     }
 
     /* Read the map file given as parameter and create game objects according to it.
-    Returns a pair containing the Player's coordinate vector and a vector (container) of GameObjects in the map. */
+       Returns a map struct. */
     static Map LoadMap(std::string filename) {
         std::ifstream is(filename); // Open the file to be read
         if (is.fail()) {
@@ -47,10 +49,17 @@ public:
 
         float x = 0.0f, y = 0.0f;
         Map map;
-        std::string line;
+        std::string game_mode;
+        bool goal_in_file = false;
 
+        std::string line;
         while (std::getline(is, line)) {
-            if (line == "#background") {
+            if (line == "#gamemode") {
+                std::getline(is, line);
+                game_mode = line; // Set game mode according to map file
+            }
+
+            else if (line == "#background") {
                 std::getline(is, line);
 
                 if (!map.background_texture->loadFromFile(line)) {
@@ -70,15 +79,13 @@ public:
 
                         // Wall object
                         else if (object == "w") {
-                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/wall.png");
+                            Wall* wall = new Wall(PhysicsVector(x, y));
                             map.objects.push_back(wall);
                         }
 
                         // Destructable wall object
                         else if (object == "d") {
-                            Wall* d_wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
-                            d_wall->shootable_ = true;
-                            d_wall->dead_ = false;
+                            DestructableWall* d_wall = new DestructableWall(PhysicsVector(x, y));
                             map.objects.push_back(d_wall);
                         }
 
@@ -88,13 +95,21 @@ public:
                             map.objects.push_back(zombie);
                             map.enemies.push_back(zombie);
                             map.enemies_left++;
-                            map.enemies_total++;
                         }
 
+                        // Zombie spawner
+                        else if (object == "S") {
+                            map.zombie_spawns.push_back(PhysicsVector(x + 32, y + 32));
+                        }
+
+                        // Goal
                         else if (object == "X") {
                             map.goal->SetPosition(PhysicsVector(x + 32, y + 32));
                             map.goal->SetOrigin(47, 47);
+                            map.goal->SetHitboxPosition(map.goal->GetPosition() + PhysicsVector(42, 42));
                             map.goal->collidable_ = false;
+
+                            goal_in_file = true;
                         }
 
                         x += 64.f;
@@ -117,6 +132,14 @@ public:
         }
 
         is.close();
+
+        if (game_mode == "campaign") {
+            if (!goal_in_file) {
+                std::cout << "Couldn't find goal in a gampaign map file!" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+
         return map;
     }
 };

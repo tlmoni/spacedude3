@@ -12,6 +12,7 @@ enum Type {
     ENEMY,
     PLAYER,
     WALL,
+    DESTRUCTABLE_WALL,
     BULLET,
 };
 
@@ -64,7 +65,7 @@ public:
     /* Check if the GameObject collides with the GameObject given as parameter */
     bool CollidesWith(GameObject* object);
 
-    /* Take damage */
+    /* Lessen objects hitpoints and set dead if it reaches 0 */
     void TakeDamage(float damage);
 
     /* Play object's death sound */
@@ -72,6 +73,9 @@ public:
 
     /* Set object sprite */
     void SetSprite(std::string file);
+
+    /* Set hitbox position to a new location */
+    void SetHitboxPosition(PhysicsVector new_pos);
 
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite& GetSprite() { return sprite_; }
