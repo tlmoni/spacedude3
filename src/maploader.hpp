@@ -16,6 +16,7 @@ struct Map {
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
     int enemies_left = 0;
+    int enemies_total = 0;
     GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
 };
 
@@ -77,6 +78,7 @@ public:
                             map.objects.push_back(zombie);
                             map.enemies.push_back(zombie);
                             map.enemies_left++;
+                            map.enemies_total++;
                         }
 
                         else if (object == "X") {
