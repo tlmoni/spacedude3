@@ -68,7 +68,7 @@ public:
 
                         // Wall object
                         else if (object == "w") {
-                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
+                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/wall.png");
                             map.objects.push_back(wall);
                         }
 

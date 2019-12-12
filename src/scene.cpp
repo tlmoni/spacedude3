@@ -94,6 +94,7 @@ void Scene::Loop() {
 
             // Check if the player has rached the goal
             if (player_->CollidesWith(map_.goal)) {
+                music_.stop();
                 DisplayVictoryScreen();
                 return;
             }
@@ -143,6 +144,16 @@ void Scene::Update() {
 
         // Handle objects
         for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
+            (*o)->UpdateHP();
+
+            // Objects
+            if ((*o)->GetType() == WALL) {
+                if ((*o)->dead_) {
+                    (*o)->shootable_ = false;
+                    (*o)->GetTexture()->loadFromFile("src/Textures/broken_crate.png");
+                }
+            }
+
             // Enemies
             if ((*o)->GetType() == ENEMY) {
                 if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
@@ -159,12 +170,6 @@ void Scene::Update() {
                 else if ((*o)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*o)->dead_) {
                     map_.objects.erase(o);
                     o--;
-                }
-            }
-            else if ((*o)->GetType() == WALL) {
-                if ((*o)->dead_) {
-                    (*o)->shootable_ = false;
-                    (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
                 }
             }
         }
@@ -197,8 +202,7 @@ void Scene::Render() {
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
-        if (!o->dead_) {
-            o->UpdateHP();
+        if (!o->dead_ && o->GetType() != WALL) {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
