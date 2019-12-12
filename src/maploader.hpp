@@ -143,6 +143,7 @@ public:
         return map;
     }
 
+    /* Spawn zombies to zombie_spawn locations for survival*/
     static void SpawnZombies(Map& map) {
         for (PhysicsVector z : map.zombie_spawns) {
             Zombie* zombie = new Zombie(PhysicsVector(z.x, z.y));
