@@ -1,5 +1,8 @@
+#gamemode
+survival
+
 #background
-src/Textures/background.png
+src/Textures/background_lila.png
 
 #map
 w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w
