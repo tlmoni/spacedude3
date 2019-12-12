@@ -4,6 +4,6 @@ src/Textures/background.png
 #map
 w-w-w-w-w-w-w-w-w-w-w
 w-.-.-Z-.-.-.-.-.-Z-w
-w-P-.-.-.-Z-.-X-.-.-w
+d-P-.-.-.-Z-.-X-.-.-w
 w-.-.-.-.-.-.-.-.-.-w
 w-w-w-w-w-w-w-w-w-w-w
