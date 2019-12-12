@@ -1,5 +1,5 @@
 #background
-src/Textures/background1.jpg
+src/Textures/background.png
 
 #map
 w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w

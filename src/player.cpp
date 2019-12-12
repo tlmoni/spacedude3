@@ -31,7 +31,7 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     sprite_legs_.setPosition(GetPosition());
     sprite_weapon_.setPosition(GetPosition());
 
-    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 50, 150);
+    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 50, 333);
     sprite_legs_ = animation_.Stop(MOVE);
     sprite_weapon_ = animation_.Stop(ANIM1);
     sprite_legs_.setOrigin(26,32);
@@ -187,6 +187,9 @@ void Player::SwitchWeapon(int weapon_type) {
         sprite_weapon_ = animation_.Stop(ANIM2);
     }
     else if (weapon_type == BANDAGE) {
+        if (!buffer_.loadFromFile("src/Audio/Sound/sound_gun.ogg")) {
+            std::cout << "ERROR: Loading gun sound failed!" << std::endl;
+        }
         weapon_ = bandage;
         sprite_weapon_ = animation_.Stop(ANIM3);
     }
