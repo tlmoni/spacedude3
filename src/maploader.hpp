@@ -16,6 +16,7 @@ struct Map {
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
     int enemies_left = 0;
+    int enemies_total = 0;
     GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
 };
 
@@ -71,12 +72,21 @@ public:
                             map.objects.push_back(wall);
                         }
 
+                        // Destructable wall object
+                        else if (object == "d") {
+                            Wall* d_wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
+                            d_wall->shootable_ = true;
+                            d_wall->dead_ = false;
+                            map.objects.push_back(d_wall);
+                        }
+
                         // Zombie
                         else if (object == "Z") {
                             Zombie* zombie = new Zombie(PhysicsVector(x + 32, y + 32));
                             map.objects.push_back(zombie);
                             map.enemies.push_back(zombie);
                             map.enemies_left++;
+                            map.enemies_total++;
                         }
 
                         else if (object == "X") {
