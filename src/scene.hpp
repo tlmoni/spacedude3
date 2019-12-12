@@ -55,9 +55,9 @@ public:
     std::vector<GameObject*> GetObjects() { return map_.objects; }
 
     bool end_ = false;
+
 private:
     Map map_;
-    sf::Texture background_;
     Player* player_;
     sf::Text playername_;
     sf::Font font_;
