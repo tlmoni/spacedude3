@@ -12,6 +12,7 @@ enum Type {
     ENEMY,
     PLAYER,
     WALL,
+    DESTRUCTABLE_WALL,
     BULLET,
 };
 

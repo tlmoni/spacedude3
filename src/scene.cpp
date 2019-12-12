@@ -147,9 +147,14 @@ void Scene::Update() {
             (*o)->UpdateHP();
 
             // Objects
-            if ((*o)->GetType() == WALL) {
+            if ((*o)->GetType() == DESTRUCTABLE_WALL) {
                 if ((*o)->dead_) {
-                    (*o)->shootable_ = false;
+                    if ((*o)->shootable_) {
+                        if (sound_on) {
+                            (*o)->DeathSound();
+                        }
+                        (*o)->shootable_ = false;
+                    }
                     (*o)->GetTexture()->loadFromFile("src/Textures/broken_crate.png");
                 }
             }
@@ -209,7 +214,7 @@ void Scene::Render() {
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
-        if (!o->dead_ && o->GetType() != WALL) {
+        if (!o->dead_ && o->GetType() != DESTRUCTABLE_WALL && o->GetType() != WALL) {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
