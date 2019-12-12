@@ -3,7 +3,7 @@ src/Textures/background1.jpg
 
 #map
 w-w-w-w-w-w-w-w-w-w-w
-w-.-.-.-.-.-.-.-.-.-w
+w-.-.-Z-.-.-.-.-.-Z-w
 w-P-.-.-.-Z-.-X-.-.-w
 w-.-.-.-.-.-.-.-.-.-w
 w-w-w-w-w-w-w-w-w-w-w

@@ -34,6 +34,7 @@ Scene::~Scene() {
     for(Projectile* p : projectiles_) {
         delete p;
     }
+    delete map_.goal;
     delete player_;
 }
 
@@ -78,8 +79,6 @@ void Scene::Loop() {
                 break;
         }
 
-
-
         Update();
         Render();
 
@@ -87,37 +86,17 @@ void Scene::Loop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            break;
+            return;
         }
 
         // Check if the player has rached the goal
-        if (map_.goal.collidable_) {
-            if (map_.goal.CollidesWith(*player_)) {
-                main_window->setMouseCursorVisible(true);
-                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-                break;
-            }
+        if (player_->CollidesWith(map_.goal)) {
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            return;
         }
-
-        /* Hidden kill switch to kill all enemies of the map
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
-            for (auto e : map_.enemies) {
-                if (!e->dead_) {
-                    e->dead_ = true;
-                    if (sound_on) {
-                        (e)->DeathSound();
-                    }
-                    e->collidable_ = false;
-                    e->shootable_ = false;
-                    e->dead_ = true;
-                    e->deadtimer_.restart();
-                    e->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
-                }
-            }
-        }
-        */
-
     }
+
     sf::Font font;
     if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         std::cout << "ERROR loading font" << std::endl;
@@ -148,7 +127,7 @@ void Scene::Loop() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             player_->StopDeathSound();
-            break;
+            return;
         }
 
         main_window->draw(gameend);
@@ -206,6 +185,7 @@ void Scene::Update() {
                     (*o)->dead_ = true;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+                    map_.enemies_left--;
                 }
                 else if ((*o)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*o)->dead_) {
                     map_.objects.erase(o);
@@ -248,22 +228,22 @@ void Scene::Render() {
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
-            main_window->draw(p->GetHitbox());
+            // main_window->draw(p->GetHitbox());
         }
     }
 
     // Render goal and make it accessible
-    if (map_.enemies.size() <= 1) {
-        map_.goal.collidable_ = true;
-        map_.goal.SetSprite("src/Textures/portal.png");
-        main_window->draw(map_.goal.GetSprite());
+    if (map_.enemies_left == 0) {
+        map_.goal->collidable_ = true;
+        map_.goal->SetSprite("src/Textures/portal.png");
+        main_window->draw(map_.goal->GetSprite());
     }
 
     player_->UpdateHP();
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
-    main_window->draw(player_->GetHitbox());
+    // main_window->draw(player_->GetHitbox());
 
     main_window->draw(cursor_sprite_);
 

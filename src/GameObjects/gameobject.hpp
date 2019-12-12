@@ -13,7 +13,6 @@ enum Type {
     PLAYER,
     WALL,
     BULLET,
-    GOAL
 };
 
 /* Parent class for all game objects */
@@ -57,7 +56,7 @@ public:
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
     /* Check if the GameObject collides with the GameObject given as parameter */
-    bool CollidesWith(GameObject object);
+    bool CollidesWith(GameObject* object);
 
     /* Take damage */
     void TakeDamage(float damage);
