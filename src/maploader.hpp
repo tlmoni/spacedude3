@@ -14,6 +14,8 @@ struct Map {
     PhysicsVector player_location;
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
+    int enemies_left = 0;
+    GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
 };
 
 class MapLoader {
@@ -56,20 +58,27 @@ public:
                     for (auto object : line_objects) {
                         // Player
                         if (object == "P") {
-                            map.player_location = PhysicsVector(x, y);
+                            map.player_location = PhysicsVector(x + 32, y + 32);
                         }
 
                         // Wall object
                         else if (object == "w") {
-                            Wall* wall = new Wall(PhysicsVector(x, y));
+                            Wall* wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
                             map.objects.push_back(wall);
                         }
 
                         // Zombie
                         else if (object == "Z") {
-                            Zombie* zombie = new Zombie(PhysicsVector(x, y));
+                            Zombie* zombie = new Zombie(PhysicsVector(x + 32, y + 32));
                             map.objects.push_back(zombie);
                             map.enemies.push_back(zombie);
+                            map.enemies_left++;
+                        }
+
+                        else if (object == "X") {
+                            map.goal->SetPosition(PhysicsVector(x + 32, y + 32));
+                            map.goal->SetOrigin(47, 47);
+                            map.goal->collidable_ = false;
                         }
 
                         x += 64.f;

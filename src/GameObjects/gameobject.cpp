@@ -143,6 +143,16 @@ bool GameObject::CheckCollisions(std::vector<GameObject*> objects) {
     return false;
 }
 
+/* Check if the GameObject collides with the GameObject given as parameter */
+bool GameObject::CollidesWith(GameObject* object) {
+    if (object->collidable_) {
+        if (hitbox_.getGlobalBounds().intersects(object->GetHitbox().getGlobalBounds())) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;

@@ -12,12 +12,15 @@ enum Type {
     ENEMY,
     PLAYER,
     WALL,
-    BULLET
+    BULLET,
 };
 
 /* Parent class for all game objects */
 class GameObject : public Movement {
 public:
+    /* Default constructor */
+    GameObject() = default;
+
     /* Constructor */
     GameObject(sf::Vector2f pos, std::string file, RectHitbox hitbox, int type = OBJECT, double max_speed = 5.f,
                double acceleration = 1.f, int damage = 0, float hitpoints = 69, bool shootable = false, float attack_delay = 1000);
@@ -52,6 +55,9 @@ public:
     /* Check if player is colliding with items and change movement according to that */
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 
+    /* Check if the GameObject collides with the GameObject given as parameter */
+    bool CollidesWith(GameObject* object);
+
     /* Take damage */
     void TakeDamage(float damage);
 
@@ -79,6 +85,7 @@ public:
     sf::Clock deadtimer_; // Timer for tracking how long has object been dead
     bool dead_ = false; // Indicates if the object is dead or alive
     bool collidable_ = true;
+    bool shootable_;
 
 private:
     PhysicsVector pos_;
@@ -92,7 +99,6 @@ private:
     float attack_delay_;
     float hitpoints_;
     float max_hitpoints_;
-    bool shootable_;
     int type_;
 };
 
