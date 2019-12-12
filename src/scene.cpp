@@ -2,7 +2,7 @@
 
 /* Contructor */
 Scene::Scene(std::string map) {
-    if(!cursor_.loadFromFile("src/Textures/cursor.png")) {
+    if(!cursor_.loadFromFile("src/Textures/crosshair31.png")) {
         // Error checking.
     }
     map_ = MapLoader::LoadMap(map);
@@ -34,6 +34,7 @@ Scene::~Scene() {
     for (Projectile* p : projectiles_) {
         delete p;
     }
+    delete map_.goal;
     delete player_;
 }
 
@@ -83,11 +84,56 @@ void Scene::Loop() {
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            ReturnToMenu(event);
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            return;
+        }
+
+        // Check if the player has rached the goal
+        if (player_->CollidesWith(map_.goal)) {
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             return;
         }
     }
-    DisplayDeathScreen();
+
+    sf::Font font;
+    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR loading font" << std::endl;
+    }
+    sf::Text gameend;
+    std::string str = "YOU DIED! Press ESC to return to menu";
+    gameend.setFont(font);
+    gameend.setString(str);
+    gameend.setFillColor(sf::Color::Red);
+    gameend.setScale(sf::Vector2f(1.3, 1.3));
+    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    player_->SetSprite("src/Textures/deadspacedude.png");
+    Update();
+    Render();
+    main_window->draw(gameend);
+
+    while (main_window->isOpen()) {
+        sf::Event event;
+        switch (event.type) {
+            case sf::Event::Closed:
+                main_window->close();
+                break;
+            default:
+                break;
+        }
+
+        // If Esc key is pressed, return to menu
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
+            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            player_->StopDeathSound();
+            return;
+        }
+
+        main_window->display();
+    }
 }
 
 /* Update game logic (bullets etc.) */
@@ -140,6 +186,7 @@ void Scene::Update() {
                     (*o)->dead_ = true;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
+                    map_.enemies_left--;
                 }
                 else if ((*o)->deadtimer_.getElapsedTime().asMilliseconds() > 20000 && (*o)->dead_) {
                     map_.objects.erase(o);
@@ -147,8 +194,12 @@ void Scene::Update() {
                 }
             }
         }
+        // Render goal and make it accessible
+        if (map_.enemies_left == 0) {
+            map_.goal->collidable_ = true;
+        }
     }
-    else {
+    else if (end_) {
         if (sound_on) {
             player_->PlayDeathSound();
         }
@@ -156,6 +207,7 @@ void Scene::Update() {
         end_ = true;
         player_->dead_ = true;
     }
+
     // Move cursor
     cursor_sprite_.setPosition(main_window->getView().getCenter() - sf::Vector2f(500,500) + static_cast<sf::Vector2f>(sf::Mouse::getPosition(*main_window)));
 }
@@ -182,9 +234,14 @@ void Scene::Render() {
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
-            main_window->draw(p->GetHitbox());
+            // main_window->draw(p->GetHitbox());
         }
     }
+
+    if (map_.enemies_left == 0) {
+        main_window->draw(map_.goal->GetSprite());
+    }
+
     player_->UpdateHP();
     player_->Draw();
     main_window->draw(cursor_sprite_);
@@ -198,7 +255,6 @@ void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
             projectiles_.push_back(p);
         }
     }
-
 }
 
 /*

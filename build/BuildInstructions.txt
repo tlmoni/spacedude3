@@ -5,8 +5,6 @@ Install SFML
 
 $ sudo apt-get install libsfml-dev
 
-
-
 (dir: root)
 
 1. Building the project
@@ -17,3 +15,10 @@ $ sudo apt-get install libsfml-dev
 
 3. Clean, build and run the executable
     make run
+
+
+Install Valgrind
+
+$ sudo apt-get install valgrind
+- Ran with a command specifying options and program to be tested
+- Command utilized for this project: "valgrind -v  --leak-check=yes ./BrawlStars"
