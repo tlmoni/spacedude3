@@ -31,11 +31,6 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
         direction = direction.UnitVector();
         attack_timer_.restart();
-        /*
-        if (sound_on) {
-            gunshot_.play();
-        }
-        */
 
         Projectile* bullet = new Projectile(GetPosition(), ENEMY, bullet_);
         PhysicsVector vel = GetVelocity().UnitVector();

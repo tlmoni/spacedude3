@@ -18,7 +18,12 @@ struct Map {
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
     int enemies_left = 0;
+<<<<<<< HEAD
     GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
+=======
+    int enemies_total = 0;
+    GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(5.f, 5.f));
+>>>>>>> e9e56ad1320eb0f6ec6c08ae2cea6d2d558b0a31
     sf::Sound portal_sound;
     sf::SoundBuffer portal_buffer;
 };
@@ -37,7 +42,7 @@ public:
     }
 
     /* Read the map file given as parameter and create game objects according to it.
-    Returns a pair containing the Player's coordinate vector and a vector (container) of GameObjects in the map. */
+       Returns a map struct. */
     static Map LoadMap(std::string filename) {
         std::ifstream is(filename); // Open the file to be read
         if (is.fail()) {
@@ -94,9 +99,11 @@ public:
                             map.zombie_spawns.push_back(PhysicsVector(x + 32, y + 32));
                         }
 
+                        // Goal
                         else if (object == "X") {
                             map.goal->SetPosition(PhysicsVector(x + 32, y + 32));
                             map.goal->SetOrigin(47, 47);
+                            map.goal->SetHitboxPosition(map.goal->GetPosition() + PhysicsVector(42, 42));
                             map.goal->collidable_ = false;
                         }
 
