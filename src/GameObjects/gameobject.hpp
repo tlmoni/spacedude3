@@ -52,6 +52,9 @@ public:
     /* Function resposible for updating player character position */
     void Move(PhysicsVector direction);
 
+    /* Rotate GameObject by degrees given as parameter */
+    void Rotate(float angle);
+
     /* Check if player is colliding with items and change movement according to that */
     virtual bool CheckCollisions(std::vector<GameObject*> objects);
 

@@ -197,9 +197,11 @@ void Scene::Update() {
                 }
             }
         }
-        // Render goal and make it accessible
+
+        // Make the goal portal accessible
         if (map_.enemies_left == 0) {
             map_.goal->collidable_ = true;
+            map_.goal->Rotate(-2);
         }
     }
     else if (!end_) {
