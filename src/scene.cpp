@@ -12,6 +12,7 @@ Scene::Scene(std::string map, sf::Text playername) {
     if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
         std::cout << "ERROR while loading font" << std::endl;
     }
+    killcount_ = 0;
     kills_.setFont(font_);
     kills_.setCharacterSize(30);
     playername_.setFont(font_);
@@ -168,6 +169,7 @@ void Scene::Update() {
                     (*o)->collidable_ = false;
                     (*o)->shootable_ = false;
                     (*o)->dead_ = true;
+                    killcount_++;
                     (*o)->deadtimer_.restart();
                     (*o)->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
                     map_.enemies_left--;
@@ -236,8 +238,7 @@ void Scene::Render() {
     player_->Draw();
     playername_.setPosition(player_->GetPosition().x - (3.5 * (playername_.getString().getSize())), player_->GetPosition().y - 60);
     main_window->draw(playername_);
-    killcount_ = "Kills: " + std::to_string(map_.enemies_total - map_.enemies_left);
-    kills_.setString(killcount_);
+    kills_.setString("Kills: " + std::to_string(killcount_));
     kills_.setPosition(player_->GetPosition().x - 500, player_->GetPosition().y - 500);
     main_window->draw(kills_);
 
