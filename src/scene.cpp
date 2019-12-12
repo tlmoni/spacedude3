@@ -9,7 +9,11 @@ Scene::Scene(std::string map, sf::Text playername) {
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
     playername_ = playername;
-    font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
+    if (!font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR while loading font" << std::endl;
+    }
+    kills_.setFont(font_);
+    kills_.setCharacterSize(30);
     playername_.setFont(font_);
     playername_.setCharacterSize(12);
 }
@@ -245,6 +249,11 @@ void Scene::Render() {
     player_->Draw();
     playername_.setPosition(player_->GetPosition().x-(3.5* (playername_.getString().getSize())), player_->GetPosition().y-60);
     main_window->draw(playername_);
+    killcount_ = "Kills: " + std::to_string(map_.enemies_total - map_.enemies_left);
+    kills_.setString(killcount_);
+    kills_.setPosition(player_->GetPosition().x - 500, player_->GetPosition().y - 500);
+    main_window->draw(kills_);
+
     // main_window->draw(player_->GetHitbox());
 
     main_window->draw(cursor_sprite_);
