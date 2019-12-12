@@ -165,6 +165,7 @@ bool GameObject::CollidesWith(GameObject* object) {
     return false;
 }
 
+/* Lessen objects hitpoints and set dead if it reaches 0 */
 void GameObject::TakeDamage(float damage) {
     if (damage >= hitpoints_) {
         hitpoints_ = 0;

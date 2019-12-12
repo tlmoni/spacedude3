@@ -65,7 +65,7 @@ public:
     /* Check if the GameObject collides with the GameObject given as parameter */
     bool CollidesWith(GameObject* object);
 
-    /* Take damage */
+    /* Lessen objects hitpoints and set dead if it reaches 0 */
     void TakeDamage(float damage);
 
     /* Play object's death sound */

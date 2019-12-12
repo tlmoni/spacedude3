@@ -61,7 +61,7 @@ public:
     /* Play player death sound and set loop true */
     void PlayDeathSound();
 
-    /* Stop player death sound and set loop true */
+    /* Stop player death sound and set loop false */
     void StopDeathSound();
 
     /* Draws all player sprites to main_window(global) */
@@ -72,7 +72,6 @@ public:
 private:
     sf::View player_cam_;
     sf::Vector2f direction_cursor_; // MOUSE: Holds mousewise direction, relative to player sprite
-
     sf::SoundBuffer deathbuffer_ ; // Buffer for death sound effect
     sf::Sound death_; // Death sound effect
     sf::SoundBuffer buffer_; // Buffer for gun sound effect

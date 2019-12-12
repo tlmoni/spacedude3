@@ -19,6 +19,7 @@ Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", R
     zombiedeath3_.setBuffer(zombiedeathbuffer3_);
 }
 
+/* Handle zombie shooting */
 std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, PhysicsVector pos) {
     PhysicsVector direction = pos - GetPosition();
     std::vector<Projectile*> projectiles;
@@ -49,6 +50,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     return projectiles;
 }
 
+/* Play a random death sound for zombie from 3 different audios. */
 void Zombie::DeathSound() {
     int random_integer = rand() % 3;
     if (random_integer == 0) {
