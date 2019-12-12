@@ -245,7 +245,7 @@ void Scene::Render() {
     }
 
     player_->UpdateHP();
-    playername_.setPosition(player_->GetPosition().x-25, player_->GetPosition().y-60);
+    playername_.setPosition(player_->GetPosition().x-(3.5* (playername_.getString().getSize())), player_->GetPosition().y-60);
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
