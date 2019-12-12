@@ -23,30 +23,32 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     PhysicsVector direction = pos - GetPosition();
     std::vector<Projectile*> projectiles;
 
-    if (direction.Length() < 500) {
-        sf::Time time = attack_timer_.getElapsedTime();
-        if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
-            direction = direction.UnitVector();
-            attack_timer_.restart();
-            /*
-            if (sound_on) {
-                gunshot_.play();
-            }
-            */
+    if (direction.Length() > 500) {
+        direction = PhysicsVector(0.f, 0.f);
+    }
+    sf::Time time = attack_timer_.getElapsedTime();
+    if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
+        direction = direction.UnitVector();
+        attack_timer_.restart();
+        /*
+        if (sound_on) {
+            gunshot_.play();
+        }
+        */
 
-            Projectile* bullet = new Projectile(GetPosition(), ENEMY, bullet_);
-            PhysicsVector vel = GetVelocity().UnitVector();
-            SetVelocity(vel.Scale(0.01f));
-            direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
-            bullet->SetVelocity(direction);
-            projectiles.push_back(bullet);
+        Projectile* bullet = new Projectile(GetPosition(), ENEMY, bullet_);
+        PhysicsVector vel = GetVelocity().UnitVector();
+        SetVelocity(vel.Scale(0.01f));
+        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
+        bullet->SetVelocity(direction);
+        projectiles.push_back(bullet);
     }
 
     Move(direction);
     CheckCollisions(objects);
     SetPosition(GetPosition() + GetVelocity());
     SetRotation(direction);
-    }
+
 
 
     return projectiles;
