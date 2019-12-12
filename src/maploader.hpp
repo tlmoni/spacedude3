@@ -11,6 +11,7 @@
 #include "player.hpp"
 
 struct Map {
+    std::string game_mode;
     std::vector<sf::Sprite*> background;
     sf::Texture* background_texture = new sf::Texture();
     PhysicsVector player_location;
@@ -49,14 +50,13 @@ public:
 
         float x = 0.0f, y = 0.0f;
         Map map;
-        std::string game_mode;
         bool goal_in_file = false;
 
         std::string line;
         while (std::getline(is, line)) {
             if (line == "#gamemode") {
                 std::getline(is, line);
-                game_mode = line; // Set game mode according to map file
+                map.game_mode = line; // Set game mode according to map file
             }
 
             else if (line == "#background") {
@@ -133,7 +133,7 @@ public:
 
         is.close();
 
-        if (game_mode == "campaign") {
+        if (map.game_mode == "campaign") {
             if (!goal_in_file) {
                 std::cout << "Couldn't find goal in a gampaign map file!" << std::endl;
                 exit(EXIT_FAILURE);
@@ -141,5 +141,14 @@ public:
         }
 
         return map;
+    }
+
+    static void SpawnZombies(Map& map) {
+        for (PhysicsVector z : map.zombie_spawns) {
+            Zombie* zombie = new Zombie(PhysicsVector(z.x, z.y));
+            map.objects.push_back(zombie);
+            map.enemies.push_back(zombie);
+            map.enemies_left++;
+        }
     }
 };

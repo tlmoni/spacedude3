@@ -183,15 +183,20 @@ void Scene::Update() {
 
         // Make the goal portal accessible
         if (map_.enemies_left == 0) {
-            if (!map_.goal->collidable_) {
-                if (!map_.portal_buffer.loadFromFile("src/Audio/Sound/sound_portal.ogg")) {
-                    std::cout << "ERROR while loading portal sound effect" << std::endl;
+            if (map_.game_mode == "campaign") {
+                if (!map_.goal->collidable_) {
+                    if (!map_.portal_buffer.loadFromFile("src/Audio/Sound/sound_portal.ogg")) {
+                        std::cout << "ERROR while loading portal sound effect" << std::endl;
+                    }
+                    map_.portal_sound.setBuffer(map_.portal_buffer);
+                    map_.portal_sound.play();
+                    map_.goal->collidable_ = true;
                 }
-                map_.portal_sound.setBuffer(map_.portal_buffer);
-                map_.portal_sound.play();
-                map_.goal->collidable_ = true;
+                map_.goal->Rotate(-2);
             }
-            map_.goal->Rotate(-2);
+            if (map_.game_mode == "survival") {
+                MapLoader::SpawnZombies(map_);
+            }
         }
     }
     else if (!end_) {
