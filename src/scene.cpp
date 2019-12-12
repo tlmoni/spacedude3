@@ -1,13 +1,17 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene(std::string map) {
+Scene::Scene(std::string map, sf::Text playername) {
     if(!cursor_.loadFromFile("src/Textures/crosshair31.png")) {
         // Error checking.
     }
     map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
+    playername_ = playername;
+    font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
+    playername_.setFont(font_);
+    playername_.setCharacterSize(12);
 }
 
 /* Copy constructor */
@@ -112,7 +116,6 @@ void Scene::Loop() {
     player_->SetSprite("src/Textures/deadspacedude.png");
     Update();
     Render();
-    main_window->draw(gameend);
 
     while (main_window->isOpen()) {
         sf::Event event;
@@ -132,6 +135,7 @@ void Scene::Loop() {
             return;
         }
 
+        main_window->draw(gameend);
         main_window->display();
     }
 }
@@ -199,13 +203,12 @@ void Scene::Update() {
             map_.goal->collidable_ = true;
         }
     }
-    else if (end_) {
+    else if (!end_) {
         if (sound_on) {
             player_->PlayDeathSound();
         }
         music_.stop();
         end_ = true;
-        player_->dead_ = true;
     }
 
     // Move cursor
@@ -244,6 +247,10 @@ void Scene::Render() {
 
     player_->UpdateHP();
     player_->Draw();
+    playername_.setPosition(player_->GetPosition().x-25, player_->GetPosition().y-60);;
+    main_window->draw(playername_);
+    // main_window->draw(player_->GetHitbox());
+
     main_window->draw(cursor_sprite_);
 
     main_window->display();

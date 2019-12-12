@@ -175,7 +175,6 @@ void GameObject::TakeDamage(float damage) {
 
 /* Set object sprite */
 void GameObject::SetSprite(std::string file) {
-    delete texture_;
     if (!texture_->loadFromFile(file)) {
         std::cout << "ERROR loading font" << std::endl;
     }

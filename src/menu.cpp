@@ -391,7 +391,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/campaign_map1.txt");
+                    Scene scene = Scene("src/Maps/campaign_map1.txt", playername_);
                     scene.Init();
 
                     if (music_on) {
@@ -409,7 +409,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/campaign_map2.txt");
+                    Scene scene = Scene("src/Maps/campaign_map2.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();
@@ -426,7 +426,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/campaign_map3.txt");
+                    Scene scene = Scene("src/Maps/campaign_map3.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();
@@ -497,7 +497,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/survival_map1.txt");
+                    Scene scene = Scene("src/Maps/survival_map1.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();
@@ -514,7 +514,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/survival_map2.txt");
+                    Scene scene = Scene("src/Maps/survival_map2.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();
@@ -531,7 +531,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/survival_map3.txt");
+                    Scene scene = Scene("src/Maps/survival_map3.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();

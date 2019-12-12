@@ -17,7 +17,7 @@ extern bool sound_on;
 class Scene {
 public:
     /* Constructor */
-    Scene(std::string map);
+    Scene(std::string map, sf::Text playername);
 
     /* Copy constructor */
     Scene(const Scene&);
@@ -59,6 +59,8 @@ private:
     Map map_;
     sf::Texture background_;
     Player* player_;
+    sf::Text playername_;
+    sf::Font font_;
     std::vector<Projectile*> projectiles_;
     sf::Texture cursor_;
     sf::Sprite cursor_sprite_;
