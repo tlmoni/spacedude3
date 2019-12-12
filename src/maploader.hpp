@@ -18,12 +18,8 @@ struct Map {
     std::vector<GameObject*> objects;
     std::vector<Zombie*> enemies;
     int enemies_left = 0;
-<<<<<<< HEAD
-    GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(21.f, 21.f));
-=======
     int enemies_total = 0;
     GameObject* goal = new GameObject(PhysicsVector(0, 0), "src/Textures/portal.png", RectHitbox(5.f, 5.f));
->>>>>>> e9e56ad1320eb0f6ec6c08ae2cea6d2d558b0a31
     sf::Sound portal_sound;
     sf::SoundBuffer portal_buffer;
 };
