@@ -1,13 +1,17 @@
 #include "scene.hpp"
 
 /* Contructor */
-Scene::Scene(std::string map) {
+Scene::Scene(std::string map, sf::Text playername) {
     if(!cursor_.loadFromFile("src/Textures/crosshair31.png")) {
         std::cout << "ERROR while reading cursor texture file" << std::endl;
     }
     map_ = MapLoader::LoadMap(map);
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
+    playername_ = playername;
+    font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
+    playername_.setFont(font_);
+    playername_.setCharacterSize(12);
 }
 
 /* Copy constructor */
@@ -235,9 +239,11 @@ void Scene::Render() {
     }
 
     player_->UpdateHP();
+    playername_.setPosition(player_->GetPosition().x-25, player_->GetPosition().y-60);
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
+    main_window->draw(playername_);
     // main_window->draw(player_->GetHitbox());
 
     main_window->draw(cursor_sprite_);
