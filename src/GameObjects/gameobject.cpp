@@ -186,6 +186,11 @@ void GameObject::SetSprite(std::string file) {
     sprite_.setTexture(*texture_);
 }
 
+/* Set hitbox position to a new location */
+void GameObject::SetHitboxPosition(PhysicsVector new_pos) {
+    hitbox_.setPosition(new_pos);
+}
+
 /* Overload << operator for printing */
 std::ostream& operator<<(std::ostream& os, GameObject obj) {
     os << "<" << obj.GetType() << ">";

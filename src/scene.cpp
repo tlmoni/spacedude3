@@ -60,8 +60,8 @@ void Scene::Init() {
         music_.play();
     }
 
-    CharacterSpurdo* spurdo = new CharacterSpurdo();
-    player_ = new Player(spurdo, map_.player_location);
+    SpaceDude* spacedude = new SpaceDude();
+    player_ = new Player(spacedude, map_.player_location);
 
     main_window->setFramerateLimit(g_fps);
     Render();
@@ -218,13 +218,11 @@ void Scene::Render() {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
-        //main_window->draw(o->GetHitbox());
     }
 
     if (projectiles_.empty() == false) {
         for(Projectile* p : projectiles_) {
             main_window->draw(p->GetSprite());
-            // main_window->draw(p->GetHitbox());
         }
     }
 
@@ -240,8 +238,6 @@ void Scene::Render() {
     kills_.setString(killcount_);
     kills_.setPosition(player_->GetPosition().x - 500, player_->GetPosition().y - 500);
     main_window->draw(kills_);
-
-    // main_window->draw(player_->GetHitbox());
 
     main_window->draw(cursor_sprite_);
 

@@ -74,6 +74,9 @@ public:
     /* Set object sprite */
     void SetSprite(std::string file);
 
+    /* Set hitbox position to a new location */
+    void SetHitboxPosition(PhysicsVector new_pos);
+
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite& GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }
