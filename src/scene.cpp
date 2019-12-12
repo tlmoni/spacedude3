@@ -176,7 +176,14 @@ void Scene::Update() {
 
         // Make the goal portal accessible
         if (map_.enemies_left == 0) {
-            map_.goal->collidable_ = true;
+            if (!map_.goal->collidable_) {
+                if (!map_.portal_buffer.loadFromFile("src/Audio/Sound/sound_portal.ogg")) {
+                    std::cout << "ERROR while loading portal sound effect" << std::endl;
+                }
+                map_.portal_sound.setBuffer(map_.portal_buffer);
+                map_.portal_sound.play();
+                map_.goal->collidable_ = true;
+            }
             map_.goal->Rotate(-2);
         }
     }
@@ -257,6 +264,14 @@ void Scene::DisplayVictoryScreen() {
     game_win.setFillColor(sf::Color::Green);
     game_win.setScale(sf::Vector2f(1.3, 1.3));
     game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    sf::Sound victory_sound;
+    sf::SoundBuffer victory_buffer;
+    if (!victory_buffer.loadFromFile("src/Audio/Sound/sound_victory.ogg")) {
+        std::cout << "ERROR while loading victory sound effect" << std::endl;
+    }
+    victory_sound.setBuffer(victory_buffer);
+    victory_sound.play();
 
     Update();
     Render();
