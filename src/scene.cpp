@@ -9,9 +9,9 @@ Scene::Scene(std::string map, sf::Text playername) {
     cursor_sprite_.setTexture(cursor_);
     cursor_sprite_.setOrigin(sf::Vector2f(13.f,13.f));
     playername_ = playername;
-    //sf::Font font;
-    //font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
-    //playername_.setFont(font);
+    font_.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf");
+    playername_.setFont(font_);
+    playername_.setCharacterSize(12);
 }
 
 /* Copy constructor */
@@ -225,7 +225,7 @@ void Scene::Render() {
         }
     }
     player_->UpdateHP();
-    playername_.setPosition(player_->GetPosition());
+    playername_.setPosition(player_->GetPosition().x-25, player_->GetPosition().y-60);
     main_window->draw(player_->GetSprite());
     main_window->draw(player_->GetHPBackground());
     main_window->draw(player_->GetHPBar());
