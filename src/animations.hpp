@@ -10,7 +10,8 @@ enum PlayerAnimationIndex {
     IDLE,
     MOVE,
     ANIM1,
-    ANIM2
+    ANIM2,
+    ANIM3
 };
 
 class Animation {

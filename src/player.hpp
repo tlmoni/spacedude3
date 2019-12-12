@@ -8,18 +8,19 @@
 
 enum WeaponType {
     BLASTER,
-    SHOTGUN
+    SHOTGUN,
+    BANDAGE
 };
 
 struct Weapon {
     int type;
     Bullet bullet;
     int shoot_delay;
-    std::string texture;
 };
 
-const static Weapon blaster = {BLASTER, plasma, 100, "src/Textures/blaster.png"};
-const static Weapon shotgun = {SHOTGUN, pellet, 500, "src/Textures/shotgun.png"};
+const static Weapon blaster = {BLASTER, plasma, 100};
+const static Weapon shotgun = {SHOTGUN, pellet, 450};
+const static Weapon bandage = {BANDAGE, heal, 100};
 
 // Forward declaration of Scene needed here
 class Projectile;

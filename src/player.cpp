@@ -26,11 +26,12 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     animations[MOVE] = std::pair<int, int>(0, 2);
     animations[ANIM1] = std::pair<int, int>(0, 4);
     animations[ANIM2] = std::pair<int, int>(0, 3);
+    animations[ANIM3] = std::pair<int, int>(0, 1);
 
     sprite_legs_.setPosition(GetPosition());
     sprite_weapon_.setPosition(GetPosition());
 
-    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 100, 500);
+    animation_ = Animation("src/Textures/player.png", animations, 64, 250, 50, 150);
     sprite_legs_ = animation_.Stop(MOVE);
     sprite_weapon_ = animation_.Stop(ANIM1);
     sprite_legs_.setOrigin(26,32);
@@ -81,6 +82,9 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
             SwitchWeapon(SHOTGUN);
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+            SwitchWeapon(BANDAGE);
         }
 
         if (attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
@@ -149,6 +153,20 @@ std::vector<Projectile*> Player::Shoot() {
             projectiles.push_back(bullet);
         }
     }
+    else if (weapon_.type == BANDAGE) {
+        sprite_weapon_ = animation_.Stop(ANIM3);
+
+        Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
+        PhysicsVector direction = GetCurrentCursorDirection();
+
+        PhysicsVector vel = GetVelocity().UnitVector();
+        SetVelocity(vel.Scale(0.01f));
+        direction = PhysicsVector(direction.x * bullet->GetMaxSpeed()/sqrt(2), direction.y * bullet->GetMaxSpeed()/sqrt(2));
+        bullet->SetVelocity(direction + GetVelocity());
+        projectiles.push_back(bullet);
+
+        Heal(1);
+    }
 
     return projectiles;
 }
@@ -161,6 +179,10 @@ void Player::SwitchWeapon(int weapon_type) {
     else if (weapon_type == SHOTGUN) {
         weapon_ = shotgun;
         sprite_weapon_ = animation_.Stop(ANIM2);
+    }
+    else if (weapon_type == BANDAGE) {
+        weapon_ = bandage;
+        sprite_weapon_ = animation_.Stop(ANIM3);
     }
 }
 
