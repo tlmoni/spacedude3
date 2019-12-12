@@ -54,6 +54,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
     return projectiles;
 }
 
+/* Play a random death sound for zombie from 3 different audios. */
 void Zombie::DeathSound() {
     int random_integer = rand() % 3;
     if (random_integer == 0) {
