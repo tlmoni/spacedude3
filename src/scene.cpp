@@ -94,8 +94,8 @@ void Scene::Loop() {
 
             // Check if the player has rached the goal
             if (player_->CollidesWith(map_.goal)) {
-                main_window->setMouseCursorVisible(true);
-                while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+                music_.stop();
+                DisplayVictoryScreen();
                 return;
             }
         }
@@ -229,7 +229,7 @@ void Scene::Render() {
 
     player_->UpdateHP();
     player_->Draw();
-    playername_.setPosition(player_->GetPosition().x-(3.5* (playername_.getString().getSize())), player_->GetPosition().y-60);
+    playername_.setPosition(player_->GetPosition().x - (3.5 * (playername_.getString().getSize())), player_->GetPosition().y - 60);
     main_window->draw(playername_);
     killcount_ = "Kills: " + std::to_string(map_.enemies_total - map_.enemies_left);
     kills_.setString(killcount_);
@@ -258,12 +258,20 @@ void Scene::DisplayVictoryScreen() {
     }
 
     sf::Text game_win;
-    std::string str = "VICTORY! You defeated all the zombies.";
+    std::string str = "VICTORY!";
     game_win.setFont(font);
     game_win.setString(str);
-    game_win.setFillColor(sf::Color::Green);
+    game_win.setFillColor(sf::Color(30,150,30));
     game_win.setScale(sf::Vector2f(1.3, 1.3));
-    game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+    game_win.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_win.getString().getSize()), 200));
+
+    sf::Text game_win2;
+    std::string str2 = "Press ESC to return to menu";
+    game_win2.setFont(font);
+    game_win2.setString(str2);
+    game_win2.setFillColor(sf::Color(30,150,30));
+    game_win2.setScale(sf::Vector2f(1.3, 1.3));
+    game_win2.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_win2.getString().getSize()), 160));
 
     sf::Sound victory_sound;
     sf::SoundBuffer victory_buffer;
@@ -295,6 +303,7 @@ void Scene::DisplayVictoryScreen() {
         }
 
         main_window->draw(game_win);
+        main_window->draw(game_win2);
         main_window->display();
     }
 }
@@ -305,12 +314,20 @@ void Scene::DisplayDeathScreen() {
         std::cout << "ERROR loading font" << std::endl;
     }
     sf::Text game_end;
-    std::string str = "YOU DIED! Press ESC to return to menu";
+    std::string str = "YOU DIED!";
     game_end.setFont(font);
     game_end.setString(str);
     game_end.setFillColor(sf::Color::Red);
     game_end.setScale(sf::Vector2f(1.3, 1.3));
-    game_end.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+    game_end.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_end.getString().getSize()), 200));
+
+    sf::Text game_end2;
+    std::string str2 = "Press ESC to return to menu";
+    game_end2.setFont(font);
+    game_end2.setString(str2);
+    game_end2.setFillColor(sf::Color::Red);
+    game_end2.setScale(sf::Vector2f(1.3, 1.3));
+    game_end2.setPosition(main_window->getView().getCenter() - sf::Vector2f(10 * (game_end2.getString().getSize()), 160));
 
     player_->SetSprite("src/Textures/deadspacedude.png");
     Update();
@@ -335,6 +352,7 @@ void Scene::DisplayDeathScreen() {
         }
 
         main_window->draw(game_end);
+        main_window->draw(game_end2);
         main_window->display();
     }
 }

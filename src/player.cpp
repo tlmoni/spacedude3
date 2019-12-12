@@ -165,7 +165,7 @@ std::vector<Projectile*> Player::Shoot() {
         bullet->SetVelocity(direction + GetVelocity());
         projectiles.push_back(bullet);
 
-        Heal(1);
+        Heal(2);
     }
 
     return projectiles;

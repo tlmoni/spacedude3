@@ -3,7 +3,7 @@ src/Textures/background.png
 
 #map
 w-w-w-w-w-w-w-w-w-w-w
-w-.-.-.-.-.-.-.-.-.-w
-d-P-.-.-.-Z-.-X-.-.-w
+w-.-.-.-.-.-.-.-.-Z-w
+d-P-.-.-.-.-.-X-.-.-w
 w-.-.-.-.-.-.-.-.-.-w
 w-w-w-w-w-w-w-w-w-w-w
