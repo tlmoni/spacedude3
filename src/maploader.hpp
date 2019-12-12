@@ -74,7 +74,7 @@ public:
 
                         // Destructable wall object
                         else if (object == "d") {
-                            Wall* d_wall = new Wall(PhysicsVector(x, y), "src/Textures/crate.png");
+                            Wall* d_wall = new Wall(PhysicsVector(x, y), "src/Textures/zombie.png");
                             d_wall->shootable_ = true;
                             d_wall->dead_ = false;
                             map.objects.push_back(d_wall);

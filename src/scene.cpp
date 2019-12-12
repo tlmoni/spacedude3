@@ -178,6 +178,16 @@ void Scene::Update() {
 
         // Handle objects
         for (auto o = map_.objects.begin(); o != map_.objects.end(); o++) {
+            (*o)->UpdateHP();
+
+            // Objects
+            if ((*o)->GetType() == WALL) {
+                if ((*o)->dead_) {
+                    (*o)->shootable_ = false;
+                    (*o)->GetTexture()->loadFromFile("src/Textures/broken_crate.png");
+                }
+            }
+
             // Enemies
             if ((*o)->GetType() == ENEMY) {
                 if ((*o)->GetHitPoints() <= 0 && !(*o)->dead_) {
@@ -226,8 +236,7 @@ void Scene::Render() {
 
     for(GameObject* o : map_.objects) {
         main_window->draw(o->GetSprite());
-        if (!o->dead_) {
-            o->UpdateHP();
+        if (!o->dead_ && o->GetType() != WALL) {
             main_window->draw(o->GetHPBackground());
             main_window->draw(o->GetHPBar());
         }
