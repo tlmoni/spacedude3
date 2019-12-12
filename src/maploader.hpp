@@ -49,10 +49,17 @@ public:
 
         float x = 0.0f, y = 0.0f;
         Map map;
-        std::string line;
+        std::string game_mode;
+        bool goal_in_file = false;
 
+        std::string line;
         while (std::getline(is, line)) {
-            if (line == "#background") {
+            if (line == "#gamemode") {
+                std::getline(is, line);
+                game_mode = line; // Set game mode according to map file
+            }
+
+            else if (line == "#background") {
                 std::getline(is, line);
 
                 if (!map.background_texture->loadFromFile(line)) {
@@ -101,6 +108,8 @@ public:
                             map.goal->SetOrigin(47, 47);
                             map.goal->SetHitboxPosition(map.goal->GetPosition() + PhysicsVector(42, 42));
                             map.goal->collidable_ = false;
+
+                            goal_in_file = true;
                         }
 
                         x += 64.f;
@@ -123,6 +132,14 @@ public:
         }
 
         is.close();
+
+        if (game_mode == "campaign") {
+            if (!goal_in_file) {
+                std::cout << "Couldn't find goal in a gampaign map file!" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+
         return map;
     }
 
