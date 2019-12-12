@@ -38,7 +38,7 @@ Once you have the dependencies (see above), run the following command in your te
 
 ### Gameplay
 
-* The target is to stay alive and complete the mission
+* The target is to stay alive, destroy ALL the enemies and find the goal teleporter.
 * Shoot the enemies with your blaster
 * Shooting at enemies depletes their hitpoints
 * When hitpoints reach zero, an entity dies
