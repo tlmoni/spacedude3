@@ -40,6 +40,16 @@ public:
     /* Render the game and update graphics */
     void Render();
 
+    /* Win screen */
+    void DisplayVictoryScreen();
+
+    /* Death sreen */
+    void DisplayDeathScreen();
+
+    /* Return to menu */
+    void ReturnToMenu(sf::Event event);
+
+    /* Add projectiles to scene */
     void AddProjectiles(std::vector<Projectile*> projectiles);
 
     std::vector<GameObject*> GetObjects() { return map_.objects; }

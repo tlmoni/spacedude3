@@ -83,71 +83,11 @@ void Scene::Loop() {
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+            ReturnToMenu(event);
             return;
         }
-
-        /* Hidden kill switch to kill all enemies of the map
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
-            for (auto e : map_.enemies) {
-                if (!e->dead_) {
-                    e->dead_ = true;
-                    if (sound_on) {
-                        (e)->DeathSound();
-                    }
-                    e->collidable_ = false;
-                    e->shootable_ = false;
-                    e->dead_ = true;
-                    e->deadtimer_.restart();
-                    e->GetTexture()->loadFromFile("src/Textures/dead_zombie.png");
-                }
-            }
-        }
-        */
-
     }
-    sf::Font font;
-    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
-        std::cout << "ERROR loading font" << std::endl;
-    }
-    sf::Text gameend;
-    std::string str = "YOU DIED! Press ESC to return to menu";
-    gameend.setFont(font);
-    gameend.setString(str);
-    gameend.setFillColor(sf::Color::Red);
-    gameend.setScale(sf::Vector2f(1.3, 1.3));
-    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
-
-    sf::Texture texture;
-    if (!texture.loadFromFile("src/Textures/deadspacedude.png")) {
-        std::cout << "ERROR loading spacedudedead" << std::endl;
-    }
-    player_->SetSprite(texture);
-    Render();
-
-    while (main_window->isOpen()) {
-        sf::Event event;
-        switch (event.type) {
-            case sf::Event::Closed:
-                main_window->close();
-                break;
-            default:
-                break;
-        }
-
-        // If Esc key is pressed, return to menu
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-            main_window->setMouseCursorVisible(true);
-            while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
-            if (sound_on) {
-                player_->StopDeathSound();
-            }
-            break;
-        }
-        main_window->draw(gameend);
-        main_window->display();
-    }
+    DisplayDeathScreen();
 }
 
 /* Update game logic (bullets etc.) */
@@ -214,10 +154,10 @@ void Scene::Update() {
         }
         music_.stop();
         end_ = true;
+        player_->dead_ = true;
     }
     // Move cursor
     cursor_sprite_.setPosition(main_window->getView().getCenter() - sf::Vector2f(500,500) + static_cast<sf::Vector2f>(sf::Mouse::getPosition(*main_window)));
-
 }
 
 /* Render the game and update graphics */
@@ -260,3 +200,60 @@ void Scene::AddProjectiles(std::vector<Projectile*> projectiles) {
     }
 
 }
+
+/*
+void Scene::DisplayVictoryScreen() {
+
+}
+
+void Scene::DisplayDeathScreen() {
+    sf::Font font;
+    if (!font.loadFromFile("src/Textures/MenuButtons/MenuFont.ttf")) {
+        std::cout << "ERROR loading font" << std::endl;
+    }
+    sf::Text gameend;
+    std::string str = "YOU DIED! Press ESC to return to menu";
+    gameend.setFont(font);
+    gameend.setString(str);
+    gameend.setFillColor(sf::Color::Red);
+    gameend.setScale(sf::Vector2f(1.3, 1.3));
+    gameend.setPosition(main_window->getView().getCenter() - sf::Vector2f(380, 200));
+
+    sf::Texture* texture = new sf::Texture;
+    if (!texture->loadFromFile("src/Textures/deadspacedude.png")) {
+        std::cout << "ERROR loading spacedudedead" << std::endl;
+    }
+
+    player_->SetSprite(texture);
+    Render();
+
+    while (main_window->isOpen()) {
+        sf::Event event;
+        switch (event.type) {
+            case sf::Event::Closed:
+                main_window->close();
+                break;
+            default:
+                break;
+        }
+
+        Update();
+        main_window->draw(gameend);
+        main_window->display();
+
+        // If Esc key is pressed, return to menu
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            ReturnToMenu(event);
+            return;
+        }
+    }
+}
+
+void Scene::ReturnToMenu(sf::Event event) {
+    main_window->setMouseCursorVisible(true);
+    while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
+    if (sound_on) {
+        player_->StopDeathSound();
+    }
+}
+*/
