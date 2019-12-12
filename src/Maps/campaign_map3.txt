@@ -2,7 +2,7 @@
 campaign
 
 #background
-src/Textures/background.png
+src/Textures/background_red.png
 
 #map
 w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w
