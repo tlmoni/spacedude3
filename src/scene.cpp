@@ -125,6 +125,7 @@ void Scene::Loop() {
 
         // If Esc key is pressed, return to menu
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+            main_window->setMouseCursorVisible(true);
             while (main_window->pollEvent(event)) { } // Clear keypress/mouse click events
             player_->StopDeathSound();
             return;
