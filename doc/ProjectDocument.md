@@ -14,6 +14,14 @@ Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 * A real-time game
 * 2D-graphics (top-down view)
 * Pixelated art style
+* Player has an inventory of weapons
+* Two gamemodes
+* Multiple maps to choose from for both game modes
+* Easily editable maps
+* Simple AI for enemies
+* Different types of enemies
+* Randomly chooses skins for zombies
+* Bullets have random direction in a cone
 * The game has self-drawn graphics and self-composed soundtrack
 * The goal was to create an audio-visually pleasing game that is fun to play.
 * Generally, the idea was to create a solid base structure for the game that can be extended and developed even after the course.
@@ -35,7 +43,7 @@ Once you have the dependencies (see above), run the following command in your te
 * Move mouse cursor to aim
 * Mouse left click to shoot (hold for fully automatic fire)
 * Number button 1, 2 and 3 to change between equipment:
-    * 1 (Blaster), 2 (Shotgun), 3 (Medikit).
+    * 1 (Blaster), 2 (Shotgun), 3 (Medikit)
 
 ## Gameplay
 
@@ -48,6 +56,7 @@ Once you have the dependencies (see above), run the following command in your te
 * Shooting at enemies depletes their hitpoints
 * When hitpoints reach zero, an entity dies
 * Avoid getting hit by enemies to remain alive
+* You can destroy wooden crates in your way during your adventures
 
 ## Map creation
 
@@ -77,24 +86,39 @@ Example of a map file:
     w-.-Z-.-w   // d = Breakable crate
     w-.-.-.-w   // X = Teleport that activates once all zombies are killed
     w-.-.-.-W   // S = Zombie spawner in survival mode
-    w-d-d-d-w   // . = Empty space
-    w-.-.-.-w   // All building block symbols need to be separated from another by a dash.
-    w-.-X-.-w   // For example w-.-P-.-w
-    w-w-w-w-w
+    w-d-d-d-w   // B = For some real challenge
+    w-.-.-.-w   // . = Empty space
+    w-.-X-.-w   // All building block symbols need to be separated from another by a dash.
+    w-w-w-w-w   // For example w-.-P-.-w
 </code></pre>
 
 * Check the premade maps for ideas and more clarity on the formatting of the maps.
 
 ## Implementation Details
 
+#### Libraries
 We used [SFML](https://www.sfml-dev.org/) library to implement
 our graphics, sounds and game structure.
 We decided to use it because it seemed easy to use and suitable for our usage.
 Also we were encouraged to use SFML by our project topic page.
 
+#### Gameplay aspects
 Originally we were set on implementing network features into the game.
-But since it would have drastically cut into everything else and could have demanded a total overhaul of the code
-we had written so far. With time contraints in mind, we decided against it.
+Since it would have affected everything else drastically and would have demanded a total overhaul of the code
+we had written so far. With time contraints in mind, we decided against network implementation and decided
+to implement AI instead.
 
+#### Testing
+Testing of the game was done by building and locally running the game in every development phase, which was often done in branches.
+Our policy was that master should always contain a functioning version of the program.
 
+#### Memory management
+We did try to use valgrind to test memory leaks, but it turned out difficult and not efficient
+for the purpose since SFML and graphics card drivers etc. weren't compatible.
 
+#### Error handling
+Software has error processing for all used files (textures and map files) it opens, acts accordingly and gives an error message in the console.
+
+#### Software structure
+
+![Image](./UML.png)

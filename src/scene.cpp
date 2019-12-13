@@ -71,6 +71,10 @@ void Scene::Init() {
 
 /* Handle player movement and events, update these to the scene */
 void Scene::Loop() {
+    if (map_.game_mode == "corrupt") {
+        main_window->setMouseCursorVisible(true);
+        return;
+    }
     while (main_window->isOpen() && !end_) {
         sf::Event event;
 

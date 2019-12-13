@@ -18,7 +18,7 @@ struct Weapon {
     int shoot_delay;
 };
 
-const static Weapon blaster = {BLASTER, plasma, 100};
+const static Weapon blaster = {BLASTER, plasma, 50};
 const static Weapon shotgun = {SHOTGUN, pellet, 1000};
 const static Weapon bandage = {BANDAGE, heal, 900};
 
