@@ -5,6 +5,9 @@ Menu::Menu() {
     if (!main_menu_texture_.loadFromFile("src/Textures/MenuButtons/mainmenu.png")) {
         std::cout << "ERROR loading main menu button texture!" << std::endl;
     }
+    if (!logo_texture_.loadFromFile("src/Textures/MenuButtons/logo.png")) {
+        std::cout << "ERROR loading main menu button texture!" << std::endl;
+    }
     if (!main_menu_background_.loadFromFile("src/Textures/MenuButtons/background.png")) {
         std::cout << "ERROR loading main menu background texture!" << std::endl;
     }
@@ -357,7 +360,6 @@ void Menu::Init() {
                 else {
                     menu_items_[1].setColor(sf::Color(sf::Color::White));
                 }
-
                 if (menu_items_[2].getGlobalBounds().contains(mouse_pos)) {
                     menu_items_[2].setColor(sf::Color(sf::Color::Red));
                 }
@@ -556,6 +558,12 @@ void Menu::LoadMainMenu() {
     sf::Sprite play;
     sf::Sprite settings;
     sf::Sprite exit;
+    sf::Sprite logo;
+
+    logo.setTexture(logo_texture_);
+    logo.setTextureRect(sf::Rect(0, 0, 183, 43));
+    logo.setScale(sf::Vector2f(2.5, 2.5));
+    logo.setPosition(sf::Vector2f(window_size.x / 3.5 , window_size.y / 9));
 
     play.setTexture(main_menu_texture_);
     play.setTextureRect(sf::Rect(0, 0, 250, 120));
@@ -572,6 +580,7 @@ void Menu::LoadMainMenu() {
     menu_items_.push_back(play);
     menu_items_.push_back(settings);
     menu_items_.push_back(exit);
+    menu_items_.push_back(logo);
 }
 
 /* Add settings menu sprites to the menuitems vector */
