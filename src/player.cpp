@@ -20,6 +20,7 @@ character->GetDamage(), character->GetHP(), true, character->GetAttackDelay()) {
     gunshot_.setVolume(80);
 
     weapon_ = blaster;
+    speed_ = character->GetMaxSpeed();
 
     // Animations
     std::map<int, std::pair<int, int>> animations;
@@ -88,6 +89,13 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
         }
 
         if (attack_timer_.getElapsedTime().asMilliseconds() > weapon_.shoot_delay) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+                SetMaxSpeed(1.5*speed_);
+            }
+            else {
+                SetMaxSpeed(speed_);
+            }
+
             if (weapon_.type == BLASTER) {
             sprite_weapon_ = animation_.Stop(ANIM1);
             }
@@ -126,6 +134,7 @@ std::vector<Projectile*> Player::Action(std::vector<GameObject*> objects) {
 std::vector<Projectile*> Player::Shoot() {
     std::vector<Projectile*> projectiles;
     if (weapon_.type == BLASTER) {
+        SetMaxSpeed(0.5*speed_);
         sprite_weapon_ = animation_.NextFrame(ANIM1);
 
         Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
@@ -139,7 +148,7 @@ std::vector<Projectile*> Player::Shoot() {
     }
     else if (weapon_.type == SHOTGUN) {
         sprite_weapon_ = animation_.NextFrame(ANIM2);
-
+        SetMaxSpeed(0.8*speed_);
         for (int i = -2; i < 3; i++) {
             Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
             PhysicsVector direction = GetCurrentCursorDirection();
@@ -155,6 +164,7 @@ std::vector<Projectile*> Player::Shoot() {
     }
     else if (weapon_.type == BANDAGE) {
         sprite_weapon_ = animation_.Stop(ANIM3);
+        SetMaxSpeed(speed_);
 
         Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
         PhysicsVector direction = GetCurrentCursorDirection();
