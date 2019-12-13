@@ -88,14 +88,22 @@ Example of a map file:
 
 ## Implementation Details
 
+#### Libraries
 We used [SFML](https://www.sfml-dev.org/) library to implement
 our graphics, sounds and game structure.
 We decided to use it because it seemed easy to use and suitable for our usage.
 Also we were encouraged to use SFML by our project topic page.
 
+#### Gameplay aspects
 Originally we were set on implementing network features into the game.
-But since it would have drastically cut into everything else and could have demanded a total overhaul of the code
-we had written so far, with time contraints in mind, we decided against network implementation.
+Since it would have affected everything else drastically and would have demanded a total overhaul of the code
+we had written so far. With time contraints in mind, we decided against network implementation and decided
+to implement AI instead.
 
-Testing of the game was done by building and locally running the game, this was often done in each project
-members own branch. Our policy was that only running & functioning versions are to pushed unto master.
+#### Testing
+Testing of the game was done by building and locally running the game in every development phase, which was often done in branches.
+Our policy was that master should always contain a functioning version of the program.
+We did try to use valgrind to test memory leaks, but it turned out difficult and not efficient
+for the purpose since SFML and graphics card drivers etc. weren't compatible.
+
+
