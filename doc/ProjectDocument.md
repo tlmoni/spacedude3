@@ -23,6 +23,7 @@ Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 * Randomly chooses skins for zombies
 * Bullets have random direction in a cone
 * The game has self-drawn graphics and self-composed soundtrack
+
 * The goal was to create an audio-visually pleasing game that is fun to play.
 * Generally, the idea was to create a solid base structure for the game that can be extended and developed even after the course.
 
@@ -114,11 +115,27 @@ Our policy was that master should always contain a functioning version of the pr
 
 #### Memory management
 We did try to use valgrind to test memory leaks, but it turned out difficult and not efficient
-for the purpose since SFML and graphics card drivers etc. weren't compatible.
+for the purpose since SFML and graphics card drivers etc. weren't compatible. We tried to manage memory
+as well as we could given the challenging circumstances and structure. We utilized Rule of Three where applicable.
 
 #### Error handling
-Software has error processing for all used files (textures and map files) it opens, acts accordingly and gives an error message in the console.
+The software has error processing for all used files (textures and map files) it opens, acts accordingly and gives an error message in the console.
+In addition when input a corrupted/faulty mapfile, the software doesnt load the game and returns to menu.
 
 #### Software structure
 
 ![Image](./UML.png)
+
+We used C++ standard library extensively and also created our own data strucutres to construct our software.
+We overhauled some classes and added some extra features that were needed (for instance PhysicsVector is
+basicly an overhauled sf::Vector2f with multiple extra features).
+
+## Conclusion
+
+We managed to implement a game that is fun to play and works robustly. The game has expansion potential for
+a lot of applications and additional features, provided that the source code is slightly updated to be more flexible in certain areas.
+Generally the game has no known bugs apart from a very rare bug with gun sounds related to the SFML sound buffer limitations.
+This is probably due to restraints of the SFML library.
+
+We would've liked to make the game more expansive, but the extensiveness of our project suffered from time restraints
+(e.g. changing plans to implement network play to AI enemies).
