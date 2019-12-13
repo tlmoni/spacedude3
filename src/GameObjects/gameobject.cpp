@@ -156,6 +156,16 @@ void GameObject::Heal(float amount) {
 }
 
 /* Check if the GameObject collides with the GameObject given as parameter */
+bool GameObject::Contains(GameObject* object) {
+    if (object->collidable_ || object->shootable_) {
+        if (hitbox_.getGlobalBounds().intersects(object->GetHitbox().getGlobalBounds())) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* Check if the GameObject collides with the GameObject given as parameter */
 bool GameObject::CollidesWith(GameObject* object) {
     if (object->collidable_) {
         if (hitbox_.getGlobalBounds().intersects(object->GetHitbox().getGlobalBounds())) {

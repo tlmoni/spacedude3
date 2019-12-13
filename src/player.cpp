@@ -139,6 +139,8 @@ std::vector<Projectile*> Player::Shoot() {
 
         Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
         PhysicsVector direction = GetCurrentCursorDirection();
+        int bullet_angle = rand() % 20;
+        direction.Rotate(bullet_angle-10);
 
         PhysicsVector vel = GetVelocity().UnitVector();
         SetVelocity(vel.Scale(0.5f));

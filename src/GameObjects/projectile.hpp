@@ -13,7 +13,7 @@ struct Bullet {
     PhysicsVector origin;
 };
 
-const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(20.f, 20.f), BULLET, 30.f, 0.6f, 15, PhysicsVector(10, 10)};
+const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(20.f, 20.f), BULLET, 30.f, 0.4f, 15, PhysicsVector(10, 10)};
 const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 30.f, 1.5f, 10, PhysicsVector(9, 9)};
 const static Bullet pellet = {"src/Textures/pellet.png", RectHitbox(20.f, 20.f), BULLET, 30.f, 1.7f, 80, PhysicsVector(10, 10)};
 const static Bullet heal = {"src/Textures/heal.png", RectHitbox(20.f, 20.f), BULLET, 0.0f, 0.01f, 0, PhysicsVector(10, 10)};

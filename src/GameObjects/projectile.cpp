@@ -92,6 +92,10 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
             }
         }
+        if (this->Contains(obj) && obj->IsShootable() && GetOwner() != obj->GetType()) {
+            obj->TakeDamage(GetDamage());
+            collided = true;
+        }
     }
 
     return collided;

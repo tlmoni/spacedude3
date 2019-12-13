@@ -62,6 +62,9 @@ public:
     /* Heal object */
     void Heal(float amount);
 
+    /* Check if the GameObject contains with the GameObject given as parameter */
+    bool Contains(GameObject* object);
+
     /* Check if the GameObject collides with the GameObject given as parameter */
     bool CollidesWith(GameObject* object);
 
