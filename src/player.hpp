@@ -77,6 +77,7 @@ private:
     sf::SoundBuffer buffer_; // Buffer for gun sound effect
     sf::Sound gunshot_; // Gun sound effect
     Weapon weapon_;
+    float speed_;
 
     Animation animation_;
     sf::Sprite sprite_legs_;

@@ -3,6 +3,16 @@
 Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", RectHitbox(62.f, 62.f), ENEMY, 5.0f, 0.1f, 10, 500, true, 1000) {
     bullet_ = rock;
     SetOrigin(25, 30);
+    int random_integer = rand() % 3;
+    if (random_integer == 0) {
+        SetSprite("src/Textures/zombie.png");
+    }
+    else if (random_integer == 1) {
+        SetSprite("src/Textures/zombie2.png");
+    }
+    else {
+        SetSprite("src/Textures/zombie3.png");
+    }
     if (!zombiedeathbuffer_.loadFromFile("src/Audio/Sound/sound_zombiedeath.ogg")) {
         std::cout << "ERROR: Loading zombie death sound 1 failed!" << std::endl;
     }

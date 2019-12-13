@@ -16,6 +16,7 @@ const static Bullet plasma = {"src/Textures/bullet.png", RectHitbox(20.f, 20.f),
 const static Bullet rock = {"src/Textures/rock.png", RectHitbox(17.f, 17.f), BULLET, 30.f, 1.5f, 10};
 const static Bullet pellet = {"src/Textures/pellet.png", RectHitbox(20.f, 20.f), BULLET, 30.f, 1.7f, 80};
 const static Bullet heal = {"src/Textures/heal.png", RectHitbox(20.f, 20.f), BULLET, 0.0f, 0.2f, 0};
+const static Bullet skull = {"src/Textures/skull.png", RectHitbox(33.f, 33.f), BULLET, 15.f, 0.7f, 50};
 
 /* Abstract parent class for all projectile */
 class Projectile : public GameObject {
