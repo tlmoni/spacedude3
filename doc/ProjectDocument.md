@@ -118,3 +118,6 @@ for the purpose since SFML and graphics card drivers etc. weren't compatible.
 #### Error handling
 Project has error processing for all used files(textures and map files) it opens, acts accordingly and gives an error message in the console.
 
+#### Software structure
+
+![Image](./UML.png)
