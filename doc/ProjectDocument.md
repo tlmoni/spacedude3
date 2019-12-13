@@ -19,6 +19,7 @@ Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 * Multiple maps to choose from for both game modes
 * Easily editable maps
 * Simple AI for enemies
+* Different types of enemies
 * Randomly chooses skins for zombies
 * Bullets have random direction in a cone
 * The game has self-drawn graphics and self-composed soundtrack
@@ -116,7 +117,7 @@ We did try to use valgrind to test memory leaks, but it turned out difficult and
 for the purpose since SFML and graphics card drivers etc. weren't compatible.
 
 #### Error handling
-Project has error processing for all used files(textures and map files) it opens, acts accordingly and gives an error message in the console.
+Software has error processing for all used files (textures and map files) it opens, acts accordingly and gives an error message in the console.
 
 #### Software structure
 
