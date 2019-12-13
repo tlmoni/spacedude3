@@ -78,10 +78,10 @@ Example of a map file:
     w-.-Z-.-w   // d = Breakable crate
     w-.-.-.-w   // X = Teleport that activates once all zombies are killed
     w-.-.-.-W   // S = Zombie spawner in survival mode
-    w-d-d-d-w   // . = Empty space
-    w-.-.-.-w   // All building block symbols need to be separated from another by a dash.
-    w-.-X-.-w   // For example w-.-P-.-w
-    w-w-w-w-w
+    w-d-d-d-w   // B = For some real challenge
+    w-.-.-.-w   // . = Empty space
+    w-.-X-.-w   // All building block symbols need to be separated from another by a dash.
+    w-w-w-w-w   // For example w-.-P-.-w
 </code></pre>
 
 * Check the premade maps for ideas and more clarity on the formatting of the maps.
