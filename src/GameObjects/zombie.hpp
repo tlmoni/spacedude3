@@ -16,6 +16,8 @@ public:
     /* Play a random death sound for zombie from 3 different audios. */
     void DeathSound();
 
+    void SetWeapon(Bullet bullet) { bullet_ = bullet; }
+
 private:
     sf::SoundBuffer zombiedeathbuffer_; // Buffer for zombie death sound effect
     sf::Sound zombiedeath_; // Zombie death sound effect

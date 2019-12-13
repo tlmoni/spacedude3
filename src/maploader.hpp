@@ -8,6 +8,7 @@
 #include "GameObjects/wall.hpp"
 #include "GameObjects/destructable_wall.hpp"
 #include "GameObjects/zombie.hpp"
+#include "GameObjects/zombie_boss.hpp"
 #include "player.hpp"
 
 struct Map {
@@ -94,6 +95,13 @@ public:
                             else if (object == "Z") {
                                 Zombie* zombie = new Zombie(PhysicsVector(x + 32, y + 32));
                                 map.enemies.push_back(zombie);
+                                map.enemies_left++;
+                            }
+
+                            // Zombie Boss
+                            else if (object == "B") {
+                                ZombieBoss* boss = new ZombieBoss(PhysicsVector(x + 32, y + 32));
+                                map.enemies.push_back(boss);
                                 map.enemies_left++;
                             }
 
