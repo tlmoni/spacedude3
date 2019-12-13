@@ -48,6 +48,7 @@ Once you have the dependencies (see above), run the following command in your te
 * Shooting at enemies depletes their hitpoints
 * When hitpoints reach zero, an entity dies
 * Avoid getting hit by enemies to remain alive
+* You can destroy wooden crates in your way during your adventures
 
 ## Map creation
 
