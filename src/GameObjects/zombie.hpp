@@ -17,6 +17,7 @@ public:
     void DeathSound();
 
     void SetWeapon(Bullet bullet) { bullet_ = bullet; }
+    void SetAttackRange(float range) { attack_range_ = range; }
 
 private:
     sf::SoundBuffer zombiedeathbuffer_; // Buffer for zombie death sound effect
@@ -26,4 +27,5 @@ private:
     sf::SoundBuffer zombiedeathbuffer3_; // Buffer for zombie death sound effect
     sf::Sound zombiedeath3_; // Zombie death sound effect
     Bullet bullet_;
+    float attack_range_;
 };

@@ -1,6 +1,7 @@
 #include "zombie.hpp"
 
 Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", RectHitbox(62.f, 62.f), ENEMY, 5.0f, 0.1f, 10, 500, true, 1000) {
+    attack_range_ = 100;
     bullet_ = rock;
     SetOrigin(25, 30);
     int random_integer = rand() % 3;
@@ -38,7 +39,7 @@ std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, Physic
         direction = PhysicsVector(0.f, 0.f);
     }
     sf::Time time = attack_timer_.getElapsedTime();
-    if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
+    if (direction.Length() < attack_range_ && time.asMilliseconds() > GetAttackDelay()) {
         direction = direction.UnitVector();
         attack_timer_.restart();
 
