@@ -14,6 +14,11 @@ Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 * A real-time game
 * 2D-graphics (top-down view)
 * Pixelated art style
+* Player has an inventory of weapons
+* Two gamemodes
+* Multiple maps to choose from for both game modes
+* Easily editable maps
+* Simple AI for enemies
 * The game has self-drawn graphics and self-composed soundtrack
 * The goal was to create an audio-visually pleasing game that is fun to play.
 * Generally, the idea was to create a solid base structure for the game that can be extended and developed even after the course.
