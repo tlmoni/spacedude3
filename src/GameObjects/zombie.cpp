@@ -30,13 +30,16 @@ Zombie::Zombie(PhysicsVector pos) : GameObject(pos, "src/Textures/zombie.png", R
 }
 
 /* Handle zombie shooting */
-std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, PhysicsVector pos) {
+std::vector<Projectile*> Zombie::Action(std::vector<GameObject*> objects, PhysicsVector pos, std::string game_mode) {
     PhysicsVector direction = pos - GetPosition();
     std::vector<Projectile*> projectiles;
 
-    if (direction.Length() > 500) {
-        direction = PhysicsVector(0.f, 0.f);
+    if (game_mode == "campaign") {
+        if (direction.Length() > 700) {
+            direction = PhysicsVector(0.f, 0.f);
+        }
     }
+
     sf::Time time = attack_timer_.getElapsedTime();
     if (direction.Length() < 100 && time.asMilliseconds() > GetAttackDelay()) {
         direction = direction.UnitVector();

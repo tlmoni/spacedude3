@@ -115,7 +115,7 @@ void Scene::Update() {
         // Handle enemy action
         for (auto e : map_.enemies) {
             if (!e->dead_) {
-                AddProjectiles(e->Action(GetObjects(), player_->GetPosition()));
+                AddProjectiles(e->Action(GetObjects(), player_->GetPosition(), map_.game_mode));
             }
         }
 

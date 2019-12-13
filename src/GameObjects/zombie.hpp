@@ -11,7 +11,7 @@ public:
     ~Zombie() = default;
 
     /* Handle zombie shooting */
-    std::vector<Projectile*> Action(std::vector<GameObject*> objects, PhysicsVector pos);
+    std::vector<Projectile*> Action(std::vector<GameObject*> objects, PhysicsVector pos, std::string game_mode);
 
     /* Play a random death sound for zombie from 3 different audios. */
     void DeathSound();
