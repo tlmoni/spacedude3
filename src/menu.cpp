@@ -428,7 +428,7 @@ void Menu::Init() {
                     }
                     ClearMenuItems();
                     music_.stop();
-                    Scene scene = Scene("src/Maps/campaign_map4.txt", playername_);
+                    Scene scene = Scene("src/Maps/campaign_map3.txt", playername_);
                     scene.Init();
                     if (music_on) {
                         music_.play();
