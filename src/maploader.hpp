@@ -45,8 +45,10 @@ public:
         std::ifstream is(filename); // Open the file to be read
         if (is.fail()) {
             is.close();
-            std::cout << "Couldn't open the file!" << std::endl;
-            exit(EXIT_FAILURE);
+            std::cout << "Couldn't open the map file!" << std::endl;
+            Map map;
+            map.game_mode = "corrupt";
+            return map;
         }
 
         float x = 0.0f, y = 0.0f;

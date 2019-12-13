@@ -19,6 +19,8 @@ Simo Hakanummi, Toni Lyttinen, Toni Ojala & Mikko Suhonen
 * Multiple maps to choose from for both game modes
 * Easily editable maps
 * Simple AI for enemies
+* Randomly chooses skins for zombies
+* Bullets have random direction in a cone
 * The game has self-drawn graphics and self-composed soundtrack
 * The goal was to create an audio-visually pleasing game that is fun to play.
 * Generally, the idea was to create a solid base structure for the game that can be extended and developed even after the course.
@@ -108,7 +110,11 @@ to implement AI instead.
 #### Testing
 Testing of the game was done by building and locally running the game in every development phase, which was often done in branches.
 Our policy was that master should always contain a functioning version of the program.
+
+#### Memory management
 We did try to use valgrind to test memory leaks, but it turned out difficult and not efficient
 for the purpose since SFML and graphics card drivers etc. weren't compatible.
 
+#### Error handling
+Project has error processing for all used files(textures and map files) it opens, acts accordingly and gives an error message in the console.
 

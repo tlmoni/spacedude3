@@ -50,6 +50,7 @@ public:
     void AddProjectiles(std::vector<Projectile*> projectiles);
 
     std::vector<GameObject*> GetObjects() { return map_.objects; }
+    Map GetMap() { return map_; }
 
     bool end_ = false;
 

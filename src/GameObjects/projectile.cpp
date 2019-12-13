@@ -20,6 +20,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
+                    SetYVelocity(0);
                 }
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
@@ -28,6 +29,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                     collided = true;
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
+                    SetXVelocity(0);
                     SetYVelocity(0);
                 }
             }
@@ -40,6 +42,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
+                    SetYVelocity(0);
                 }
             }
             if (obj_pos.y + obj_rect.height <= position.y) {
@@ -48,6 +51,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                     collided = true;
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
+                    SetXVelocity(0);
                     SetYVelocity(0);
                 }
             }
@@ -60,6 +64,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
+                    SetYVelocity(0);
                 }
             }
             if (obj_pos.y >= position.y + rect.height) {
@@ -68,6 +73,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                     collided = true;
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
+                    SetXVelocity(0);
                     SetYVelocity(0);
                 }
             }
@@ -80,6 +86,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
                     SetXVelocity(0);
+                    SetYVelocity(0);
                 }
             }
             if (obj_pos.y >= position.y + rect.height) {
@@ -88,6 +95,7 @@ bool Projectile::CheckCollisions(std::vector<GameObject*> objects) {
                     collided = true;
                 }
                 else if (obj->collidable_ && GetOwner() != obj->GetType()) {
+                    SetXVelocity(0);
                     SetYVelocity(0);
                 }
             }
