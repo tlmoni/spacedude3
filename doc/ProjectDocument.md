@@ -111,4 +111,6 @@ Our policy was that master should always contain a functioning version of the pr
 We did try to use valgrind to test memory leaks, but it turned out difficult and not efficient
 for the purpose since SFML and graphics card drivers etc. weren't compatible.
 
+#### Software structure
 
+![Image](./UML.png)
