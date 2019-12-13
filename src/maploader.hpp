@@ -122,8 +122,8 @@ public:
 
         auto texture_size = map.background_texture->getSize();
         int offset = 500;
-        for (int j = -offset; j < (y + offset); j += texture_size.y) {
-            for (int i = -offset; i < (x + offset); i += texture_size.x) {
+        for (int j = -offset; j < (y + offset + texture_size.y); j += texture_size.y) {
+            for (int i = -offset; i < (x + offset + texture_size.x); i += texture_size.x) {
                 sf::Sprite* sprite = new sf::Sprite();
                 sprite->setTexture(*map.background_texture);
                 sprite->setPosition(i, j);
