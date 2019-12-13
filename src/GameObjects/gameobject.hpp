@@ -77,6 +77,10 @@ public:
     /* Set hitbox position to a new location */
     void SetHitboxPosition(PhysicsVector new_pos);
 
+    void SetMaxHitPoints(float hitpoints) { hitpoints_ = hitpoints; max_hitpoints_ = hitpoints; }
+
+    void SetAttackDelay(float attack_delay) { attack_delay_ = attack_delay; }
+
     PhysicsVector GetPosition() { return pos_; }
     sf::Sprite& GetSprite() { return sprite_; }
     sf::FloatRect GetRect() { return hitbox_.getGlobalBounds(); }

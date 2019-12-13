@@ -94,7 +94,7 @@ Also we were encouraged to use SFML by our project topic page.
 
 Originally we were set on implementing network features into the game.
 But since it would have drastically cut into everything else and could have demanded a total overhaul of the code
-we had written so far. With time contraints in mind, we decided against it.
+we had written so far, with time contraints in mind, we decided against network implementation.
 
-
-
+Testing of the game was done by building and locally running the game, this was often done in each project
+members own branch. Our policy was that only running & functioning versions are to pushed unto master.
