@@ -40,7 +40,7 @@ Once you have the dependencies (see above), run the following command in your te
 * Move mouse cursor to aim
 * Mouse left click to shoot (hold for fully automatic fire)
 * Number button 1, 2 and 3 to change between equipment:
-    * 1 (Blaster), 2 (Shotgun), 3 (Medikit).
+    * 1 (Blaster), 2 (Shotgun), 3 (Medikit)
 
 ## Gameplay
 
