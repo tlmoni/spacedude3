@@ -133,9 +133,9 @@ basicly an overhauled sf::Vector2f with multiple extra features).
 ## Conclusion
 
 We managed to implement a game that is fun to play and works robustly. The game has expansion potential for
-a lot of applications and additional features, provided that the source code is slightly updated to be more flexible in certain areas.
+a lot of applications and additional features, provided that the source code is slightly updated to be more flexible in certain areas (e.g. implementing networked gameplay would need ).
 Generally the game has no known bugs apart from a very rare bug with gun sounds related to the SFML sound buffer limitations.
-This is probably due to restraints of the SFML library.
+This is probably due to restraints of the SFML library. (also message AL lib: (EE) alc_cleanup: 1 device not closed also tends to appear in the console on exit)
 
 We would've liked to make the game more expansive, but the extensiveness of our project suffered from time restraints
 (e.g. changing plans to implement network play to AI enemies).
