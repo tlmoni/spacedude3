@@ -129,6 +129,7 @@ public:
             }
         }
 
+        // Loop background image to fit map size
         auto texture_size = map.background_texture->getSize();
         int offset = 500;
         for (int j = -offset; j < (y + offset + texture_size.y); j += texture_size.y) {
@@ -140,6 +141,7 @@ public:
             }
         }
 
+        // Include enemies on game object vector
         for (auto e : map.enemies) {
             map.objects.push_back(e);
         }
@@ -156,7 +158,7 @@ public:
         return map;
     }
 
-    /* Spawn zombies to zombie_spawn locations for survival*/
+    /* Spawn zombies to zombie_spawn locations in survival mode */
     static void SpawnZombies(Map& map) {
         for (PhysicsVector z : map.zombie_spawns) {
             Zombie* zombie = new Zombie(PhysicsVector(z.x, z.y));
