@@ -148,7 +148,7 @@ std::vector<Projectile*> Player::Shoot() {
     }
     else if (weapon_.type == SHOTGUN) {
         sprite_weapon_ = animation_.NextFrame(ANIM2);
-        SetMaxSpeed(0.8*speed_);
+        SetMaxSpeed(0.7*speed_);
         for (int i = -2; i < 3; i++) {
             Projectile* bullet = new Projectile(GetPosition(), GetType(), weapon_.bullet);
             PhysicsVector direction = GetCurrentCursorDirection();
