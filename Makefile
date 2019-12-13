@@ -9,7 +9,7 @@ BUILDDIR=build
 BINDIR=$(BUILDDIR)/bin
 SOURCES=$(shell find $(SRCDIR) -name '*.$(SRCEXT)' | sort -k 1nr | cut -f2-)
 OBJECTS=$(SOURCES:$(SRCDIR)/%.$(SRCEXT)=$(BUILDDIR)/%.o)
-EXECUTABLE=BrawlStars
+EXECUTABLE=Spacedude3
 
 default_target: release
 
@@ -37,4 +37,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 run:
 	make clean
 	make all
-	./BrawlStars
+	./Spacedude3
