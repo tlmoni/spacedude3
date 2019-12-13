@@ -9,8 +9,17 @@ public:
         SetMaxHitPoints(3000.f);
         SetAttackDelay(3000);
         SetMaxSpeed(2);
-        SetSprite("src/Textures/zombieboss.png");
-        GetSprite().setScale(1.5f, 1.5f);
+        int random_integer = rand() % 3;
+        if (random_integer == 0) {
+            SetSprite("src/Textures/zombieboss.png");
+        }
+        else if (random_integer == 1) {
+            SetSprite("src/Textures/zombieboss2.png");
+        }
+        else {
+            SetSprite("src/Textures/zombieboss3.png");
+        }
+        GetSprite().setScale(1.5f,1.5f);
         SetWeapon(skull);
 
     }
