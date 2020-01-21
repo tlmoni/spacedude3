@@ -1,4 +1,4 @@
-# Brawl Stars
+# Spacedude 3: Return of the Zombies
 
 **Software Project for ELEC-A7151 Object oriented programming with C++**
 
